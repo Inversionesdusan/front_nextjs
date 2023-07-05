@@ -12,7 +12,7 @@ const CatalogoLandingViewModel = ({
 
   const getProductos = async () => {
     setLoading(true);
-    const productos = await ProductosService.getProductos();
+    const productos = await ProductosService.getProductosLanding();
     setProductos(productos);
     setLoading(false);
   };

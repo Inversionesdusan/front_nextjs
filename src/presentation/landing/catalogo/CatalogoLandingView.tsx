@@ -1,7 +1,9 @@
 import Container from "@/DI/Container";
 import React, { useEffect } from "react";
 import { ICatalogoLandingViewModel } from "../../../domain/models/viewModels/ICatalogLandingViewModel";
-import { Box } from "@mui/material";
+import { Box, CardMedia, Typography } from "@mui/material";
+import ProductCard from "@/app/components/ProductCard";
+import Image from "next/image";
 
 const CatalogoLandingView = () => {
   const catalogoLandingViewModel = Container.resolve(
@@ -15,41 +17,34 @@ const CatalogoLandingView = () => {
   return catalogoLandingViewModel.loading ? (
     <>Cargando Productos...</>
   ) : catalogoLandingViewModel.productos.length > 0 ? (
-    <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        gap: "2rem",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      {catalogoLandingViewModel.productos.map((producto) => (
-        <Box
-          key={producto.id}
-          sx={{
-            width: "250px",
-            display: "flex",
-            flexDirection: "column",
-            backgroundColor: "azure",
-            border: "solid 1px lightgrey",
-            borderRadius: "1rem",
-            padding: "1.5rem",
-            gap: "1rem",
-            boxShadow: "5.5px 3.5px 7.5px 3px #d2d2d2",
-          }}
-        >
-          {" "}
-          <h3>{producto.nombreProducto}</h3>
-          <img
-            src={`${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${producto.imagen.url}`}
-          />
-          <p>{producto.descripcion}</p>
-        </Box>
-      ))}
-    </Box>
+    <>
+      <Typography
+        variant="h3"
+        sx={{
+          fontFamily: "Montserrat",
+          marginTop: "4rem",
+          marginBottom: "5rem",
+          color: "rgb(56,59,64)",
+        }}
+      >
+        Productos
+      </Typography>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          gap: "2rem",
+          justifyContent: "space-between",
+          alignContent: "center",
+        }}
+      >
+        {catalogoLandingViewModel.productos.map((prod) => (
+          <ProductCard key={prod.id} producto={prod} />
+        ))}
+      </Box>
+    </>
   ) : (
     <>No hay productos...</>
   );

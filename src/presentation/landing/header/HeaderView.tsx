@@ -1,34 +1,59 @@
 "use client";
-import ButtonCustom from "@/app/components/basic/ButtonCustom";
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import React from "react";
+import HeaderLink from "../../../app/components/basic/HeaderLink";
+import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 
 const HeaderView = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "red",
-        width: "100%",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        alignContent: "center",
-        paddingY: "0.5rem",
-        paddingX: "2rem",
+        alignItems: "center",
+        paddingTop: "1.5rem",
+        paddingBottom: "1.5rem",
+        position: "fixed",
+        top: "0",
+        width: "100%",
+        paddingX: "3rem",
+        background: "rgba( 255, 255, 255, 0.4 )",
+        backdropFilter: "blur( 9.5px )",
+        border: "1px solid rgba( 255, 255, 255, 0.18 )",
+        zIndex: 1000,
       }}
     >
-      <Typography>Nombre de la Empresa</Typography>
+      <Typography
+        sx={{
+          fontFamily: "Montserrat",
+          fontSize: "2rem",
+          fontWeight: "700",
+          color: "rgb(56,59,64)",
+        }}
+      >
+        Inversiones Dusan
+      </Typography>
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
           gap: "1rem",
+          alignItems: "center",
+          alignContent: "center",
         }}
       >
-        <ButtonCustom onClick={() => console.log("click 1")} label="Boton 1" />
-        <ButtonCustom onClick={() => console.log("click 2")} label="Boton 2" />
-        <ButtonCustom onClick={() => console.log("click 3")} label="Boton 3" />
-        <ButtonCustom onClick={() => console.log("click 4")} label="Boton 4" />
+        <HeaderLink href="#nosotros" label="Nosotros" />
+        <HeaderLink href="#productos" label="Productos" />
+        <HeaderLink href="#contactenos" label="Contactenos" />
+        <Divider orientation="vertical" flexItem />
+        <AccountCircleTwoToneIcon
+          sx={{ fontSize: "2rem", color: "rgb(56,59,64)" }}
+        />
+        <ShoppingCartTwoToneIcon
+          sx={{ fontSize: "2rem", color: "rgb(56,59,64)" }}
+        />
       </Box>
     </Box>
   );

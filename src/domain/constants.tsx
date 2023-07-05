@@ -3,5 +3,6 @@ export const constantes = {
     banners: "banners",
     seccionInfo: "seccion-empresas",
     productos: "productos",
+    empresa: "datos-empresa",
   },
 };

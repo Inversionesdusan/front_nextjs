@@ -1,6 +1,5 @@
 import { IProductoDto } from "@/domain/models/Dto/IProductoDto";
 import { IProductosDataSource } from "@/domain/models/dataSources/IProductosDataSource";
-import { getProductos } from "../dataSource/ProductosDataSource";
 
 export function ProductosRepository({
   ProductosDataSource,
@@ -10,6 +9,10 @@ export function ProductosRepository({
     let productos: IProductoDto[] = [];
     if (response.meta.pagination.total === 0) return productos;
     productos = response.data.map((producto) => {
+      console.log("producto -> ", producto, producto.attributes.imagen);
+      const finalUlr =
+        producto.attributes.imagen.data?.attributes.formats.thumbnail.url ||
+        producto.attributes.imagen.data?.attributes.url;
       const newProducto: IProductoDto = {
         id: producto.id,
         nombreProducto: producto.attributes.nombreProducto,
@@ -22,13 +25,16 @@ export function ProductosRepository({
         mostrarLanding: producto.attributes.mostrarLanding,
         orden: producto.attributes.orden || 0,
         imagen: {
-          url: producto.attributes.imagen.data?.attributes.url,
+          url: producto.attributes.imagen.data?.attributes.url || finalUlr,
           urlSmall:
-            producto.attributes.imagen.data?.attributes.formats.small.url,
+            producto.attributes.imagen.data?.attributes.formats?.small?.url ||
+            finalUlr,
           urlMedium:
-            producto.attributes.imagen.data?.attributes.formats.medium.url,
+            producto.attributes.imagen.data?.attributes.formats?.medium?.url ||
+            finalUlr,
           urlThumbnail:
-            producto.attributes.imagen.data?.attributes.formats.thumbnail.url,
+            producto.attributes.imagen.data?.attributes.formats?.thumbnail
+              ?.url || finalUlr,
         },
         tipo: {
           id: producto.attributes.tipos_fertilizante.data.id,

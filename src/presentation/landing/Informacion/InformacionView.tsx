@@ -1,6 +1,9 @@
 import Container from "@/DI/Container";
 import { ISeccionInformacionViewModel } from "@/domain/models/viewModels/ISeccionInformacionViewModel";
 import React, { useEffect } from "react";
+import AboutUsComponent from "../components/AboutUsComponent";
+import { Typography } from "@mui/material";
+import Slider from "react-slick";
 
 const InformacionView = () => {
   const informacionModel = Container.resolve(
@@ -11,18 +14,41 @@ const InformacionView = () => {
     informacionModel.getInformacion();
   }, []);
 
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    fade: true,
+    autoplay: true,
+    autoplaySpeed: 6000,
+  };
+
   return informacionModel.loading ? (
     <>Cargando</>
   ) : (
     <>
-      <h1>Seccion informacion</h1>
-      {informacionModel.informacion.map((info) => (
-        <div key={info.id}>
-          <h5>{info.titulo}</h5>
-          <p>{info.informacion}</p>
-        </div>
-      ))}
-      <br />
+      <Typography
+        variant="h3"
+        sx={{
+          fontFamily: "Montserrat",
+          marginTop: "4rem",
+          marginBottom: "5rem",
+          color: "rgb(56,59,64)",
+        }}
+      >
+        Nosotros
+      </Typography>
+      <Slider {...settings}>
+        {informacionModel.informacion.map((info) => (
+          <AboutUsComponent
+            key={info.id}
+            title={info.titulo}
+            text={info.informacion}
+          />
+        ))}
+      </Slider>
     </>
   );
 };
