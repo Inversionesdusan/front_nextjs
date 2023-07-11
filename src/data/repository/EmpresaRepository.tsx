@@ -1,21 +1,25 @@
 import { IDatosEmpresaResponse } from "@/domain/models/responses/IDatosEmpresaResponse";
 import { IDatosEmpresaDto } from "@/domain/models/Dto/IDatosEmpresaDto";
+import { IContactoFormValues } from "@/domain/models/forms/IContactForm";
+import { ISaveDataContactRequest } from "@/domain/models/requests/ISaveDataContactRequest";
 
 interface IEmpresaRepositoryProps {
   EmpresaDataSource: {
-    getDatosEmpresa: () => Promise<IDatosEmpresaResponse>;
+    GetDatosEmpresa: () => Promise<IDatosEmpresaResponse>;
+    SaveDatosContacto: (data: ISaveDataContactRequest) => Promise<string>;
   };
 }
 
 export interface IEmpresaRepositoryReturn {
   getDatosEmpresa: () => Promise<IDatosEmpresaDto>;
+  saveDatosContacto: (data: IContactoFormValues) => Promise<string>;
 }
 
 export function EmpresaRepository({
   EmpresaDataSource,
 }: IEmpresaRepositoryProps) {
   const getDatosEmpresa = async (): Promise<IDatosEmpresaDto> => {
-    const response = await EmpresaDataSource.getDatosEmpresa();
+    const response = await EmpresaDataSource.GetDatosEmpresa();
     const newEmpresaDto: IDatosEmpresaDto = {
       nombreEmpresa: response.data.attributes?.nombre_empresa || "",
       direccionContacto: response.data.attributes?.direccion_contacto || "",
@@ -27,10 +31,31 @@ export function EmpresaRepository({
       nombreContacto: response.data.attributes?.nombre_contacto || "",
     };
 
+    if (response.data.attributes.imagen_contactenos) {
+      let urlImagen =
+        response.data.attributes.imagen_contactenos.data?.attributes.url || "";
+      newEmpresaDto.imagenContactenos = urlImagen;
+    }
+
     return newEmpresaDto;
+  };
+
+  const saveDatosContacto = async (data: IContactoFormValues) => {
+    const newDataRequest: ISaveDataContactRequest = {
+      data: {
+        nombre_cliente: data.nombreCliente || "",
+        email_cliente: data.email || "",
+        nro_telefono: data.nroTelefono || "",
+        asunto: data.asunto || "",
+        mensaje: data.mensaje || "",
+      },
+    };
+
+    return await EmpresaDataSource.SaveDatosContacto(newDataRequest);
   };
 
   return {
     getDatosEmpresa,
+    saveDatosContacto,
   };
 }

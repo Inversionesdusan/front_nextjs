@@ -1,9 +1,8 @@
 import Container from "@/DI/Container";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { ICatalogoLandingViewModel } from "../../../domain/models/viewModels/ICatalogLandingViewModel";
-import { Box, CardMedia, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ProductCard from "@/app/components/ProductCard";
-import Image from "next/image";
 
 const CatalogoLandingView = () => {
   const catalogoLandingViewModel = Container.resolve(
@@ -17,7 +16,7 @@ const CatalogoLandingView = () => {
   return catalogoLandingViewModel.loading ? (
     <>Cargando Productos...</>
   ) : catalogoLandingViewModel.productos.length > 0 ? (
-    <>
+    <div id="catalogo">
       <Typography
         variant="h3"
         sx={{
@@ -44,7 +43,7 @@ const CatalogoLandingView = () => {
           <ProductCard key={prod.id} producto={prod} />
         ))}
       </Box>
-    </>
+    </div>
   ) : (
     <>No hay productos...</>
   );

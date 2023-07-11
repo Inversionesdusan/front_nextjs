@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import HeaderView from "./header/HeaderView";
 import HeroView from "./hero/HeroView";
 import InformacionView from "./Informacion/InformacionView";
@@ -14,7 +13,14 @@ const LandingIndex = () => {
       <Box sx={{ width: "100%", paddingTop: "98px", marginX: "auto" }}>
         <HeroView />
       </Box>
-      <Box sx={{ margin: "auto", maxWidth: "1200px", paddingX: "30px" }}>
+      <Box
+        sx={{
+          margin: "auto",
+          maxWidth: "1200px",
+          paddingX: "30px",
+          marginBottom: "3rem",
+        }}
+      >
         <InformacionView />
         <CatalogoLandingView />
         <ContactoView />

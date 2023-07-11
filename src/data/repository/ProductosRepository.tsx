@@ -5,7 +5,7 @@ export function ProductosRepository({
   ProductosDataSource,
 }: IProductosDataSource) {
   const getProductos = async (): Promise<IProductoDto[]> => {
-    const response = await ProductosDataSource.getProductos();
+    const response = await ProductosDataSource.GetProductos();
     let productos: IProductoDto[] = [];
     if (response.meta.pagination.total === 0) return productos;
     productos = response.data.map((producto) => {

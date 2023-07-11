@@ -4,5 +4,6 @@ export const constantes = {
     seccionInfo: "seccion-empresas",
     productos: "productos",
     empresa: "datos-empresa",
+    contacto: "datos-contactos",
   },
 };

@@ -2,6 +2,6 @@ import { ISeccionInformacionResponse } from "@/domain/models/responses/ISeccionI
 
 export interface ISeccionInformacionDataSource {
   SeccionInformacionDataSource: {
-    getDataSeccionInformacion: () => Promise<ISeccionInformacionResponse>;
+    GetDataSeccionInformacion: () => Promise<ISeccionInformacionResponse>;
   };
 }

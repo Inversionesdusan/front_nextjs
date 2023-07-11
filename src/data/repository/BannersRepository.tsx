@@ -4,7 +4,7 @@ import { IBannersDataSource } from "@/domain/models/dataSources/IBannersDataSour
 export function BannersRepository({ BannersDataSource }: IBannersDataSource) {
   const getAllBanners = async (): Promise<IBannerDto[]> => {
     console.log("llamado en BannersRepository");
-    const response = await BannersDataSource.getAllBanners();
+    const response = await BannersDataSource.GetAllBanners();
     let banners: IBannerDto[] = [];
     if (response.meta.pagination.total === 0) return banners;
 

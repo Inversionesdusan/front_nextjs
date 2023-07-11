@@ -1,6 +1,5 @@
 "use client";
 import { Box, Divider, Typography } from "@mui/material";
-import React from "react";
 import HeaderLink from "../../../app/components/basic/HeaderLink";
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
@@ -45,7 +44,7 @@ const HeaderView = () => {
         }}
       >
         <HeaderLink href="#nosotros" label="Nosotros" />
-        <HeaderLink href="#productos" label="Productos" />
+        <HeaderLink href="#catalogo" label="Productos" />
         <HeaderLink href="#contactenos" label="Contactenos" />
         <Divider orientation="vertical" flexItem />
         <AccountCircleTwoToneIcon

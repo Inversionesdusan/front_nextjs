@@ -1,6 +1,6 @@
 import { IProductoDto } from "@/domain/models/Dto/IProductoDto";
 import { IProductoService } from "@/domain/models/services/IProductosService";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 
 const CatalogoLandingViewModel = ({
   ProductosService,

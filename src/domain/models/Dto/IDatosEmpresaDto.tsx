@@ -7,4 +7,5 @@ export interface IDatosEmpresaDto {
   ciudad: string;
   departamento: string;
   nombreContacto: string;
+  imagenContactenos?: string;
 }

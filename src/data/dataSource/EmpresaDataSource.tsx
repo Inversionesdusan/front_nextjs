@@ -1,18 +1,48 @@
+import queryClient from "@/domain/configuations/reactQueryConfig";
 import { constantes } from "@/domain/constants";
+import { ISaveDataContactRequest } from "@/domain/models/requests/ISaveDataContactRequest";
 import { IDatosEmpresaResponse } from "@/domain/models/responses/IDatosEmpresaResponse";
+import { ISaveDataClientResponse } from "@/domain/models/responses/ISaveDataClientResponse";
 import axios, { AxiosRequestConfig } from "axios";
 
-export const getDatosEmpresa = async (): Promise<IDatosEmpresaResponse> => {
-  const request: AxiosRequestConfig = {
-    method: "GET",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
-    url: constantes.endpoints.empresa,
+export const GetDatosEmpresa = async (): Promise<IDatosEmpresaResponse> => {
+  const fetchDataEmpresa = async () => {
+    const request: AxiosRequestConfig = {
+      method: "GET",
+      baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+      url: `${constantes.endpoints.empresa}?populate=*`,
+    };
+    const response = await axios.request<IDatosEmpresaResponse>(request);
+    return response.data;
   };
 
   try {
-    const response = await axios.request<IDatosEmpresaResponse>(request);
-    return response.data;
+    const data = await queryClient.fetchQuery(
+      "getDatosEmpresa",
+      fetchDataEmpresa,
+      { staleTime: 86400000, retry: 2 }
+    );
+
+    return data;
   } catch (error) {
     throw new Error("Error al obtener datos de la empresa");
+  }
+};
+
+export const SaveDatosContacto = async (
+  dataContacto: ISaveDataContactRequest
+) => {
+  const request: AxiosRequestConfig = {
+    method: "POST",
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    url: constantes.endpoints.contacto,
+    data: dataContacto,
+  };
+
+  try {
+    const { data } = await axios.request<ISaveDataClientResponse>(request);
+    if (data.data.id && data.data.id > 0) return "El mensaje ha sido grabado";
+  } catch (error) {
+    return "Ha ocurrido un error al enviar el mensaje.  Intente nuevamente";
   }
 };

@@ -1,6 +1,6 @@
 import Container from "@/DI/Container";
 import { ISeccionInformacionViewModel } from "@/domain/models/viewModels/ISeccionInformacionViewModel";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import AboutUsComponent from "../components/AboutUsComponent";
 import { Typography } from "@mui/material";
 import Slider from "react-slick";
@@ -28,7 +28,7 @@ const InformacionView = () => {
   return informacionModel.loading ? (
     <>Cargando</>
   ) : (
-    <>
+    <div id="nosotros">
       <Typography
         variant="h3"
         sx={{
@@ -49,7 +49,7 @@ const InformacionView = () => {
           />
         ))}
       </Slider>
-    </>
+    </div>
   );
 };
 

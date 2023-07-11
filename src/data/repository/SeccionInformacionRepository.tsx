@@ -8,7 +8,7 @@ export function SeccionInformacionRepository({
     ISeccionInformacionDto[]
   > => {
     const response =
-      await SeccionInformacionDataSource.getDataSeccionInformacion();
+      await SeccionInformacionDataSource.GetDataSeccionInformacion();
     let secciones: ISeccionInformacionDto[] = [];
     if (response.meta.pagination.total === 0) return secciones;
     secciones = response.data.map((seccion) => {

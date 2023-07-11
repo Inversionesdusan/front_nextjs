@@ -1,3 +1,4 @@
+import { IImagenResponse } from "../commons/IImagenResponse";
 import { Meta } from "../commons/MetaResponse";
 
 export interface IDatosEmpresaResponse {
@@ -19,6 +20,7 @@ export interface DatosEmpresaResponseAttributes {
   ciudad: string;
   departamento: string;
   nombre_contacto: string;
+  imagen_contactenos?: IImagenResponse;
   createdAt: string;
   updatedAt: string;
 }
