@@ -1,85 +1,92 @@
-import { Box, CardMedia, Typography } from "@mui/material";
-import React from "react";
+import { Box, Button, Typography } from "@mui/material";
 import { IProductoDto } from "../../domain/models/Dto/IProductoDto";
-import HeaderLink from "./basic/HeaderLink";
+import { colors } from "@/presentation/styles/colors";
 
 export interface ProductCardProps {
   producto: IProductoDto;
+  position: "center" | "topLeft" | "topRigth" | "bottomLeft" | "bottomRigth";
 }
 
-const ProductCard = ({ producto }: ProductCardProps) => {
+const ProductCard = ({ producto, position }: ProductCardProps) => {
+  const getBorderRadius = (position: string): string => {
+    if (position === "center") return "50px";
+    if (position === "topLeft" || position === "bottomRigth")
+      return "0 50px 0 50px";
+    if (position === "topRigth" || position === "bottomLeft")
+      return "50px 0 50px 0";
+    return "50px";
+  };
   return (
-    <>
+    <Box
+      sx={{
+        width: "312px",
+        height: "351px",
+        background: colors.black,
+        display: "flex",
+        flexDirection: "column",
+        position: "relative",
+        overflow: "hidden",
+        justifyContent: "space-between",
+        borderRadius: getBorderRadius(position),
+      }}
+    >
       <Box
         sx={{
-          height: "340px",
-          width: "340px",
-          boxShadow: "rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px",
-          background: "rgba( 255, 255, 255, 0.5 )",
-          backdropFilter: "blur( 9.5px )",
-          borderRadius: "1rem",
-          overflow: "visible",
-          padding: "1.5rem",
+          height: "3rem",
+          background: colors.green,
           display: "flex",
-          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          gap: "2rem",
-          marginX: "auto",
         }}
       >
-        <Box
+        <Typography
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "1rem",
+            fontFamily: "Montserrat",
+            fontSize: "1.5rem",
+            fontWeight: "500",
           }}
         >
-          <Box
+          {producto.nombreProducto}
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          maxHeight: "230px",
+          flex: 1,
+          backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${producto.imagen.urlThumbnail}')`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "contain",
+          backgroundPosition: "center",
+        }}
+      ></Box>
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <Button
+          sx={{
+            width: "186px",
+            height: "48px",
+            background: colors.white,
+            color: colors.black,
+            borderTopLeftRadius: "50px",
+            borderTopRightRadius: "50px",
+          }}
+        >
+          <Typography
             sx={{
-              flex: 1,
-              maxWidth: "12rem",
-              height: "12rem",
-              backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${producto.imagen.urlThumbnail}')`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "contain",
-              backgroundPosition: "center",
-            }}
-          ></Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-              flex: 2,
+              fontFamily: "Montserrat",
+              fontSize: "1rem",
+              fontWeight: "500",
             }}
           >
-            <Typography
-              sx={{
-                fontFamily: "Nunito",
-                fontWeight: "700",
-                fontSize: "1.5rem",
-                color: "rgb(56, 59, 64)",
-                marginY: 0,
-              }}
-            >
-              {producto.nombreProducto}
-            </Typography>
-            <Typography
-              sx={{
-                fontFamily: "Nunito Sans",
-                fontSize: "1rem",
-                color: "rgb(56, 59, 64)",
-                marginY: 0,
-              }}
-            >
-              {producto.descripcion}
-            </Typography>
-          </Box>
-        </Box>
-        <HeaderLink href="#nosotros" label="Ver catálogo" />
+            Ver catálogo
+          </Typography>
+        </Button>
       </Box>
-    </>
+    </Box>
   );
 };
 

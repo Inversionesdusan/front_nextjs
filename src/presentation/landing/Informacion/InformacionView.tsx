@@ -1,9 +1,10 @@
 import Container from "@/DI/Container";
 import { ISeccionInformacionViewModel } from "@/domain/models/viewModels/ISeccionInformacionViewModel";
 import { useEffect } from "react";
-import AboutUsComponent from "../components/AboutUsComponent";
-import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import { colors } from "@/presentation/styles/colors";
 import Slider from "react-slick";
+import AboutUsComponent from "../components/AboutUsComponent";
 
 const InformacionView = () => {
   const informacionModel = Container.resolve(
@@ -21,35 +22,77 @@ const InformacionView = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     fade: true,
+    nextArrow: <></>,
+    prevArrow: <></>,
     autoplay: true,
-    autoplaySpeed: 6000,
+    autoplaySpeed: 5000,
   };
 
   return informacionModel.loading ? (
     <>Cargando</>
   ) : (
-    <div id="nosotros">
-      <Typography
-        variant="h3"
+    <Box
+      sx={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        position: "relative",
+      }}
+    >
+      <Box
         sx={{
-          fontFamily: "Montserrat",
-          marginTop: "4rem",
-          marginBottom: "5rem",
-          color: "rgb(56,59,64)",
+          width: "324px",
+          height: "138px",
+          borderRadius: "285px 285px 600px 600px",
+          background: colors.green,
+          position: "absolute",
+          top: "40%",
+          left: "2rem",
+        }}
+      ></Box>
+      <Box
+        sx={{
+          width: "810px",
+          height: "563px",
+          background: colors.green,
+          borderRadius: "286px 286px 600px 600px",
+        }}
+      ></Box>
+      <Box
+        sx={{
+          width: "700px",
+          height: "560px",
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          padding: "1rem",
         }}
       >
-        Nosotros
-      </Typography>
-      <Slider {...settings}>
-        {informacionModel.informacion.map((info) => (
-          <AboutUsComponent
-            key={info.id}
-            title={info.titulo}
-            text={info.informacion}
-          />
-        ))}
-      </Slider>
-    </div>
+        <Slider {...settings}>
+          {informacionModel.informacion.map((info) => (
+            <AboutUsComponent
+              key={info.id}
+              title={info.titulo}
+              text={info.informacion}
+            />
+          ))}
+        </Slider>
+      </Box>
+      <Box
+        sx={{
+          width: "324px",
+          height: "138px",
+          borderRadius: "285px 285px 600px 600px",
+          background: colors.green,
+          position: "absolute",
+          top: "40%",
+          right: "2rem",
+        }}
+      ></Box>
+    </Box>
   );
 };
 

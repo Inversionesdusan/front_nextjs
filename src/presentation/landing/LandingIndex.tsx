@@ -5,26 +5,28 @@ import InformacionView from "./Informacion/InformacionView";
 import CatalogoLandingView from "./catalogo/CatalogoLandingView";
 import { Box } from "@mui/material";
 import ContactoView from "./contacto/ContactoView";
+import FooterView from "./footer/FooterView";
 
 const LandingIndex = () => {
   return (
     <>
       <HeaderView />
-      <Box sx={{ width: "100%", paddingTop: "98px", marginX: "auto" }}>
+      <Box sx={{ width: "100%", marginX: "auto", height: "100vh" }}>
         <HeroView />
       </Box>
       <Box
-        sx={{
-          margin: "auto",
-          maxWidth: "1200px",
-          paddingX: "30px",
-          marginBottom: "3rem",
-        }}
+        id="catalogo"
+        sx={{ width: "100%", marginX: "auto", height: "100vh" }}
       >
-        <InformacionView />
         <CatalogoLandingView />
+      </Box>
+      <Box id="nosotros" sx={{ width: "100%", height: "100vh" }}>
+        <InformacionView />
+      </Box>
+      <Box id="contactenos" sx={{ width: "100%", height: "100vh" }}>
         <ContactoView />
       </Box>
+      <FooterView />
     </>
   );
 };

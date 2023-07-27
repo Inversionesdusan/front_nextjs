@@ -6,6 +6,7 @@ import theme from "@/presentation/styles/theme";
 import { ThemeProvider } from "@emotion/react";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import "../fonts/fonts.css";
 
 export default function Home() {
   return (

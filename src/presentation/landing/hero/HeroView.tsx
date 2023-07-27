@@ -1,10 +1,13 @@
 import Container from "@/DI/Container";
 import LandingHeroItem from "@/app/components/basic/LandingHeroItem";
 import { IHeroViewModel } from "@/domain/models/viewModels/IHeroViewModel";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import logo from "../../../../public/images/logos/Isologo.svg";
+import Image from "next/image";
+import { colors } from "@/presentation/styles/colors";
 
 const HeroView = () => {
   const heroViewModel = Container.resolve("HeroViewModel") as IHeroViewModel;
@@ -29,7 +32,20 @@ const HeroView = () => {
   return heroViewModel.loading ? (
     <>Cargando ... </>
   ) : (
-    <div>
+    <div style={{ height: "100vh", position: "relative" }} id="inicio">
+      <Image
+        src={logo}
+        alt="Logo Dusan"
+        height={180}
+        color={colors.white}
+        style={{
+          zIndex: "99",
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      />
       <Slider {...settings}>
         {heroViewModel.banners.map((banner) => (
           <LandingHeroItem

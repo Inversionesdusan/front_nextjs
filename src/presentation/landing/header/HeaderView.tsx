@@ -1,39 +1,17 @@
 "use client";
-import { Box, Divider, Typography } from "@mui/material";
-import HeaderLink from "../../../app/components/basic/HeaderLink";
+import { Box } from "@mui/material";
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
+import { colors } from "@/presentation/styles/colors";
+import Image from "next/image";
+import logo from "../../../../public/images/logos/Isologo.svg";
+import { iconBox, navbar } from "./HeaderStyles";
+import HeaderLink from "@/app/components/basic/HeaderLink";
 
 const HeaderView = () => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingTop: "1.5rem",
-        paddingBottom: "1.5rem",
-        position: "fixed",
-        top: "0",
-        width: "100%",
-        paddingX: "3rem",
-        background: "rgba( 255, 255, 255, 0.4 )",
-        backdropFilter: "blur( 9.5px )",
-        border: "1px solid rgba( 255, 255, 255, 0.18 )",
-        zIndex: 1000,
-      }}
-    >
-      <Typography
-        sx={{
-          fontFamily: "Montserrat",
-          fontSize: "2rem",
-          fontWeight: "700",
-          color: "rgb(56,59,64)",
-        }}
-      >
-        Inversiones Dusan
-      </Typography>
+    <Box sx={navbar}>
+      <Image src={logo} alt="Logo Dusan" height={45} color={colors.white} />
       <Box
         sx={{
           display: "flex",
@@ -43,15 +21,17 @@ const HeaderView = () => {
           alignContent: "center",
         }}
       >
-        <HeaderLink href="#nosotros" label="Nosotros" />
-        <HeaderLink href="#catalogo" label="Productos" />
-        <HeaderLink href="#contactenos" label="Contactenos" />
-        <Divider orientation="vertical" flexItem />
+        <HeaderLink label="Inicio" href="#inicio" />
+        <HeaderLink label="Productos" href="#catalogo" />
+        <HeaderLink label="Nosotros" href="#nosotros" />
+        <HeaderLink label="Contáctenos" href="#contactenos" />
+      </Box>
+      <Box sx={iconBox}>
         <AccountCircleTwoToneIcon
-          sx={{ fontSize: "2rem", color: "rgb(56,59,64)" }}
+          sx={{ fontSize: "2rem", color: colors.white }}
         />
         <ShoppingCartTwoToneIcon
-          sx={{ fontSize: "2rem", color: "rgb(56,59,64)" }}
+          sx={{ fontSize: "2rem", color: colors.white }}
         />
       </Box>
     </Box>
