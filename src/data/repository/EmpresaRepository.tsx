@@ -46,8 +46,8 @@ export function EmpresaRepository({
         nombre_cliente: data.nombreCliente || "",
         email_cliente: data.email || "",
         nro_telefono: data.nroTelefono || "",
-        asunto: data.asunto || "",
-        mensaje: data.mensaje || "",
+        asunto: "",
+        mensaje: "",
       },
     };
 
