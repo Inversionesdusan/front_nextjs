@@ -17,10 +17,25 @@ const CatalogoLandingViewModel = ({
     setLoading(false);
   };
 
+  const getPosition = (
+    index: number,
+    downXl: boolean
+  ): "center" | "topLeft" | "topRigth" | "bottomLeft" | "bottomRigth" => {
+    console.log("downxl -> ", downXl);
+    if (downXl) return "center";
+    if (index === 0) return "topLeft";
+    if (index === 1 || index === 4) return "center";
+    if (index === 2) return "topRigth";
+    if (index === 3) return "bottomLeft";
+    if (index === 5) return "bottomRigth";
+    return "center";
+  };
+
   return {
     loading,
     getProductos,
     productos,
+    getPosition,
   };
 };
 

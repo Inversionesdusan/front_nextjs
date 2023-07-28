@@ -5,11 +5,12 @@ import { colors } from "@/presentation/styles/colors";
 export interface ProductCardProps {
   producto: IProductoDto;
   position: "center" | "topLeft" | "topRigth" | "bottomLeft" | "bottomRigth";
+  downXl: boolean;
 }
 
-const ProductCard = ({ producto, position }: ProductCardProps) => {
+const ProductCard = ({ producto, position, downXl }: ProductCardProps) => {
   const getBorderRadius = (position: string): string => {
-    if (position === "center") return "50px";
+    if (position === "center" || downXl) return "50px";
     if (position === "topLeft" || position === "bottomRigth")
       return "0 50px 0 50px";
     if (position === "topRigth" || position === "bottomLeft")
@@ -19,7 +20,7 @@ const ProductCard = ({ producto, position }: ProductCardProps) => {
   return (
     <Box
       sx={{
-        width: "312px",
+        width: downXl ? "312px" : "290px",
         height: "351px",
         background: colors.black,
         display: "flex",

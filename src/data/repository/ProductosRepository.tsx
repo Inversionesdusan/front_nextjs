@@ -9,7 +9,6 @@ export function ProductosRepository({
     let productos: IProductoDto[] = [];
     if (response.meta.pagination.total === 0) return productos;
     productos = response.data.map((producto) => {
-      console.log("producto -> ", producto, producto.attributes.imagen);
       const finalUlr =
         producto.attributes.imagen.data?.attributes.formats.thumbnail.url ||
         producto.attributes.imagen.data?.attributes.url;

@@ -8,8 +8,7 @@ export const navbar: SxProps<Theme> = {
   justifyContent: "space-between",
   alignContent: "center",
   alignItems: "center",
-  paddingTop: "1.5rem",
-  paddingBottom: "1.5rem",
+  height: "66px",
   position: "fixed",
   top: "0",
   width: "100%",
@@ -23,6 +22,6 @@ export const iconBox: SxProps<Theme> = {
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "center",
-  gap: "2rem",
+  gap: "1rem",
   color: colors.white,
 };

@@ -95,6 +95,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   background: var(--white);
+  color: var(--white);
 }
 
 a {
@@ -111,13 +112,12 @@ a {
 .headerLink {
   font-family: "Montserrat";
   font-weight: 400;
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: var(--white);
   width: 130px;
   text-align: center;
   padding: 0.25rem;
   position: relative;
-  height: 2rem;
 }
 
 .headerLink::after {
@@ -135,8 +135,4 @@ a {
 
 .headerLink:hover::after {
   transform: scaleX(1);
-}
-
-.headerLink:visited {
-  background: red;
 }

@@ -1,11 +1,15 @@
 import Container from "@/DI/Container";
 import { useEffect } from "react";
 import { ICatalogoLandingViewModel } from "../../../domain/models/viewModels/ICatalogLandingViewModel";
-import { Box, Typography } from "@mui/material";
-import { colors } from "@/presentation/styles/colors";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ProductCard from "@/app/components/ProductCard";
+import { styles } from "./CatalogoLandingViewStyles";
 
 const CatalogoLandingView = () => {
+  const theme = useTheme();
+  const downXl = useMediaQuery(theme.breakpoints.down("xl"));
+  const downLg = useMediaQuery(theme.breakpoints.down("lg"));
+
   const catalogoLandingViewModel = Container.resolve(
     "CatalogoLandingViewModel"
   ) as ICatalogoLandingViewModel;
@@ -14,100 +18,33 @@ const CatalogoLandingView = () => {
     catalogoLandingViewModel.getProductos();
   }, []);
 
-  const getPosition = (
-    index: number
-  ): "center" | "topLeft" | "topRigth" | "bottomLeft" | "bottomRigth" => {
-    if (index === 0) return "topLeft";
-    if (index === 1 || index === 4) return "center";
-    if (index === 2) return "topRigth";
-    if (index === 3) return "bottomLeft";
-    if (index === 5) return "bottomRigth";
-    return "center";
-  };
+  const {
+    container,
+    textBox,
+    textBoxContainer,
+    title,
+    subtitle,
+    catologContainer,
+  } = styles(downLg, downXl);
 
-  console.log("productos -> ", catalogoLandingViewModel.productos);
   return catalogoLandingViewModel.loading ? (
     <>Cargando Productos...</>
   ) : catalogoLandingViewModel.productos.length > 0 ? (
-    <Box
-      sx={{
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        padding: "3rem",
-        justifyContent: "space-evenly",
-        alignItems: "center",
-        gap: "2rem",
-      }}
-    >
-      <Box
-        sx={{
-          width: "100%",
-          maxWidth: "500px",
-          minWidth: "360px",
-          height: "500px",
-          background: colors.green,
-          flex: 2,
-          borderTopRightRadius: "230px",
-          borderBottomLeftRadius: "230px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box sx={{ textAlign: "center", transform: "translateY(-1.5rem)" }}>
-          <Typography
-            sx={{
-              fontFamily: "Montserrat",
-              fontSize: "3rem",
-              fontWeight: "300",
-            }}
-          >
-            CONOCE
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: "Cunia",
-              fontSize: "3rem",
-              fontWeight: "700",
-              lineHeight: "3rem",
-            }}
-          >
-            NUESTROS
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: "Cunia",
-              fontSize: "3rem",
-              fontWeight: "700",
-              lineHeight: "3rem",
-            }}
-          >
-            PRODUCTOS
-          </Typography>
+    <Box sx={container}>
+      <Box sx={textBox}>
+        <Box sx={textBoxContainer}>
+          <Typography sx={title}>CONOCE</Typography>
+          <Typography sx={subtitle}>NUESTROS</Typography>
+          <Typography sx={subtitle}>PRODUCTOS</Typography>
         </Box>
       </Box>
-      <Box
-        sx={{
-          flex: 3,
-          display: "flex",
-          flexDirection: "row",
-          width: "100%",
-          marginTop: "93px",
-          height: "calc(100vh - 93px)",
-          flexWrap: "wrap",
-          gap: "1rem",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <Box sx={catologContainer}>
         {catalogoLandingViewModel.productos.map((producto, index) => (
           <ProductCard
             key={producto.id}
             producto={producto}
-            position={getPosition(index)}
+            position={catalogoLandingViewModel.getPosition(index, downXl)}
+            downXl={downXl}
           />
         ))}
       </Box>

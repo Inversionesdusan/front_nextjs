@@ -11,12 +11,12 @@ import HeaderLink from "@/app/components/basic/HeaderLink";
 const HeaderView = () => {
   return (
     <Box sx={navbar}>
-      <Image src={logo} alt="Logo Dusan" height={45} color={colors.white} />
+      <Image src={logo} alt="Logo Dusan" height={40} color={colors.white} />
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
-          gap: "1rem",
+          gap: "0.7rem",
           alignItems: "center",
           alignContent: "center",
         }}

@@ -3,11 +3,14 @@ import HeaderView from "./header/HeaderView";
 import HeroView from "./hero/HeroView";
 import InformacionView from "./Informacion/InformacionView";
 import CatalogoLandingView from "./catalogo/CatalogoLandingView";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import ContactoView from "./contacto/ContactoView";
 import FooterView from "./footer/FooterView";
 
 const LandingIndex = () => {
+  const theme = useTheme();
+  const downXl = useMediaQuery(theme.breakpoints.down("xl"));
+
   return (
     <>
       <HeaderView />
@@ -16,7 +19,11 @@ const LandingIndex = () => {
       </Box>
       <Box
         id="catalogo"
-        sx={{ width: "100%", marginX: "auto", height: "100vh" }}
+        sx={{
+          width: "100%",
+          marginX: "auto",
+          height: downXl ? undefined : "100vh",
+        }}
       >
         <CatalogoLandingView />
       </Box>
