@@ -3,7 +3,7 @@ import { ISeccionInformacionViewModel } from "@/domain/models/viewModels/ISeccio
 import { useEffect } from "react";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import Slider from "react-slick";
-import AboutUsComponent from "../components/AboutUsComponent";
+import AboutUsComponent from "../components/AboutUs/AboutUsComponent";
 import { styles } from "./InformacionViewStyles";
 
 const InformacionView = () => {
@@ -14,9 +14,11 @@ const InformacionView = () => {
   const theme = useTheme();
   const downXl = useMediaQuery(theme.breakpoints.down("xl"));
   const downLg = useMediaQuery(theme.breakpoints.down("lg"));
+  const downMd = useMediaQuery(theme.breakpoints.down("md"));
+  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { container, leftForm, rightForm, infoContainer, infoTextContainer } =
-    styles(downLg, downXl);
+    styles(downSm, downMd, downLg, downXl);
 
   useEffect(() => {
     informacionModel.getInformacion();

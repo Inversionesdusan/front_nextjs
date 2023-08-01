@@ -1,42 +1,24 @@
 import Container from "@/DI/Container";
-import { Box, FormControl, Input, Typography } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  Input,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { useEffect } from "react";
 import { IContactoViewModelReturn } from "./ContactoViewModel";
 import { useForm } from "react-hook-form";
 import ButtonCustom from "@/app/components/basic/ButtonCustom";
 import { IContactoFormValues } from "@/domain/models/forms/IContactForm";
 import { colors } from "@/presentation/styles/colors";
-import { SxProps } from "@mui/material";
+import { styles } from "./ContactoViewStyles";
 
 const initialFormData: IContactoFormValues = {
   nombreCliente: "",
   email: "",
   nroTelefono: "",
-};
-
-const inputStyle: SxProps = {
-  fontFamily: "Montserrat",
-  fontSize: "1.5rem",
-  fontWeight: "300",
-  color: colors.white,
-  "&.MuiInputBase-root": {
-    borderBottomColor: colors.white,
-  },
-  "&.MuiInputBase-root:hover": {
-    borderBottomColor: colors.white,
-  },
-  "&.MuiInputBase-root:after": {
-    borderBottomColor: colors.white,
-  },
-  "&.MuiInputBase-root:before": {
-    borderBottomColor: colors.white,
-  },
-  "&.MuiInputBase-root:focus": {
-    borderBottomColor: colors.white,
-  },
-  "&.MuiInputBase-root:hover:not(.Mui-disabled):before": {
-    borderBottomColor: colors.white,
-  },
 };
 
 const ContactoView = () => {
@@ -52,6 +34,20 @@ const ContactoView = () => {
 
   const { register, control, handleSubmit, formState, reset } = formContacto;
   const { errors } = formState;
+  const theme = useTheme();
+  const downXl = useMediaQuery(theme.breakpoints.down("xl"));
+  const downLg = useMediaQuery(theme.breakpoints.down("lg"));
+  const downMd = useMediaQuery(theme.breakpoints.down("md"));
+  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
+  const {
+    container,
+    formContainer,
+    title,
+    subTitle,
+    message,
+    form,
+    inputStyle,
+  } = styles(downSm, downMd, downLg, downXl);
 
   useEffect(() => {
     contactoVideModel.cargarDatosEmpresa();
@@ -63,28 +59,37 @@ const ContactoView = () => {
     let left = undefined;
     let right = undefined;
     let transform = undefined;
+    let display = undefined;
     switch (position) {
       case "topLeft":
         borderRadius = "300px 0 300px 0";
-        top = "120px";
+        top = downXl ? "274px" : "178px";
         left = "16px";
+        display = downLg ? "none" : undefined;
         break;
       case "bottomLeft":
         borderRadius = "300px 0 300px 0";
-        top = "522px";
+        top = downXl ? "450px" : "522px";
         left = "0";
-        transform = "translateX(116px) rotate(90deg)";
+        transform = downXl
+          ? "translateX(41px) rotate(90deg)"
+          : "translateX(98px) rotate(90deg)";
+        display = downLg ? "none" : undefined;
         break;
       case "topRigth":
         borderRadius = "0 300px 0 300px";
-        top = "120px";
-        right = "1rem";
+        top = downXl ? "274px" : "178px";
+        right = "16px";
+        display = downLg ? "none" : undefined;
         break;
       case "bottomRight":
         borderRadius = "0 300px 0 300px";
-        top = "522px";
+        top = downXl ? "450px" : "522px";
         right = "0";
-        transform = "translateX(-116px) rotate(-90deg)";
+        transform = downXl
+          ? "translateX(-41px) rotate(-90deg)"
+          : "translateX(-98px) rotate(-90deg)";
+        display = downLg ? "none" : undefined;
         break;
       default:
         break;
@@ -93,8 +98,8 @@ const ContactoView = () => {
     return (
       <Box
         sx={{
-          height: "500px",
-          width: "300px",
+          height: downXl ? "200px" : "420px",
+          width: downXl ? "150px" : "256px",
           background: colors.green,
           position: "absolute",
           top,
@@ -102,90 +107,34 @@ const ContactoView = () => {
           right,
           borderRadius,
           transform,
+          display,
         }}
       ></Box>
     );
   };
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "100%",
-        position: "relative",
-        padding: "1rem",
-        overflow: "hidden",
-      }}
-    >
+    <Box sx={container}>
       {leafComponent("topLeft")}
       {leafComponent("topRigth")}
       {leafComponent("bottomLeft")}
       {leafComponent("bottomRight")}
-      <Box
-        sx={{
-          position: "absolute",
-          width: "60vw",
-          height: "780px",
-          top: "120px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          background: colors.green,
-          borderRadius: "285px 285px 600px 600px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          paddingBottom: "3rem",
-        }}
-      >
-        <Typography
-          sx={{
-            fontFamily: "Montserrat",
-            fontSize: "4rem",
-            fontWeight: "300",
-            lineHeight: "4rem",
-          }}
-        >
-          Contacta con nosotros
-        </Typography>
-        <Typography
-          sx={{
-            fontFamily: "Montserrat",
-            fontSize: "3rem",
-            fontWeight: "600",
-            lineHeight: "3rem",
-            marginY: "0.5rem",
-          }}
-        >
-          Queremos escucharte
-        </Typography>
-        <Typography
-          sx={{
-            width: "80%",
-            fontFamily: "Montserrat",
-            fontSize: "1.5rem",
-            fontWeight: "300",
-            marginY: "2rem",
-          }}
-        >
+      <Box sx={formContainer}>
+        <Typography sx={title}>Contacta con nosotros</Typography>
+        <Typography sx={subTitle}>Queremos escucharte</Typography>
+        <Typography sx={message}>
           Si quieres informacion sobre cualquiera de nuestros productos o estas
           interesado en su distribucion, rellena este formulario y nos pondremos
           en contacto lo antes posible
         </Typography>
-        <Box sx={{ width: "60%" }}>
+        <Box sx={{ width: downMd ? "80%" : "60%" }}>
           <form
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit((data) => {
               contactoVideModel.handleSubmitForm(data, reset, initialFormData);
             })}
-            style={{
-              flex: 1,
-              display: "flex",
-              flexDirection: "column",
-              gap: "1.5rem",
-              width: "100%",
-            }}
+            style={form}
           >
             <FormControl
               fullWidth
@@ -297,7 +246,7 @@ const ContactoView = () => {
               </span>
             </FormControl>
             <ButtonCustom
-              sx={{ alignSelf: "end", marginY: "1rem" }}
+              sx={{ alignSelf: downMd ? "center" : "end", marginY: "1rem" }}
               type="submit"
               disabled={contactoVideModel.sending}
             >

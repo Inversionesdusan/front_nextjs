@@ -6,6 +6,7 @@ import CatalogoLandingView from "./catalogo/CatalogoLandingView";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import ContactoView from "./contacto/ContactoView";
 import FooterView from "./footer/FooterView";
+import { colors } from "../styles/colors";
 
 const LandingIndex = () => {
   const theme = useTheme();
@@ -27,13 +28,25 @@ const LandingIndex = () => {
       >
         <CatalogoLandingView />
       </Box>
-      <Box id="nosotros" sx={{ width: "100%", height: "100vh" }}>
+      <Box
+        id="nosotros"
+        sx={{
+          width: "100%",
+          height: downXl ? undefined : "100vh",
+          background: colors.lightGray,
+        }}
+      >
         <InformacionView />
       </Box>
-      <Box id="contactenos" sx={{ width: "100%", height: "100vh" }}>
+      <Box
+        id="contactenos"
+        sx={{ width: "100%", height: downXl ? "950px" : "100vh" }}
+      >
         <ContactoView />
       </Box>
-      <FooterView />
+      <Box>
+        <FooterView />
+      </Box>
     </>
   );
 };

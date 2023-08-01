@@ -1,7 +1,12 @@
 import { colors } from "@/presentation/styles/colors";
 import { SxProps, Theme } from "@mui/material";
 
-export const styles = (downLg: boolean, downXl: boolean) => {
+export const styles = (
+  downSm: boolean,
+  downMd: boolean,
+  downLg: boolean,
+  downXl: boolean
+) => {
   const container: SxProps<Theme> = {
     height: downLg ? undefined : "100vh",
     display: "flex",
@@ -9,9 +14,8 @@ export const styles = (downLg: boolean, downXl: boolean) => {
     justifyContent: "center",
     alignItems: "center",
     position: "relative",
-    paddingY: downLg ? "6rem" : undefined,
-    paddingX: "3rem",
-    background: "red",
+    paddingY: downMd ? undefined : downLg ? "6rem" : undefined,
+    paddingX: downMd ? "1.5rem" : "3rem",
   };
 
   const leftForm: SxProps<Theme> = {
@@ -37,19 +41,23 @@ export const styles = (downLg: boolean, downXl: boolean) => {
   };
 
   const infoContainer: SxProps<Theme> = {
-    width: downXl ? "710px " : "810px",
+    width: downSm ? "100%" : downMd ? "90%" : downXl ? "710px " : "810px",
     height: "563px",
     background: colors.green,
-    borderRadius: "286px 286px 600px 600px",
+    borderRadius: downSm
+      ? "50px 50px 50px 50px"
+      : downMd
+      ? "150px 150px 150px 150px"
+      : "286px 286px 600px 600px",
   };
 
   const infoTextContainer: SxProps<Theme> = {
-    width: "700px",
-    height: "560px",
+    width: downSm ? "85%" : downMd ? "70%" : "700px",
+    height: downMd ? "530px" : "560px",
     position: "absolute",
     top: "50%",
     left: "50%",
-    transform: "translate(-50%, -50%)",
+    transform: downMd ? "translate(-50%, -50%)" : "translate(-50%, -50%)",
     padding: "1rem",
   };
 
