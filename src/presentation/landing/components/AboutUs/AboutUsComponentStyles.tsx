@@ -20,7 +20,7 @@ export const styles = (downSm: boolean, downMd: boolean) => {
 
   const textMessage: SxProps<Theme> = {
     fontFamily: "Montserrat",
-    fontSize: downSm ? "0.8rem" : "1.25rem",
+    fontSize: downSm ? "1rem" : "1.25rem",
     textAlign: "center",
     marginBottom: "1rem",
     fontWeight: "300",

@@ -24,7 +24,7 @@ export const styles = (
     left: "50%",
     transform: "translateX(-50%)",
     background: colors.green,
-    borderRadius: downSm ? "80px" : "285px 285px 600px 600px",
+    borderRadius: downSm ? "50px" : "285px 285px 600px 600px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",

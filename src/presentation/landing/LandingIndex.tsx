@@ -44,7 +44,7 @@ const LandingIndex = () => {
       >
         <ContactoView />
       </Box>
-      <Box>
+      <Box sx={{ width: "100%" }}>
         <FooterView />
       </Box>
     </>

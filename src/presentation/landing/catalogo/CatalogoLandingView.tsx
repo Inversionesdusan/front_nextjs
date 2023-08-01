@@ -9,6 +9,7 @@ const CatalogoLandingView = () => {
   const theme = useTheme();
   const downXl = useMediaQuery(theme.breakpoints.down("xl"));
   const downLg = useMediaQuery(theme.breakpoints.down("lg"));
+  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
 
   const catalogoLandingViewModel = Container.resolve(
     "CatalogoLandingViewModel"
@@ -25,7 +26,7 @@ const CatalogoLandingView = () => {
     title,
     subtitle,
     catologContainer,
-  } = styles(downLg, downXl);
+  } = styles(downSm, downLg, downXl);
 
   return catalogoLandingViewModel.loading ? (
     <>Cargando Productos...</>

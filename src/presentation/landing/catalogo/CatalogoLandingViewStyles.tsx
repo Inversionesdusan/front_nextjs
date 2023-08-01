@@ -1,7 +1,7 @@
 import { colors } from "@/presentation/styles/colors";
 import { SxProps, Theme } from "@mui/material";
 
-export const styles = (downLg: boolean, downXl: boolean) => {
+export const styles = (downSm: boolean, downLg: boolean, downXl: boolean) => {
   const container: SxProps<Theme> = {
     height: "100%",
     width: "100%",
@@ -36,15 +36,15 @@ export const styles = (downLg: boolean, downXl: boolean) => {
 
   const title: SxProps<Theme> = {
     fontFamily: "Montserrat",
-    fontSize: downLg ? "2rem" : "3rem",
+    fontSize: downSm ? "1.25rem" : downLg ? "2rem" : "3rem",
     fontWeight: "300",
   };
 
   const subtitle: SxProps<Theme> = {
     fontFamily: "Cunia",
-    fontSize: downLg ? "2rem" : "3rem",
+    fontSize: downSm ? "1.25rem" : downLg ? "2rem" : "3rem",
     fontWeight: "700",
-    lineHeight: downLg ? "2rem" : "3rem",
+    lineHeight: downSm ? "1.25rem" : downLg ? "2rem" : "3rem",
   };
 
   const catologContainer: SxProps<Theme> = {

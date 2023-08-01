@@ -8,8 +8,11 @@ import "slick-carousel/slick/slick-theme.css";
 import logo from "../../../../public/images/logos/Isologo.svg";
 import Image from "next/image";
 import { colors } from "@/presentation/styles/colors";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const HeroView = () => {
+  const theme = useTheme();
+  const downMd = useMediaQuery(theme.breakpoints.down("md"));
   const heroViewModel = Container.resolve("HeroViewModel") as IHeroViewModel;
 
   const settings = {
@@ -36,7 +39,7 @@ const HeroView = () => {
       <Image
         src={logo}
         alt="Logo Dusan"
-        height={180}
+        height={downMd ? 70 : 180}
         color={colors.white}
         style={{
           zIndex: "99",
