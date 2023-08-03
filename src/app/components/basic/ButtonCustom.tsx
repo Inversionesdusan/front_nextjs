@@ -1,20 +1,24 @@
 "use client";
 import { colors } from "@/presentation/styles/colors";
-import { Button, ButtonProps } from "@mui/material";
+import { Button, ButtonProps, CircularProgress } from "@mui/material";
 
-export interface ButtonCustomProps extends ButtonProps {}
+export interface ButtonCustomProps extends ButtonProps {
+  typeButton: "form" | "modal";
+  loading?: boolean;
+}
 
 const ButtonCustom = (props: ButtonCustomProps) => {
   return (
     <Button
+      disabled={props.loading}
       style={{
         width: "160px",
         height: "50px",
-        background: colors.white,
+        background: props.typeButton === "form" ? colors.white : colors.green,
         fontFamily: "Montserrat",
-        fontSize: "2.5rem",
+        fontSize: props.typeButton === "form" ? "2.5rem" : "1rem",
         fontWeight: "600",
-        color: colors.green,
+        color: props.typeButton === "form" ? colors.green : colors.white,
         borderRadius: "50px",
         textAlign: "center",
         padding: "0.5rem",
@@ -22,7 +26,17 @@ const ButtonCustom = (props: ButtonCustomProps) => {
       onClick={props.onClick}
       {...props}
     >
-      {props.children}
+      {props.loading ? (
+        <CircularProgress
+          sx={{
+            color: props.typeButton === "form" ? colors.green : colors.white,
+            height: "60%",
+            transform: "scale(80%)",
+          }}
+        />
+      ) : (
+        props.children
+      )}
     </Button>
   );
 };

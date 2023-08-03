@@ -29,6 +29,14 @@ const ProductCard = ({ producto, position, downXl }: ProductCardProps) => {
         overflow: "hidden",
         justifyContent: "space-between",
         borderRadius: getBorderRadius(position),
+        borderStyle: "none",
+        borderBottom: "1px solid " + colors.lightGray,
+        transition: "all 0.5s ease",
+        "&:hover": {
+          transform: "scale(1.03)",
+          boxShadow:
+            "rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px",
+        },
       }}
     >
       <Box
@@ -64,7 +72,12 @@ const ProductCard = ({ producto, position, downXl }: ProductCardProps) => {
         }}
       ></Box>
       <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          overflow: "hidden",
+        }}
       >
         <Button
           sx={{
@@ -72,8 +85,14 @@ const ProductCard = ({ producto, position, downXl }: ProductCardProps) => {
             height: "48px",
             background: colors.white,
             color: colors.black,
-            borderTopLeftRadius: "50px",
-            borderTopRightRadius: "50px",
+            borderTopLeftRadius: "40px",
+            borderTopRightRadius: "40px",
+            position: "relative",
+            bottom: "-5px",
+            "&:hover": {
+              background: colors.lightGray,
+              color: colors.black,
+            },
           }}
         >
           <Typography

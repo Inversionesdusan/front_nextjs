@@ -14,6 +14,7 @@ import ButtonCustom from "@/app/components/basic/ButtonCustom";
 import { IContactoFormValues } from "@/domain/models/forms/IContactForm";
 import { colors } from "@/presentation/styles/colors";
 import { styles } from "./ContactoViewStyles";
+import ModalComponent from "@/presentation/components/common/ModalComponent";
 
 const initialFormData: IContactoFormValues = {
   nombreCliente: "",
@@ -114,148 +115,167 @@ const ContactoView = () => {
   };
 
   return (
-    <Box sx={container}>
-      {leafComponent("topLeft")}
-      {leafComponent("topRigth")}
-      {leafComponent("bottomLeft")}
-      {leafComponent("bottomRight")}
-      <Box sx={formContainer}>
-        <Typography sx={title}>Contacta con nosotros</Typography>
-        <Typography sx={subTitle}>Queremos escucharte</Typography>
-        <Typography sx={message}>
-          Si quieres informacion sobre cualquiera de nuestros productos o estas
-          interesado en su distribucion, rellena este formulario y nos pondremos
-          en contacto lo antes posible
-        </Typography>
-        <Box sx={{ width: downMd ? "80%" : "60%" }}>
-          <form
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit((data) => {
-              contactoVideModel.handleSubmitForm(data, reset, initialFormData);
-            })}
-            style={form}
-          >
-            <FormControl
-              fullWidth
-              variant="standard"
-              error={!!errors.nombreCliente?.message}
+    <>
+      <Box sx={container}>
+        {leafComponent("topLeft")}
+        {leafComponent("topRigth")}
+        {leafComponent("bottomLeft")}
+        {leafComponent("bottomRight")}
+        <Box sx={formContainer}>
+          <Typography sx={title}>Contacta con nosotros</Typography>
+          <Typography sx={subTitle}>Queremos escucharte</Typography>
+          <Typography sx={message}>
+            Si quieres informacion sobre cualquiera de nuestros productos o
+            estas interesado en su distribucion, rellena este formulario y nos
+            pondremos en contacto lo antes posible
+          </Typography>
+          <Box sx={{ width: downMd ? "80%" : "60%" }}>
+            <form
+              noValidate
+              autoComplete="off"
+              onSubmit={handleSubmit((data) => {
+                contactoVideModel.handleSubmitForm(
+                  data,
+                  reset,
+                  initialFormData
+                );
+              })}
+              style={form}
             >
-              <Input
-                id="nombreCliente"
-                type="text"
-                aria-describedby="nombreCliente-error"
-                placeholder="Nombre"
-                sx={inputStyle}
-                {...register("nombreCliente", {
-                  required: { value: true, message: "Debes digitar tu nombre" },
-                  minLength: {
-                    value: 5,
-                    message: "Tu nombre debe ser de mas de 3 caracteres",
-                  },
-                })}
-              />
-              <span
-                style={{
-                  color: colors.gray,
-                  fontFamily: "Montserrat",
-                  fontSize: "0.8rem",
-                }}
-                id="nombreCliente-error"
+              <FormControl
+                fullWidth
+                variant="standard"
+                error={!!errors.nombreCliente?.message}
               >
-                {errors.nombreCliente?.message}
-              </span>
-            </FormControl>
-
-            <FormControl
-              fullWidth
-              variant="standard"
-              error={!!errors.email?.message}
-            >
-              <Input
-                id="email"
-                type="email"
-                aria-describedby="email-error"
-                placeholder="Correo electrónico"
-                sx={inputStyle}
-                {...register("email", {
-                  required: {
-                    value: true,
-                    message: "Digita tu correo electrónico",
-                  },
-                  pattern: {
-                    value:
-                      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                    message: "Debes indicar un correo eletrónico válido",
-                  },
-                })}
-              />
-              <span
-                style={{
-                  color: colors.gray,
-                  fontFamily: "Montserrat",
-                  fontSize: "0.8rem",
-                }}
-              >
-                {errors.email?.message}
-              </span>
-            </FormControl>
-            <FormControl
-              fullWidth
-              variant="standard"
-              error={!!errors.nroTelefono?.message}
-            >
-              <Input
-                id="nroTelefono"
-                aria-describedby="nroTelefono-error"
-                placeholder="Nro Telefónico / Celular"
-                sx={inputStyle}
-                {...register("nroTelefono", {
-                  pattern: {
-                    value: /^[0-9]*$/,
-                    message: "El Número telefónico debe contener sólo númmeros",
-                  },
-                  minLength: {
-                    value: 7,
-                    message:
-                      "El Número telefónico debe tener al menos 7 dígitos",
-                  },
-                  maxLength: {
-                    value: 10,
-                    message: "El Número telefónico debe hasta 10 dígitos",
-                  },
-                  validate: {
-                    notStart: (valueField) => {
-                      return (
-                        valueField.startsWith("3") ||
-                        "El Número telefónico debe iniciar con 3 o con 6"
-                      );
+                <Input
+                  id="nombreCliente"
+                  type="text"
+                  aria-describedby="nombreCliente-error"
+                  placeholder="Nombre"
+                  sx={inputStyle}
+                  {...register("nombreCliente", {
+                    required: {
+                      value: true,
+                      message: "Debes digitar tu nombre",
                     },
-                  },
-                })}
-              />
-              <span
-                style={{
-                  color: colors.gray,
-                  fontFamily: "Montserrat",
-                  fontSize: "0.8rem",
-                }}
-                id="nroTelefono-error"
+                    minLength: {
+                      value: 5,
+                      message: "Tu nombre debe ser de mas de 3 caracteres",
+                    },
+                  })}
+                />
+                <span
+                  style={{
+                    color: colors.gray,
+                    fontFamily: "Montserrat",
+                    fontSize: "0.8rem",
+                  }}
+                  id="nombreCliente-error"
+                >
+                  {errors.nombreCliente?.message}
+                </span>
+              </FormControl>
+
+              <FormControl
+                fullWidth
+                variant="standard"
+                error={!!errors.email?.message}
               >
-                {errors.nroTelefono?.message}
-              </span>
-            </FormControl>
-            <ButtonCustom
-              sx={{ alignSelf: downMd ? "center" : "end", marginY: "1rem" }}
-              type="submit"
-              disabled={contactoVideModel.sending}
-            >
-              <Typography>Enviar</Typography>
-            </ButtonCustom>
-          </form>
+                <Input
+                  id="email"
+                  type="email"
+                  aria-describedby="email-error"
+                  placeholder="Correo electrónico"
+                  sx={inputStyle}
+                  {...register("email", {
+                    required: {
+                      value: true,
+                      message: "Digita tu correo electrónico",
+                    },
+                    pattern: {
+                      value:
+                        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                      message: "Debes indicar un correo eletrónico válido",
+                    },
+                  })}
+                />
+                <span
+                  style={{
+                    color: colors.gray,
+                    fontFamily: "Montserrat",
+                    fontSize: "0.8rem",
+                  }}
+                >
+                  {errors.email?.message}
+                </span>
+              </FormControl>
+              <FormControl
+                fullWidth
+                variant="standard"
+                error={!!errors.nroTelefono?.message}
+              >
+                <Input
+                  id="nroTelefono"
+                  aria-describedby="nroTelefono-error"
+                  placeholder="Nro Telefónico / Celular"
+                  sx={inputStyle}
+                  {...register("nroTelefono", {
+                    pattern: {
+                      value: /^[0-9]*$/,
+                      message:
+                        "El Número telefónico debe contener sólo númmeros",
+                    },
+                    minLength: {
+                      value: 7,
+                      message:
+                        "El Número telefónico debe tener al menos 7 dígitos",
+                    },
+                    maxLength: {
+                      value: 10,
+                      message: "El Número telefónico debe hasta 10 dígitos",
+                    },
+                    validate: {
+                      notStart: (valueField) => {
+                        return (
+                          valueField.startsWith("3") ||
+                          "El Número telefónico debe iniciar con 3 o con 6"
+                        );
+                      },
+                    },
+                  })}
+                />
+                <span
+                  style={{
+                    color: colors.gray,
+                    fontFamily: "Montserrat",
+                    fontSize: "0.8rem",
+                  }}
+                  id="nroTelefono-error"
+                >
+                  {errors.nroTelefono?.message}
+                </span>
+              </FormControl>
+              <ButtonCustom
+                loading={contactoVideModel.loading}
+                sx={{ alignSelf: downMd ? "center" : "end", marginY: "1rem" }}
+                type="submit"
+                typeButton="form"
+                disabled={contactoVideModel.sending}
+              >
+                <Typography>Enviar</Typography>
+              </ButtonCustom>
+            </form>
+          </Box>
         </Box>
       </Box>
-    </Box>
+      <ModalComponent
+        open={contactoVideModel.openModal}
+        title={contactoVideModel.dataModal.title}
+        message={contactoVideModel.dataModal.message}
+        onAccept={contactoVideModel.handleCloseModal}
+        onClose={contactoVideModel.handleCloseModal}
+      />
+    </>
   );
 };
 

@@ -34,14 +34,14 @@ export const styles = (
 
   const title: SxProps<Theme> = {
     fontFamily: "Montserrat",
-    fontSize: downSm ? "1.5rem" : downMd ? "2.5rem" : downXl ? "3rem" : "4rem",
+    fontSize: downSm ? "1.75rem" : downMd ? "2.5rem" : downXl ? "3rem" : "4rem",
     fontWeight: "300",
     lineHeight: downSm ? "1.5rem" : downMd ? "2rem" : downXl ? "3rem" : "4rem",
   };
 
   const subTitle: SxProps<Theme> = {
     fontFamily: "Montserrat",
-    fontSize: downSm ? "1.25rem" : downXl ? "2rem" : "3rem",
+    fontSize: downSm ? "1.5rem" : downXl ? "2rem" : "3rem",
     fontWeight: "600",
     lineHeight: downSm ? "1.5rem" : downXl ? "2.5rem" : "3rem",
     marginY: "0.5rem",

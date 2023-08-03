@@ -27,6 +27,12 @@ export const styles = (downSm: boolean, downLg: boolean, downXl: boolean) => {
     justifyContent: "center",
     alignItems: "center",
     paddingY: downLg ? "3rem" : undefined,
+    transition: "all 0.5s ease",
+    "&:hover": {
+      transform: "scale(1.03)",
+      boxShadow:
+        "rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px",
+    },
   };
 
   const textBoxContainer: SxProps<Theme> = {
@@ -53,11 +59,11 @@ export const styles = (downSm: boolean, downLg: boolean, downXl: boolean) => {
     flexDirection: "row",
     width: "100%",
     paddingTop: downLg ? "0" : "66px",
-    height: downXl ? undefined : "100vh",
     flexWrap: "wrap",
-    gap: "1rem",
+    gap: "3rem",
     justifyContent: "center",
     alignItems: "center",
+    maxWidth: "1164px",
   };
 
   return {

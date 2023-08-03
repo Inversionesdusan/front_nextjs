@@ -57,12 +57,26 @@ const ContactoViewModel = ({ EmpresaService }: IContactoViewModelProps) => {
     resetForm: UseFormReset<IContactoFormValues>,
     dataResetForm: IContactoFormValues
   ) => {
-    console.log("grabando datos del contacto -> ", data);
-    setSending(true);
-    const resp = await EmpresaService.saveDataContacto(data);
-    handleOpenModal("Grabación Mensaje", resp);
-    setSending(false);
-    resetForm(dataResetForm);
+    try {
+      setLoading(true);
+      console.log("grabando datos del contacto -> ", data);
+      setSending(true);
+      const resp = await EmpresaService.saveDataContacto(data);
+      console.log("resp -> ", resp);
+      handleOpenModal(
+        "Atención",
+        "Se ha guardado la información. En breve te estaremos contactando"
+      );
+      setSending(false);
+      resetForm(dataResetForm);
+    } catch (error) {
+      handleOpenModal(
+        "Advertencia",
+        "NO se ha guardado la información. Intente nuevamente"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {

@@ -13,7 +13,7 @@ export const styles = (downSm: boolean, downMd: boolean) => {
 
   const textTitle: SxProps<Theme> = {
     fontFamily: "Cunia",
-    fontSize: downSm ? "1rem" : downMd ? "1.5rem" : "3rem",
+    fontSize: downSm ? "1.5rem" : downMd ? "1.5rem" : "3rem",
     fontWeight: "700",
     marginBottom: downMd ? "1.5rem" : "1rem",
   };

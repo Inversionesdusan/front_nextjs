@@ -118,6 +118,13 @@ a {
   text-align: center;
   padding: 0.25rem;
   position: relative;
+  color: var(--white);
+  transition: all 0.4s ease;
+}
+
+.headerLink:hover {
+  transform: scale(1.1);
+  color: var(--lightGreen);
 }
 
 .headerLink::after {
@@ -130,9 +137,10 @@ a {
   height: 2px;
   background-color: var(--white);
   transform: scaleX(0);
-  transition: transform 0.3s;
+  transition: transform 0.4s ease;
 }
 
 .headerLink:hover::after {
   transform: scaleX(1);
+  background-color: var(--lightGreen);
 }
