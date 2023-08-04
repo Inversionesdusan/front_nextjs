@@ -10,8 +10,8 @@ import isoTipo from "../../../../public/images/logos/Isotipo.svg";
 import { styles } from "./HeaderStyles";
 import HeaderLink from "@/app/components/basic/HeaderLink";
 import { useState } from "react";
-import SideMenu from "@/presentation/components/common/sidemenu/SideMenu";
 import { constantes } from "@/domain/constants";
+import SideMenu from "../../components/common/sidemenu/SideMenu";
 
 const HeaderView = () => {
   const [open, setOpen] = useState<boolean>(false);
