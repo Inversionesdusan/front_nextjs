@@ -144,3 +144,10 @@ a {
   transform: scaleX(1);
   background-color: var(--lightGreen);
 }
+
+/*
+.active-option-header {
+  transform: scale(1.1);
+  color: var(--lightGreen);
+}
+*/

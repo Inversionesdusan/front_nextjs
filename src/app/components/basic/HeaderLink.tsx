@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-scroll";
 
 export interface HeaderLinkProps {
   label: string;
@@ -7,7 +7,15 @@ export interface HeaderLinkProps {
 
 const HeaderLink = ({ label, href }: HeaderLinkProps) => {
   return (
-    <Link className="headerLink" href={href}>
+    <Link
+      className="headerLink"
+      activeClass="active-option-header"
+      to={href}
+      spy={true}
+      smooth={true}
+      offset={0}
+      duration={600}
+    >
       {label}
     </Link>
   );

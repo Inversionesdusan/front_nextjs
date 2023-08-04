@@ -26,6 +26,7 @@
     "react-dom": "^17.0.0 || ^18.0.0",
     "react-hook-form": "^7.45.1",
     "react-query": "^3.39.3",
+    "react-scroll": "^1.8.9",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.11",
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",
+    "@types/react-scroll": "^1.8.7",
     "@types/react-slick": "^0.23.10"
   }
 }

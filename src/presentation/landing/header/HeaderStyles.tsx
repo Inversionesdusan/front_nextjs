@@ -27,7 +27,7 @@ export const styles = (downMd: boolean) => {
     display: downMd ? "block" : "none",
   };
 
-  const optionsBox: SxProps<Theme> = {
+  const optionsBox: CSSProperties = {
     display: downMd ? "none" : "flex",
     flexDirection: "row",
     gap: "0.5rem",

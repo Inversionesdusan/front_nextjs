@@ -256,7 +256,7 @@ const ContactoView = () => {
                 </span>
               </FormControl>
               <ButtonCustom
-                loading={contactoVideModel.loading}
+                loading={contactoVideModel.sending}
                 sx={{ alignSelf: downMd ? "center" : "end", marginY: "1rem" }}
                 type="submit"
                 typeButton="form"

@@ -6,4 +6,10 @@ export const constantes = {
     empresa: "datos-empresa",
     contacto: "datos-contactos",
   },
+  options: [
+    { label: "Inicio", section: "inicio" },
+    { label: "Productos", section: "catalogo" },
+    { label: "Nosotros", section: "nosotros" },
+    { label: "Contáctenos", section: "contactenos" },
+  ],
 };
