@@ -1,5 +1,5 @@
 "use client";
-import { Box, useMediaQuery, useTheme } from "@mui/material";
+import { Box, IconButton, useMediaQuery, useTheme } from "@mui/material";
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
@@ -11,18 +11,46 @@ import { styles } from "./HeaderStyles";
 import HeaderLink from "@/app/components/basic/HeaderLink";
 import { useState } from "react";
 import { constantes } from "@/domain/constants";
-import SideMenu from "../../components/common/sidemenu/SideMenu";
+import SideMenu from "../../components/sidemenu/SideMenu";
+import Container from "@/DI/Container";
+import { IHeaderViewModelReturn } from "./HeaderViewModel";
+import DropDownMenu, {
+  DropDownMenuOpion,
+} from "@/presentation/components/dropdownMenu/DropDownMenu";
 
 const HeaderView = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
   const theme = useTheme();
   const downMd = useMediaQuery(theme.breakpoints.down("md"));
+  const headerViewModel = Container.resolve(
+    "HeaderViewModel"
+  ) as IHeaderViewModelReturn;
+
+  const menuOptions: DropDownMenuOpion[] = [
+    {
+      label: "Registrarme",
+      handleClickOption: () => {
+        console.log("opcion registrarme");
+      },
+    },
+    {
+      label: "Ingresar",
+      handleClickOption: () => {
+        console.log("opcion ingresar");
+      },
+    },
+  ];
 
   const { navbar, iconBox, optionsBox, isologo, isotipo, menuBox, icon } =
     styles(downMd);
 
   const handleOpenDrawer = () => {
     setOpen(!open);
+  };
+
+  const handleOpenMenu = () => {
+    setOpenMenu(!openMenu);
   };
 
   return (
@@ -57,10 +85,17 @@ const HeaderView = () => {
           </div>
         </Box>
         <Box sx={iconBox}>
-          <AccountCircleTwoToneIcon sx={icon} />
+          <IconButton onClick={handleOpenMenu}>
+            <AccountCircleTwoToneIcon sx={icon} />
+          </IconButton>
           <ShoppingCartTwoToneIcon sx={icon} />
         </Box>
       </Box>
+      <DropDownMenu
+        handleOpenMenu={handleOpenMenu}
+        openMenu={openMenu}
+        options={menuOptions}
+      />
       <SideMenu open={open} handleOpenDrawer={handleOpenDrawer} />
     </>
   );

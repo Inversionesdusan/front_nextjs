@@ -15,6 +15,7 @@ import CatalogoLandingViewModel from "../presentation/landing/catalogo/CatalogoL
 import { EmpresaRepository } from "../data/repository/EmpresaRepository";
 import { EmpresaService } from "@/domain/services/EmpresaService";
 import ContactoViewModel from "../presentation/landing/contacto/ContactoViewModel";
+import HeaderViewModel from "@/presentation/landing/header/HeaderViewModel";
 
 const Container = createContainer();
 
@@ -42,6 +43,7 @@ Container.register({
   InformacionViewModel: asFunction(InformacionViewModel),
   CatalogoLandingViewModel: asFunction(CatalogoLandingViewModel),
   ContactoViewModel: asFunction(ContactoViewModel),
+  HeaderViewModel: asFunction(HeaderViewModel),
 });
 
 console.log(" Container -> ", Container);

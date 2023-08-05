@@ -8,11 +8,13 @@ import "slick-carousel/slick/slick-theme.css";
 import logo from "../../../../public/images/logos/Isologo.svg";
 import Image from "next/image";
 import { colors } from "@/presentation/styles/colors";
-import { useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import ButtonCustom from "@/app/components/basic/ButtonCustom";
 
 const HeroView = () => {
   const theme = useTheme();
   const downMd = useMediaQuery(theme.breakpoints.down("md"));
+  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
   const heroViewModel = Container.resolve("HeroViewModel") as IHeroViewModel;
 
   const settings = {
@@ -36,19 +38,44 @@ const HeroView = () => {
     <>Cargando ... </>
   ) : (
     <div style={{ height: "100vh", position: "relative" }} id="inicio">
-      <Image
-        src={logo}
-        alt="Logo Dusan"
-        height={downMd ? 70 : 180}
-        color={colors.white}
-        style={{
+      <Box
+        sx={{
           zIndex: "99",
           position: "absolute",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-      />
+      >
+        <Image
+          src={logo}
+          alt="Logo Dusan"
+          height={downMd ? 70 : 180}
+          color={colors.white}
+        />
+        <Box
+          sx={{
+            padding: "1rem",
+            margin: "2rem",
+            display: "flex",
+            flexDirection: downSm ? "column" : "row",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "1.5rem",
+          }}
+        >
+          <ButtonCustom typeButton="modal">
+            <Typography>Registrarse</Typography>
+          </ButtonCustom>
+          <ButtonCustom typeButton="form">
+            <Typography>Ingresar</Typography>
+          </ButtonCustom>
+        </Box>
+      </Box>
       <Slider {...settings}>
         {heroViewModel.banners.map((banner) => (
           <LandingHeroItem

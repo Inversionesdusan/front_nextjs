@@ -14,7 +14,7 @@ export const styles = (downMd: boolean) => {
     position: "fixed",
     top: "0",
     width: "100%",
-    paddingX: downMd ? "1rem" : "2rem",
+    paddingX: downMd ? "1rem" : "3rem",
     background: colors.black,
     zIndex: 1000,
   };
@@ -50,5 +50,13 @@ export const styles = (downMd: boolean) => {
 
   const icon: SxProps<Theme> = { fontSize: "2rem", color: colors.white };
 
-  return { navbar, iconBox, optionsBox, isologo, isotipo, menuBox, icon };
+  return {
+    navbar,
+    iconBox,
+    optionsBox,
+    isologo,
+    isotipo,
+    menuBox,
+    icon,
+  };
 };

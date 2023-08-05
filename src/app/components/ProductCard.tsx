@@ -34,6 +34,7 @@ const ProductCard = ({ producto, position, downXl }: ProductCardProps) => {
         transition: "all 0.5s ease",
         "&:hover": {
           transform: "scale(1.03)",
+          borderBottom: "none",
           boxShadow:
             "rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px",
         },
@@ -51,7 +52,7 @@ const ProductCard = ({ producto, position, downXl }: ProductCardProps) => {
         <Typography
           sx={{
             fontFamily: "Montserrat",
-            fontSize: "1.5rem",
+            fontSize: downXl ? "1.25rem" : "1.5rem",
             fontWeight: "500",
           }}
         >

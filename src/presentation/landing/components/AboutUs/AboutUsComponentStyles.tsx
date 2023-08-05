@@ -18,6 +18,20 @@ export const styles = (downSm: boolean, downMd: boolean) => {
     marginBottom: downMd ? "1.5rem" : "1rem",
   };
 
+  const textTitleWithSubtitle: SxProps<Theme> = {
+    fontFamily: "Cunia",
+    fontSize: downSm ? "1.5rem" : downMd ? "1.5rem" : "3rem",
+    fontWeight: "700",
+    marginBottom: "0.5rem",
+  };
+
+  const textSubtitle: SxProps<Theme> = {
+    fontFamily: "Cunia",
+    fontSize: downSm ? "1rem" : downMd ? "1.25rem" : "2rem",
+    fontWeight: "500",
+    marginBottom: downMd ? "1.5rem" : "1rem",
+  };
+
   const textMessage: SxProps<Theme> = {
     fontFamily: "Montserrat",
     fontSize: downSm ? "1rem" : "1.25rem",
@@ -27,5 +41,11 @@ export const styles = (downSm: boolean, downMd: boolean) => {
     lineHeight: downSm ? "1.5rem" : undefined,
   };
 
-  return { informationContainer, textTitle, textMessage };
+  return {
+    informationContainer,
+    textTitle,
+    textMessage,
+    textTitleWithSubtitle,
+    textSubtitle,
+  };
 };

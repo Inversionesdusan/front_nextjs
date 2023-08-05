@@ -7,9 +7,9 @@ import {
   ListItemText,
   SwipeableDrawer,
 } from "@mui/material";
-import { colors } from "../../../styles/colors";
+import { colors } from "../../styles/colors";
 import Image from "next/image";
-import logo from "../../../../../public/images/logos/Isologo.svg";
+import logo from "../../../../public/images/logos/Isologo.svg";
 import { styles } from "./SideMenuStyles";
 import { constantes } from "@/domain/constants";
 import MenuItem from "./MenuItem";

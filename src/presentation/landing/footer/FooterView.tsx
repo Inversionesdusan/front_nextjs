@@ -30,7 +30,14 @@ const FooterView = () => {
           inversionesdusan.2012@gmail.com
         </a>
       </Typography>
-      <Typography sx={textObjeto}>+57 3012424496</Typography>
+      <Typography sx={textObjeto}>
+        <a
+          href="https://api.whatsapp.com/send?phone=573012424496"
+          target="_blank"
+        >
+          +57 3012424496
+        </a>
+      </Typography>
       <Box sx={iconContainer}>
         <Image
           src={instagram}

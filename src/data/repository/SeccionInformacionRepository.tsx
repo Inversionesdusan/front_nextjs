@@ -15,6 +15,7 @@ export function SeccionInformacionRepository({
       const newSeccion: ISeccionInformacionDto = {
         id: seccion.id,
         titulo: seccion.attributes.titulo,
+        subtitulo: seccion.attributes.subtitulo || "",
         informacion: seccion.attributes.informacion,
         estado: seccion.attributes.estado,
       };

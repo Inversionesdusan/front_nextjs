@@ -34,7 +34,7 @@ const InformacionView = () => {
     nextArrow: <></>,
     prevArrow: <></>,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 6000,
   };
 
   return informacionModel.loading ? (
@@ -49,6 +49,7 @@ const InformacionView = () => {
             <AboutUsComponent
               key={info.id}
               title={info.titulo}
+              subtitle={info.subtitulo}
               text={info.informacion}
             />
           ))}

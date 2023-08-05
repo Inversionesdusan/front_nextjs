@@ -12,6 +12,7 @@ export interface ISeccionInformacionResponseData {
 
 export interface IAttributesSeccionInformacion {
   titulo: string;
+  subtitulo?: string;
   informacion: string;
   estado: string;
   createdAt: string;

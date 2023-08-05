@@ -11,10 +11,18 @@ const ButtonCustom = (props: ButtonCustomProps) => {
   return (
     <Button
       disabled={props.loading}
+      sx={{
+        transition: "all 0.6s ease",
+        "&:hover": {
+          transform: "scale(1.05)",
+          boxShadow: "rgba(0,0,0,0.16) 0px 2px 4px",
+        },
+      }}
       style={{
         width: "160px",
         height: "50px",
-        background: props.typeButton === "form" ? colors.white : colors.green,
+        background:
+          props.typeButton === "form" ? colors.lightGray : colors.green,
         fontFamily: "Montserrat",
         fontSize: props.typeButton === "form" ? "2.5rem" : "1rem",
         fontWeight: "600",
