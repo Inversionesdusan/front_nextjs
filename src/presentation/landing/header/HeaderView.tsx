@@ -18,29 +18,19 @@ import DropDownMenu, {
   DropDownMenuOpion,
 } from "@/presentation/components/dropdownMenu/DropDownMenu";
 
-const HeaderView = () => {
+interface HeaderViewProps {
+  menuOptions: DropDownMenuOpion[];
+}
+
+const HeaderView = ({ menuOptions }: HeaderViewProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
+
   const theme = useTheme();
   const downMd = useMediaQuery(theme.breakpoints.down("md"));
   const headerViewModel = Container.resolve(
     "HeaderViewModel"
   ) as IHeaderViewModelReturn;
-
-  const menuOptions: DropDownMenuOpion[] = [
-    {
-      label: "Registrarme",
-      handleClickOption: () => {
-        console.log("opcion registrarme");
-      },
-    },
-    {
-      label: "Ingresar",
-      handleClickOption: () => {
-        console.log("opcion ingresar");
-      },
-    },
-  ];
 
   const { navbar, iconBox, optionsBox, isologo, isotipo, menuBox, icon } =
     styles(downMd);

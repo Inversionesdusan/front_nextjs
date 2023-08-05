@@ -5,6 +5,7 @@ import { Button, ButtonProps, CircularProgress } from "@mui/material";
 export interface ButtonCustomProps extends ButtonProps {
   typeButton: "form" | "modal";
   loading?: boolean;
+  invert?: boolean;
 }
 
 const ButtonCustom = (props: ButtonCustomProps) => {
@@ -22,7 +23,11 @@ const ButtonCustom = (props: ButtonCustomProps) => {
         width: "160px",
         height: "50px",
         background:
-          props.typeButton === "form" ? colors.lightGray : colors.green,
+          props.typeButton === "form"
+            ? colors.lightGray
+            : props.invert
+            ? colors.gray
+            : colors.green,
         fontFamily: "Montserrat",
         fontSize: props.typeButton === "form" ? "2.5rem" : "1rem",
         fontWeight: "600",
@@ -37,7 +42,12 @@ const ButtonCustom = (props: ButtonCustomProps) => {
       {props.loading ? (
         <CircularProgress
           sx={{
-            color: props.typeButton === "form" ? colors.green : colors.white,
+            color:
+              props.typeButton === "form"
+                ? colors.green
+                : props.invert
+                ? colors.solidGreen
+                : colors.white,
             height: "60%",
             transform: "scale(80%)",
           }}

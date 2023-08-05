@@ -11,7 +11,15 @@ import { colors } from "@/presentation/styles/colors";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ButtonCustom from "@/app/components/basic/ButtonCustom";
 
-const HeroView = () => {
+interface HeroViewProps {
+  handleOpenModalRegistro: () => void;
+  handleOpenModalLogin: () => void;
+}
+
+const HeroView = ({
+  handleOpenModalRegistro,
+  handleOpenModalLogin,
+}: HeroViewProps) => {
   const theme = useTheme();
   const downMd = useMediaQuery(theme.breakpoints.down("md"));
   const downSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -68,10 +76,10 @@ const HeroView = () => {
             gap: "1.5rem",
           }}
         >
-          <ButtonCustom typeButton="modal">
-            <Typography>Registrarse</Typography>
+          <ButtonCustom typeButton="modal" onClick={handleOpenModalRegistro}>
+            <Typography>Registrarme</Typography>
           </ButtonCustom>
-          <ButtonCustom typeButton="form">
+          <ButtonCustom typeButton="form" onClick={handleOpenModalLogin}>
             <Typography>Ingresar</Typography>
           </ButtonCustom>
         </Box>

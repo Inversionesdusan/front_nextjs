@@ -7,16 +7,44 @@ import { Box, useMediaQuery, useTheme } from "@mui/material";
 import ContactoView from "./contacto/ContactoView";
 import FooterView from "./footer/FooterView";
 import { colors } from "../styles/colors";
+import { useState } from "react";
+import { DropDownMenuOpion } from "../components/dropdownMenu/DropDownMenu";
+import ModalRegistro from "@/presentation/components/modalRegistro/ModalRegistro";
+import ModalLogin from "@/presentation/components/modalLogin/ModalLogin";
 
 const LandingIndex = () => {
   const theme = useTheme();
   const downXl = useMediaQuery(theme.breakpoints.down("xl"));
+  const [openModalRegistro, setOpenModalRegistro] = useState<boolean>(false);
+  const [openModalLogin, setOpenModalLogin] = useState<boolean>(false);
+
+  const handleOpenModalRegistro = () => {
+    setOpenModalRegistro(!openModalRegistro);
+  };
+
+  const handleOpenModalLogin = () => {
+    setOpenModalLogin(!openModalLogin);
+  };
+
+  const menuOptions: DropDownMenuOpion[] = [
+    {
+      label: "Registrarme",
+      handleClickOption: handleOpenModalRegistro,
+    },
+    {
+      label: "Ingresar",
+      handleClickOption: handleOpenModalLogin,
+    },
+  ];
 
   return (
     <>
-      <HeaderView />
+      <HeaderView menuOptions={menuOptions} />
       <Box sx={{ width: "100%", marginX: "auto", height: "100vh" }}>
-        <HeroView />
+        <HeroView
+          handleOpenModalLogin={handleOpenModalLogin}
+          handleOpenModalRegistro={handleOpenModalRegistro}
+        />
       </Box>
       <Box
         id="catalogo"
@@ -47,6 +75,20 @@ const LandingIndex = () => {
       <Box sx={{ width: "100%" }}>
         <FooterView />
       </Box>
+      <ModalRegistro
+        open={openModalRegistro}
+        title="Registro"
+        message="Prueba"
+        onClose={handleOpenModalRegistro}
+        onAccept={handleOpenModalRegistro}
+      />
+      <ModalLogin
+        open={openModalLogin}
+        title="Ingreso"
+        message="Prueba"
+        onClose={handleOpenModalLogin}
+        onAccept={handleOpenModalLogin}
+      />
     </>
   );
 };
