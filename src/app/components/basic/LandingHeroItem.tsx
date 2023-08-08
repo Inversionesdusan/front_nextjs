@@ -61,7 +61,7 @@ const LandingHeroItem = ({
           >
             {description}
           </Typography>
-          <HeaderLink label="Registrate" href="/register" />
+          <HeaderLink label="Registrate" href="/register" landing={true} />
         </Box>
       )}
     </Box>
