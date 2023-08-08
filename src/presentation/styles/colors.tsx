@@ -4,6 +4,7 @@ export const colors = {
   lightGreen: "#568C7D",
   white: "#F2F2F2",
   gray: "#8C8C8C",
-  lightGray: "#EBEBEB",
+  lightGray: "#D6D6D6", // "#EBEBEB",
   black: "linear-gradient(25deg, rgba(38,38,38,1) 0%, rgba(61,61,61,0.99) 78%)", //"#262626",
+  solidBlack: "#262626",
 };

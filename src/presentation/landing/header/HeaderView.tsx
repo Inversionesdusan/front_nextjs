@@ -20,9 +20,10 @@ import DropDownMenu, {
 
 interface HeaderViewProps {
   menuOptions: DropDownMenuOpion[];
+  landing: boolean;
 }
 
-const HeaderView = ({ menuOptions }: HeaderViewProps) => {
+const HeaderView = ({ menuOptions, landing }: HeaderViewProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
@@ -66,6 +67,7 @@ const HeaderView = ({ menuOptions }: HeaderViewProps) => {
               key={option.section}
               label={option.label}
               href={option.section}
+              landing={landing}
             />
           ))}
         </nav>

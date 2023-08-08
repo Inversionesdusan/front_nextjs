@@ -7,39 +7,25 @@ import { Box, useMediaQuery, useTheme } from "@mui/material";
 import ContactoView from "./contacto/ContactoView";
 import FooterView from "./footer/FooterView";
 import { colors } from "../styles/colors";
-import { useState } from "react";
-import { DropDownMenuOpion } from "../components/dropdownMenu/DropDownMenu";
 import ModalRegistro from "@/presentation/components/modalRegistro/ModalRegistro";
 import ModalLogin from "@/presentation/components/modalLogin/ModalLogin";
+import useMenuHook from "@/domain/hooks/useMenuHook";
 
 const LandingIndex = () => {
   const theme = useTheme();
   const downXl = useMediaQuery(theme.breakpoints.down("xl"));
-  const [openModalRegistro, setOpenModalRegistro] = useState<boolean>(false);
-  const [openModalLogin, setOpenModalLogin] = useState<boolean>(false);
 
-  const handleOpenModalRegistro = () => {
-    setOpenModalRegistro(!openModalRegistro);
-  };
-
-  const handleOpenModalLogin = () => {
-    setOpenModalLogin(!openModalLogin);
-  };
-
-  const menuOptions: DropDownMenuOpion[] = [
-    {
-      label: "Registrarme",
-      handleClickOption: handleOpenModalRegistro,
-    },
-    {
-      label: "Ingresar",
-      handleClickOption: handleOpenModalLogin,
-    },
-  ];
+  const {
+    menuOptions,
+    handleOpenModalLogin,
+    handleOpenModalRegistro,
+    openModalLogin,
+    openModalRegistro,
+  } = useMenuHook();
 
   return (
     <>
-      <HeaderView menuOptions={menuOptions} />
+      <HeaderView menuOptions={menuOptions} landing={true} />
       <Box sx={{ width: "100%", marginX: "auto", height: "100vh" }}>
         <HeroView
           handleOpenModalLogin={handleOpenModalLogin}

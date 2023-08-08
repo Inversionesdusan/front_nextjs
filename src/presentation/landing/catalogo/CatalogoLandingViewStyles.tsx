@@ -38,6 +38,10 @@ export const styles = (downSm: boolean, downLg: boolean, downXl: boolean) => {
   const textBoxContainer: SxProps<Theme> = {
     textAlign: "center",
     transform: downLg ? "translateY(-1rem)" : "translateY(-1.5rem)",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   };
 
   const title: SxProps<Theme> = {
@@ -51,6 +55,15 @@ export const styles = (downSm: boolean, downLg: boolean, downXl: boolean) => {
     fontSize: downSm ? "1.25rem" : downLg ? "2rem" : "3rem",
     fontWeight: "700",
     lineHeight: downSm ? "1.25rem" : downLg ? "2rem" : "3rem",
+  };
+
+  const button: SxProps<Theme> = {
+    display: {
+      xs: "none",
+      md: "flex",
+      alignSelf: "center",
+      marginTop: "2rem",
+    },
   };
 
   const catologContainer: SxProps<Theme> = {
@@ -73,5 +86,6 @@ export const styles = (downSm: boolean, downLg: boolean, downXl: boolean) => {
     title,
     subtitle,
     catologContainer,
+    button,
   };
 };

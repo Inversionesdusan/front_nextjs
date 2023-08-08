@@ -2,8 +2,9 @@ import Container from "@/DI/Container";
 import { useEffect } from "react";
 import { ICatalogoLandingViewModel } from "../../../domain/models/viewModels/ICatalogLandingViewModel";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import ProductCard from "@/app/components/ProductCard";
+import ProductCard from "@/presentation/components/productCard/ProductCard";
 import { styles } from "./CatalogoLandingViewStyles";
+import ButtonCustom from "@/app/components/basic/ButtonCustom";
 
 const CatalogoLandingView = () => {
   const theme = useTheme();
@@ -25,6 +26,7 @@ const CatalogoLandingView = () => {
     textBoxContainer,
     title,
     subtitle,
+    button,
     catologContainer,
   } = styles(downSm, downLg, downXl);
 
@@ -37,6 +39,9 @@ const CatalogoLandingView = () => {
           <Typography sx={title}>CONOCE</Typography>
           <Typography sx={subtitle}>NUESTROS</Typography>
           <Typography sx={subtitle}>PRODUCTOS</Typography>
+          <ButtonCustom typeButton="form" sx={button} href="/catalogo">
+            <Typography>Ver Catálogo</Typography>
+          </ButtonCustom>
         </Box>
       </Box>
       <Box sx={catologContainer}>
