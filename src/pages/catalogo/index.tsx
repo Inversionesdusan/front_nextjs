@@ -1,7 +1,7 @@
-import Catalog from "@/presentation/catalog/Catalog";
+import CatalogView from "@/presentation/catalog/CatalogView";
 
 const index = () => {
-  return <Catalog />;
+  return <CatalogView />;
 };
 
 export default index;

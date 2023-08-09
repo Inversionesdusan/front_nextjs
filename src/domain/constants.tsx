@@ -5,6 +5,7 @@ export const constantes = {
     productos: "productos",
     empresa: "datos-empresa",
     contacto: "datos-contactos",
+    precios: "precios-productos",
   },
   options: [
     { label: "Inicio", section: "inicio" },

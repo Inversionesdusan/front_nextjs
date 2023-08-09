@@ -4,6 +4,7 @@ import * as BannerDataSource from "@/data/dataSource/BannersDataSource";
 import * as SeccionInformacionDataSource from "@/data/dataSource/SeccionInformacionDataSource";
 import * as ProductosDataSource from "@/data/dataSource/ProductosDataSource";
 import * as EmpresaDataSource from "@/data/dataSource/EmpresaDataSource";
+import * as PreciosDataSource from "@/data/dataSource/PrecioProductoDataSource";
 import { BannersRepository } from "../data/repository/BannersRepository";
 import { SeccionInformacionRepository } from "../data/repository/SeccionInformacionRepository";
 import { BannersService } from "@/domain/services/BannersService";
@@ -16,6 +17,9 @@ import { EmpresaRepository } from "../data/repository/EmpresaRepository";
 import { EmpresaService } from "@/domain/services/EmpresaService";
 import ContactoViewModel from "../presentation/landing/contacto/ContactoViewModel";
 import HeaderViewModel from "@/presentation/landing/header/HeaderViewModel";
+import { PreciosRepository } from "@/data/repository/PreciosRepository";
+import { PreciosService } from "@/domain/services/PreciosService";
+import CatalogViewModel from "@/presentation/catalog/CatalogViewModel";
 
 const Container = createContainer();
 
@@ -25,18 +29,21 @@ Container.register({
   SeccionInformacionDataSource: asValue(SeccionInformacionDataSource),
   ProductosDataSource: asValue(ProductosDataSource),
   EmpresaDataSource: asValue(EmpresaDataSource),
+  PreciosDataSource: asValue(PreciosDataSource),
 
   //Repositories
   BannersRepository: asFunction(BannersRepository),
   SeccionInformacionRepository: asFunction(SeccionInformacionRepository),
   ProductosRepository: asFunction(ProductosRepository),
   EmpresaRepository: asFunction(EmpresaRepository),
+  PreciosRepository: asFunction(PreciosRepository),
 
   //Services
   BannersService: asFunction(BannersService),
   SeccionInformacionService: asFunction(SeccionInformacionService),
   ProductosService: asFunction(ProductosService),
   EmpresaService: asFunction(EmpresaService),
+  PreciosService: asFunction(PreciosService),
 
   //ViewModels
   HeroViewModel: asFunction(HeroViewModel),
@@ -44,6 +51,7 @@ Container.register({
   CatalogoLandingViewModel: asFunction(CatalogoLandingViewModel),
   ContactoViewModel: asFunction(ContactoViewModel),
   HeaderViewModel: asFunction(HeaderViewModel),
+  CatalogViewModel: asFunction(CatalogViewModel),
 });
 
 console.log(" Container -> ", Container);

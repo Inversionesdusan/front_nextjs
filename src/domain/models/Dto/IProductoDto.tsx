@@ -20,3 +20,13 @@ export interface IProductoDto {
     descripcion: string;
   };
 }
+
+export interface IProductoWithPricesDto extends IProductoDto {
+  precios: IPrecioProd[];
+}
+
+export interface IPrecioProd {
+  idPresentacion: number;
+  descripcionPres: string;
+  valor: number;
+}
