@@ -12,6 +12,7 @@ export interface IPrecioProductoResponseData {
 
 export interface Attributes {
   valor: number;
+  disponible: number;
   createdAt: string;
   updatedAt: string;
   producto: Producto;

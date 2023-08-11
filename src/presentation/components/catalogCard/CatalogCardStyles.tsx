@@ -51,7 +51,7 @@ export const styles = (url: string) => {
   };
 
   const moreButton: SxProps<Theme> = {
-    background: colors.lightGray,
+    background: colors.mediumGray,
     color: colors.solidGreen,
     width: "100%",
     marginY: "0.24rem",

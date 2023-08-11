@@ -13,7 +13,7 @@ export const GetPrecioProductos =
       };
 
       const response = await axios.request<IPrecioProductoResponse>(request);
-      return await response.data;
+      return response.data;
     };
 
     try {
@@ -25,6 +25,6 @@ export const GetPrecioProductos =
 
       return data;
     } catch (error) {
-      throw new Error("error al obtener datos de la empresa");
+      throw new Error("Error al obtener datos de los precios");
     }
   };

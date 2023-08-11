@@ -6,9 +6,10 @@ import { styles } from "./CatalogCardStyles";
 
 interface CatalogCardProps {
   producto: IProductoWithPricesDto;
+  handleClickCarButton: (producto: IProductoWithPricesDto) => void;
 }
 
-const CatalogCard = ({ producto }: CatalogCardProps) => {
+const CatalogCard = ({ producto, handleClickCarButton }: CatalogCardProps) => {
   const {
     card,
     typeLabel,
@@ -36,7 +37,13 @@ const CatalogCard = ({ producto }: CatalogCardProps) => {
       <Button startIcon={<AddIcon />} sx={moreButton}>
         <Typography sx={labelMoreButton}>Ver Detalle</Typography>
       </Button>
-      <Button startIcon={<AddShoppingCartIcon />} sx={carButton}>
+      <Button
+        startIcon={<AddShoppingCartIcon />}
+        sx={carButton}
+        onClick={() => {
+          handleClickCarButton(producto);
+        }}
+      >
         <Typography sx={labelCarButton}>Agregar al Carrito</Typography>
       </Button>
     </Box>

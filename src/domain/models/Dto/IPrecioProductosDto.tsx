@@ -6,4 +6,5 @@ export interface IPrecioProductosDto {
   idPresentacion: number;
   descripcionPres: string;
   valor: number;
+  disponible: number;
 }

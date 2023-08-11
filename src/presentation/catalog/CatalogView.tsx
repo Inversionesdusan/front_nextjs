@@ -7,6 +7,7 @@ import { IProductoDto } from "@/domain/models/Dto/IProductoDto";
 import Container from "@/DI/Container";
 import { ICatalogoViewModel } from "./CatalogViewModel";
 import { useEffect } from "react";
+import ShoppingCarModal from "../components/shoppinCarModal/ShoppingCarModal";
 
 const productos: IProductoDto[] = [];
 
@@ -26,20 +27,35 @@ const CatalogView = () => {
   }, []);
 
   return (
-    <Box sx={container}>
-      <HeaderView menuOptions={menuOptions} landing={false} />
-      <Box sx={catalogContainer}>
-        <Box sx={titleBox}>
-          <Typography sx={title}>Catálogo de productos</Typography>
-        </Box>
-        <Box sx={productContainer}>
-          {catalogViewModel.productos &&
-            catalogViewModel.productos.map((producto) => (
-              <CatalogCard key={`Pr-${producto.id}`} producto={producto} />
-            ))}
+    <>
+      <Box sx={container}>
+        <HeaderView menuOptions={menuOptions} landing={false} />
+        <Box sx={catalogContainer}>
+          <Box sx={titleBox}>
+            <Typography sx={title}>Catálogo de productos</Typography>
+          </Box>
+          <Box sx={productContainer}>
+            {catalogViewModel.productos &&
+              catalogViewModel.productos.map((producto) => (
+                <CatalogCard
+                  key={`Pr-${producto.id}`}
+                  producto={producto}
+                  handleClickCarButton={catalogViewModel.handleClickCarDetail}
+                />
+              ))}
+          </Box>
         </Box>
       </Box>
-    </Box>
+      {catalogViewModel.productoSeleccionado && (
+        <ShoppingCarModal
+          producto={catalogViewModel.productoSeleccionado!}
+          open={catalogViewModel.openModalCar}
+          handleClose={catalogViewModel.handleOpenModalCar}
+          handleOrder={() => console.log("ordenar")}
+          handleShoppingCar={catalogViewModel.handleClickShoppingCar}
+        />
+      )}
+    </>
   );
 };
 

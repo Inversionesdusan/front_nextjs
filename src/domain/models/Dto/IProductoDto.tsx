@@ -29,4 +29,5 @@ export interface IPrecioProd {
   idPresentacion: number;
   descripcionPres: string;
   valor: number;
+  disponible: number;
 }

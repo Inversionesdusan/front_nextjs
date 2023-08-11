@@ -30,6 +30,7 @@ export const PreciosRepository = ({
         descripcionPres:
           precio.attributes.presentacion.data.attributes.descripcion,
         valor: precio.attributes.valor,
+        disponible: precio.attributes.disponible,
       };
 
       precios.push(newPrecio);

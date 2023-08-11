@@ -6,6 +6,10 @@ export const constantes = {
     empresa: "datos-empresa",
     contacto: "datos-contactos",
     precios: "precios-productos",
+    presentaciones: "presentaciones",
+  },
+  keys: {
+    shoppingCar: "shoppingCarData",
   },
   options: [
     { label: "Inicio", section: "inicio" },

@@ -20,6 +20,7 @@ import HeaderViewModel from "@/presentation/landing/header/HeaderViewModel";
 import { PreciosRepository } from "@/data/repository/PreciosRepository";
 import { PreciosService } from "@/domain/services/PreciosService";
 import CatalogViewModel from "@/presentation/catalog/CatalogViewModel";
+import { PresentacionRepository } from "@/data/repository/PresentacionesRepository";
 
 const Container = createContainer();
 
@@ -37,6 +38,7 @@ Container.register({
   ProductosRepository: asFunction(ProductosRepository),
   EmpresaRepository: asFunction(EmpresaRepository),
   PreciosRepository: asFunction(PreciosRepository),
+  PresentacionRepository: asFunction(PresentacionRepository),
 
   //Services
   BannersService: asFunction(BannersService),
