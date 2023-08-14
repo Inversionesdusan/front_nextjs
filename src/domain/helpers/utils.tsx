@@ -1,5 +1,5 @@
-export const removeAccents = (text: string) => {
-  const accentsMap = {
+export const removeAccents = (text: string): string => {
+  const accentsMap: { [key: string]: string } = {
     á: "a",
     é: "e",
     í: "i",
