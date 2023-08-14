@@ -1,5 +1,4 @@
 "use client";
-
 import queryClient from "@/domain/configuations/reactQueryConfig";
 import LandingIndex from "@/presentation/landing/LandingIndex";
 import theme from "@/presentation/styles/theme";

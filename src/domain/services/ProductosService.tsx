@@ -18,7 +18,6 @@ export function ProductosService({
       .sort((a, b) => {
         return a.orden - b.orden;
       });
-    console.log("productos landing -> ", prodLanding);
     return prodLanding;
   };
 

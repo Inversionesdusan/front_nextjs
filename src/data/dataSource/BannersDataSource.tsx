@@ -23,7 +23,6 @@ export const GetAllBanners = async (): Promise<IBannersResponse> => {
     );
     return data;
   } catch (error) {
-    console.log("***** error banners *****  -> ", error);
     throw new Error("Error al obtener los banners");
   }
 };

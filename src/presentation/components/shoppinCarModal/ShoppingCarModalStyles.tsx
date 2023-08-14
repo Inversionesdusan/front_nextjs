@@ -67,7 +67,6 @@ export const styles = (url: string, open: boolean) => {
     fontFamily: "Montserrat",
     color: colors.solidGreen,
     fontSize: "1rem",
-    textAlign: "justify",
     marginY: "0.5rem",
   };
 

@@ -1,6 +1,6 @@
 import { ISeccionInformacionDto } from "@/domain/models/Dto/ISeccionInformacionDto";
 import { ISeccionInformacionService } from "@/domain/models/services/ISeccionInformacionService";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const InformacionViewModel = ({
   SeccionInformacionService,
@@ -11,7 +11,6 @@ const InformacionViewModel = ({
   const getInformacion = async () => {
     setLoading(true);
     const resp = await SeccionInformacionService.getDataSeccionInformacion();
-    console.log("** respuesta servicio  ->  ", resp);
     setInformacion(resp);
     setLoading(false);
   };

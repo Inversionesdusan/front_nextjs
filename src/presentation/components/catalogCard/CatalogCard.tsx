@@ -3,6 +3,7 @@ import { Box, Button, Typography } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AddIcon from "@mui/icons-material/Add";
 import { styles } from "./CatalogCardStyles";
+import { constantes } from "@/domain/constants";
 
 interface CatalogCardProps {
   producto: IProductoWithPricesDto;
@@ -22,7 +23,7 @@ const CatalogCard = ({ producto, handleClickCarButton }: CatalogCardProps) => {
     priceLabel,
   } = styles(producto.imagen.urlThumbnail || "");
 
-  const formatNumber = Intl.NumberFormat("es-CO");
+  const formatNumber = Intl.NumberFormat(constantes.locale);
   const precio = producto.precios[0].valor;
   const unidad = producto.precios[0].descripcionPres;
 
@@ -35,7 +36,9 @@ const CatalogCard = ({ producto, handleClickCarButton }: CatalogCardProps) => {
         {precio > 0 ? `$${formatNumber.format(precio)} - ${unidad}` : unidad}
       </Typography>
       <Button startIcon={<AddIcon />} sx={moreButton}>
-        <Typography sx={labelMoreButton}>Ver Detalle</Typography>
+        <Typography sx={labelMoreButton}>
+          {constantes.catalog.detailButtonLabel}
+        </Typography>
       </Button>
       <Button
         startIcon={<AddShoppingCartIcon />}
@@ -44,7 +47,9 @@ const CatalogCard = ({ producto, handleClickCarButton }: CatalogCardProps) => {
           handleClickCarButton(producto);
         }}
       >
-        <Typography sx={labelCarButton}>Agregar al Carrito</Typography>
+        <Typography sx={labelCarButton}>
+          {constantes.catalog.addItemButtonLabel}
+        </Typography>
       </Button>
     </Box>
   );

@@ -58,10 +58,8 @@ const ContactoViewModel = ({ EmpresaService }: IContactoViewModelProps) => {
     dataResetForm: IContactoFormValues
   ) => {
     try {
-      console.log("grabando datos del contacto -> ", data);
       setSending(true);
       const resp = await EmpresaService.saveDataContacto(data);
-      console.log("resp -> ", resp);
       handleOpenModal(
         "Atención",
         "Se ha guardado la información. En breve te estaremos contactando"

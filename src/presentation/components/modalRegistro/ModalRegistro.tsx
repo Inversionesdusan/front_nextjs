@@ -87,9 +87,7 @@ const ModalRegistro = ({
         <form
           noValidate
           autoComplete="off"
-          onSubmit={(data) => {
-            console.log(data);
-          }}
+          onSubmit={(data) => {}}
           style={{ width: "100%", marginBottom: "2rem" }}
         >
           <FormControl

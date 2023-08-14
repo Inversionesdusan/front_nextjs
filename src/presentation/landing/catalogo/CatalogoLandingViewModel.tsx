@@ -21,7 +21,6 @@ const CatalogoLandingViewModel = ({
     index: number,
     downXl: boolean
   ): "center" | "topLeft" | "topRigth" | "bottomLeft" | "bottomRigth" => {
-    console.log("downxl -> ", downXl);
     if (downXl) return "center";
     if (index === 0) return "topLeft";
     if (index === 1 || index === 4) return "center";

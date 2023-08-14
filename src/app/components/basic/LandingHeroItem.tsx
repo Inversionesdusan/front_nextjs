@@ -12,8 +12,6 @@ const LandingHeroItem = ({
   title,
   description,
 }: LandingHeroItemProps) => {
-  console.log(image);
-
   return (
     <Box sx={{ position: "relative", height: "100vh", overflow: "hidden" }}>
       <CardMedia

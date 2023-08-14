@@ -56,5 +56,4 @@ Container.register({
   CatalogViewModel: asFunction(CatalogViewModel),
 });
 
-console.log(" Container -> ", Container);
 export default Container;

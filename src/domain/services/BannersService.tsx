@@ -2,7 +2,6 @@ import { IBannersRepository } from "@/domain/models/repositories/IBannersReposit
 
 export function BannersService({ BannersRepository }: IBannersRepository) {
   const getAllBanners = async () => {
-    console.log("llamado en el servicio");
     return await BannersRepository.getAllBanners();
   };
 

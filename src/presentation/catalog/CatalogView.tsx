@@ -1,15 +1,24 @@
 import useMenuHook from "@/domain/hooks/useMenuHook";
 import HeaderView from "../landing/header/HeaderView";
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Grow,
+  Input,
+  InputAdornment,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import { styles } from "./CatalogViewStyles";
 import CatalogCard from "../components/catalogCard/CatalogCard";
-import { IProductoDto } from "@/domain/models/Dto/IProductoDto";
 import Container from "@/DI/Container";
 import { ICatalogoViewModel } from "./CatalogViewModel";
 import { useEffect } from "react";
 import ShoppingCarModal from "../components/shoppinCarModal/ShoppingCarModal";
-
-const productos: IProductoDto[] = [];
+import ModalComponent from "../components/common/ModalComponent";
+import { constantes } from "@/domain/constants";
+import Dropdown from "../components/dropdown/Dropdown";
+import SearchIcon from "@mui/icons-material/Search";
+import SearchOffIcon from "@mui/icons-material/SearchOff";
 
 const CatalogView = () => {
   const catalogViewModel = Container.resolve(
@@ -17,8 +26,19 @@ const CatalogView = () => {
   ) as ICatalogoViewModel;
 
   const { menuOptions } = useMenuHook();
-  const { container, catalogContainer, titleBox, title, productContainer } =
-    styles();
+  const {
+    container,
+    catalogContainer,
+    titleBox,
+    title,
+    productContainer,
+    filterBox,
+    filterText,
+    boxNoData,
+    iconEmptyState,
+    textEmptyState,
+    progress,
+  } = styles();
 
   useEffect(() => {
     (async () => {
@@ -32,18 +52,84 @@ const CatalogView = () => {
         <HeaderView menuOptions={menuOptions} landing={false} />
         <Box sx={catalogContainer}>
           <Box sx={titleBox}>
-            <Typography sx={title}>Catálogo de productos</Typography>
+            <Typography sx={title}>{constantes.catalog.pageTitle}</Typography>
           </Box>
-          <Box sx={productContainer}>
-            {catalogViewModel.productos &&
-              catalogViewModel.productos.map((producto) => (
-                <CatalogCard
-                  key={`Pr-${producto.id}`}
-                  producto={producto}
-                  handleClickCarButton={catalogViewModel.handleClickCarDetail}
-                />
-              ))}
+          <Box sx={filterBox}>
+            {catalogViewModel.tipoProducto && (
+              <Dropdown
+                placeHolder={constantes.catalog.filterPlaceholder}
+                selectedValue={catalogViewModel.tipoSeleccionado}
+                handleChange={catalogViewModel.handleFilterChange}
+                data={catalogViewModel.tipoProducto.map((tp) => ({
+                  value: tp.tipoProductoId.toString(),
+                  label: tp.descripcion,
+                }))}
+              />
+            )}
+            <Input
+              sx={filterText}
+              fullWidth
+              placeholder="Buscar..."
+              value={catalogViewModel.textFilter}
+              onChange={(e) =>
+                catalogViewModel.handleChangetextFilter(e.target.value)
+              }
+              endAdornment={
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              }
+            />
           </Box>
+
+          {catalogViewModel.loadingProds ? (
+            <Grow
+              in={catalogViewModel.productosFiltrados.length === 0}
+              style={{ transformOrigin: "0" }}
+              timeout={500}
+            >
+              <Box sx={boxNoData}>
+                <CircularProgress sx={progress} />
+                <Typography sx={textEmptyState}>
+                  {constantes.catalog.loadingMessage}
+                </Typography>
+              </Box>
+            </Grow>
+          ) : catalogViewModel.productosFiltrados.length > 0 ? (
+            <Grow
+              in={catalogViewModel.productosFiltrados.length > 0}
+              style={{ transformOrigin: "0" }}
+              timeout={500}
+            >
+              {
+                <Box sx={productContainer}>
+                  {catalogViewModel.productosFiltrados &&
+                    catalogViewModel.productosFiltrados.map((producto) => (
+                      <CatalogCard
+                        key={`Pr-${producto.id}`}
+                        producto={producto}
+                        handleClickCarButton={
+                          catalogViewModel.handleClickCarDetail
+                        }
+                      />
+                    ))}
+                </Box>
+              }
+            </Grow>
+          ) : (
+            <Grow
+              in={catalogViewModel.productosFiltrados.length === 0}
+              style={{ transformOrigin: "0" }}
+              timeout={500}
+            >
+              <Box sx={boxNoData}>
+                <SearchOffIcon sx={iconEmptyState} />
+                <Typography sx={textEmptyState}>
+                  {constantes.catalog.emptyStateMessage}
+                </Typography>
+              </Box>
+            </Grow>
+          )}
         </Box>
       </Box>
       {catalogViewModel.productoSeleccionado && (
@@ -55,6 +141,13 @@ const CatalogView = () => {
           handleShoppingCar={catalogViewModel.handleClickShoppingCar}
         />
       )}
+      <ModalComponent
+        open={catalogViewModel.openModalMessage}
+        title={catalogViewModel.dataModalMessage.title}
+        message={catalogViewModel.dataModalMessage.message}
+        onAccept={catalogViewModel.handleOpenModalMessage}
+        onClose={catalogViewModel.handleOpenModalMessage}
+      />
     </>
   );
 };
