@@ -7,12 +7,14 @@ interface QuantityComponentProps {
   quantity: number;
   addQty: () => void;
   removeQty: () => void;
+  size?: "regular" | "small";
 }
 
 const QuantityComponent = ({
   quantity,
   addQty,
   removeQty,
+  size = "regular",
 }: QuantityComponentProps) => {
   return (
     <Box
@@ -25,16 +27,21 @@ const QuantityComponent = ({
       }}
     >
       <IconButton
-        sx={{ padding: "0", color: colors.solidGreen }}
+        sx={{
+          padding: "0",
+          color: colors.solidGreen,
+        }}
         onClick={removeQty}
       >
-        <RemoveCircleRoundedIcon />
+        <RemoveCircleRoundedIcon
+          sx={{ fontSize: size === "regular" ? "1.5rem" : "1.25rem" }}
+        />
       </IconButton>
       <Typography
         sx={{
           marginX: "0.5rem",
           fontFamily: "Montserrat",
-          fontSize: "1rem",
+          fontSize: size === "regular" ? "1rem" : "0.875rem",
           color: colors.solidGreen,
           fontWeight: "700",
           width: "50px",
@@ -44,10 +51,16 @@ const QuantityComponent = ({
         {quantity}
       </Typography>
       <IconButton
-        sx={{ padding: "0", color: colors.solidGreen }}
+        sx={{
+          padding: "0",
+          color: colors.solidGreen,
+          fontSize: size === "regular" ? "1rem" : "0.875rem",
+        }}
         onClick={addQty}
       >
-        <AddCircleRoundedIcon />
+        <AddCircleRoundedIcon
+          sx={{ fontSize: size === "regular" ? "1.5rem" : "1.25rem" }}
+        />
       </IconButton>
     </Box>
   );

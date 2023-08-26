@@ -17,7 +17,7 @@ export const styles = (url: string, open: boolean) => {
   };
 
   const modalContainer: SxProps<Theme> = {
-    width: "750px",
+    width: "780px",
     background: colors.gradientGray,
     borderRadius: "2rem 7rem 2rem 7rem",
     display: "flex",
@@ -117,6 +117,7 @@ export const styles = (url: string, open: boolean) => {
     width: "100%",
     marginRight: "0.75rem",
     marginY: "2rem",
+    borderRadius: "50px",
   };
 
   const labelOrderButton: SxProps<Theme> = {
@@ -133,6 +134,7 @@ export const styles = (url: string, open: boolean) => {
     width: "100%",
     marginLeft: "0.75rem",
     marginY: "2rem",
+    borderRadius: "50px",
   };
 
   const labelCarButton: SxProps<Theme> = {

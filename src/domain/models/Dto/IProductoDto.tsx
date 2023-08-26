@@ -1,3 +1,6 @@
+import { CartItem } from "../store/CarItem";
+import { IPresentacionDto } from "./IPresentacionDto";
+
 export interface IProductoDto {
   id: number;
   nombreProducto: string;
@@ -19,6 +22,7 @@ export interface IProductoDto {
     id: number;
     descripcion: string;
   };
+  ventajas: string;
 }
 
 export interface IProductoWithPricesDto extends IProductoDto {
@@ -30,4 +34,13 @@ export interface IPrecioProd {
   descripcionPres: string;
   valor: number;
   disponible: number;
+}
+
+export interface CartProduct extends IProductoWithPricesDto {
+  quantity?: CartItem;
+}
+
+export interface ProductoPedidos extends IProductoWithPricesDto {
+  quantity?: CartItem;
+  presentaciones: IPresentacionDto[];
 }

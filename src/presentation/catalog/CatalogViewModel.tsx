@@ -1,7 +1,4 @@
-import {
-  IPrecioProd,
-  IProductoWithPricesDto,
-} from "@/domain/models/Dto/IProductoDto";
+import { IProductoWithPricesDto } from "@/domain/models/Dto/IProductoDto";
 import { Dispatch, SetStateAction, useState } from "react";
 import { IPrecioProductosDto } from "../../domain/models/Dto/IPrecioProductosDto";
 import { IProductoService } from "@/domain/models/services/IProductosService";
@@ -10,7 +7,9 @@ import useLocalStorage from "@/domain/hooks/useLocalStorage";
 import useAppStore from "@/domain/store/useStore";
 import { constantes } from "@/domain/constants";
 import { TipoProductoDto } from "@/domain/models/Dto/TipoProductoDto";
-import { removeAccents } from "@/domain/helpers/utils";
+import { removeAccents, setProductPrices } from "@/domain/helpers/utils";
+import { CartItem } from "@/domain/models/store/CarItem";
+import { useRouter } from "next/navigation";
 
 interface CatalogoViewModelProps {
   ProductosService: IProductoService;
@@ -28,11 +27,7 @@ export interface ICatalogoViewModel {
   setProductoSeleccionado: Dispatch<
     SetStateAction<IProductoWithPricesDto | undefined>
   >;
-  handleClickShoppingCar: (
-    productId: number,
-    presentationId: number,
-    quantity: number
-  ) => void;
+  handleClickShoppingCar: (cartItem: CartItem) => void;
   handleClickCarDetail: (productoSeleccionado: IProductoWithPricesDto) => void;
   openModalMessage: boolean;
   handleOpenModalMessage: () => void;
@@ -46,6 +41,7 @@ export interface ICatalogoViewModel {
   productosFiltrados: IProductoWithPricesDto[];
   textFilter: string;
   handleChangetextFilter: (text: string) => void;
+  buyProduct: (producto: IProductoWithPricesDto) => void;
 }
 
 const CatalogViewModel = ({
@@ -60,7 +56,7 @@ const CatalogViewModel = ({
   const [productoSeleccionado, setProductoSeleccionado] =
     useState<IProductoWithPricesDto>();
   const { saveDataShoppingCart } = useLocalStorage();
-  const { initializeCart } = useAppStore();
+  const { initializeCart, setSelectedProduct } = useAppStore();
   const [openModalMessage, setOpenModalMessage] = useState(false);
   const [dataModalMessage, setdataModalMessage] = useState<{
     title: string;
@@ -72,6 +68,7 @@ const CatalogViewModel = ({
   >([]);
   const [tipoProducto, settipoProducto] = useState<TipoProductoDto[]>([]);
   const [textFilter, setTextFilter] = useState<string>("");
+  const router = useRouter();
 
   const getProductos = async () => {
     setLoadingProds(true);
@@ -80,37 +77,15 @@ const CatalogViewModel = ({
         ProductosService.getProductos(),
         PreciosService.getPrecioProductos(),
       ]).then((resp) => {
-        const tipos: TipoProductoDto[] = [];
         const prods = resp[0];
         const prices = resp[1];
         setPrecios(prices);
-        const prodsWithPrices = prods.map((producto) => {
-          if (
-            tipos.findIndex((tp) => tp.tipoProductoId === producto.tipo.id) < 0
-          ) {
-            tipos.push({
-              tipoProductoId: producto.tipo.id,
-              descripcion: producto.tipo.descripcion,
-            });
-          }
-          const precios: IPrecioProd[] = [];
-          prices.forEach((precio) => {
-            if (precio.idProducto === producto.id) {
-              precios.push({
-                idPresentacion: precio.idPresentacion,
-                descripcionPres: precio.descripcionPres,
-                valor: precio.valor,
-                disponible: precio.disponible,
-              });
-            }
-          });
-          const newProd: IProductoWithPricesDto = { ...producto, precios };
-          return newProd;
-        });
-        settipoProducto(tipos);
-        setProductos(prodsWithPrices);
+        const converProductos = setProductPrices(prods, prices);
+        console.log("respuesta de productos con precios -> ", converProductos);
+        settipoProducto(converProductos.tipos);
+        setProductos(converProductos.productosConPrecios);
         setLoadingProds(false);
-        setProductosFiltrados(prodsWithPrices);
+        setProductosFiltrados(converProductos.productosConPrecios);
         setTextFilter("");
         setTipoSeleccionado("");
       });
@@ -129,12 +104,8 @@ const CatalogViewModel = ({
     setOpenModalCar(!openModalCar);
   };
 
-  const handleClickShoppingCar = (
-    productId: number,
-    presentationId: number,
-    quantity: number
-  ) => {
-    const dataSaved = saveDataShoppingCart(productId, presentationId, quantity);
+  const handleClickShoppingCar = (cartItem: CartItem) => {
+    const dataSaved = saveDataShoppingCart(cartItem);
     initializeCart(dataSaved);
     handleOpenModalCar();
     setdataModalMessage({
@@ -167,7 +138,6 @@ const CatalogViewModel = ({
   };
 
   const handleChangetextFilter = (text: string) => {
-    console.log(" *** handleChangetextFilter ");
     setProductosFiltrados([]);
     setTextFilter(text || "");
     if (!text) return setProductosFiltrados(productos);
@@ -184,8 +154,12 @@ const CatalogViewModel = ({
       const idx = productos.findIndex((prdOrig) => prdOrig.id === prodFinal.id);
       if (idx >= 0) newProds.push(productos[idx]);
     });
-    console.log("prods filtrados -> ", newProds);
     setProductosFiltrados(newProds);
+  };
+
+  const buyProduct = (producto: IProductoWithPricesDto) => {
+    setSelectedProduct(producto);
+    router.push("/detalle");
   };
 
   return {
@@ -208,6 +182,7 @@ const CatalogViewModel = ({
     productosFiltrados,
     textFilter,
     handleChangetextFilter,
+    buyProduct,
   };
 };
 

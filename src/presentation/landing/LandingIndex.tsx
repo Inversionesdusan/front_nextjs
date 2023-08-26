@@ -10,6 +10,9 @@ import { colors } from "../styles/colors";
 import ModalRegistro from "@/presentation/components/modalRegistro/ModalRegistro";
 import ModalLogin from "@/presentation/components/modalLogin/ModalLogin";
 import useMenuHook from "@/domain/hooks/useMenuHook";
+import Container from "@/DI/Container";
+import { LandingViewModelReturn } from "./LandingViewModel";
+import { useEffect } from "react";
 
 const LandingIndex = () => {
   const theme = useTheme();
@@ -23,9 +26,23 @@ const LandingIndex = () => {
     openModalRegistro,
   } = useMenuHook();
 
+  const landingViewModel = Container.resolve(
+    "LandingViewModel"
+  ) as LandingViewModelReturn;
+
+  useEffect(() => {
+    (async () => {
+      await landingViewModel.getProductos();
+    })();
+  }, []);
+
   return (
     <>
-      <HeaderView menuOptions={menuOptions} landing={true} />
+      <HeaderView
+        menuOptions={menuOptions}
+        landing={true}
+        products={landingViewModel.productos || []}
+      />
       <Box sx={{ width: "100%", marginX: "auto", height: "100vh" }}>
         <HeroView
           handleOpenModalLogin={handleOpenModalLogin}

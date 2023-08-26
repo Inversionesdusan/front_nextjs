@@ -1,4 +1,5 @@
 import ButtonCustom from "@/app/components/basic/ButtonCustom";
+import useModalStore from "@/domain/store/useModalStore";
 import { colors } from "@/presentation/styles/colors";
 import {
   Dialog,
@@ -20,32 +21,20 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-interface ModalProps {
-  open: boolean;
-  title: string;
-  message: string;
-  onClose: () => void;
-  onAccept: () => void;
-}
+const ModalComponent = () => {
+  const { dataModal } = useModalStore();
 
-const ModalComponent = ({
-  open,
-  title,
-  message,
-  onClose,
-  onAccept,
-}: ModalProps) => {
   return (
     <Dialog
       TransitionComponent={Transition}
-      open={open}
-      onClose={onClose}
+      open={dataModal.open}
+      onClose={dataModal.onCancel}
       sx={{
         "& .MuiPaper-root": {
           background: colors.lightGray,
           minWidth: "340px",
-          width: { md: "500px", xs: "90%" },
-          maxWidth: "500px",
+          width: { md: "550px", xs: "90%" },
+          maxWidth: "550px",
           height: "350px",
           maxHeight: "350px",
           borderRadius: {
@@ -58,16 +47,18 @@ const ModalComponent = ({
         },
       }}
     >
-      <DialogTitle
-        sx={{
-          fontFamily: "Cunia",
-          color: colors.green,
-          fontSize: "1.25rem",
-          padding: 0,
-        }}
-      >
-        {title}
-      </DialogTitle>
+      {dataModal.title && (
+        <DialogTitle
+          sx={{
+            fontFamily: "Cunia",
+            color: colors.green,
+            fontSize: "1.25rem",
+            padding: 0,
+          }}
+        >
+          {dataModal.title}
+        </DialogTitle>
+      )}
       <DialogContent
         sx={{
           padding: 0,
@@ -87,13 +78,20 @@ const ModalComponent = ({
             padding: 0,
           }}
         >
-          {message}
+          {dataModal.message}
         </Typography>
       </DialogContent>
       <DialogActions>
-        <ButtonCustom typeButton="modal" onClick={onAccept}>
-          Aceptar
-        </ButtonCustom>
+        {dataModal.onCancel && (
+          <ButtonCustom typeButton="modal" invert onClick={dataModal.onCancel}>
+            Cancelar
+          </ButtonCustom>
+        )}
+        {dataModal.onAccept && (
+          <ButtonCustom typeButton="modal" onClick={dataModal.onAccept}>
+            Aceptar
+          </ButtonCustom>
+        )}
       </DialogActions>
     </Dialog>
   );

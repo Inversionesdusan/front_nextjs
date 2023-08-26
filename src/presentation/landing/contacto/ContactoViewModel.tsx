@@ -1,6 +1,7 @@
 import { IDatosEmpresaDto } from "@/domain/models/Dto/IDatosEmpresaDto";
 import { IContactoFormValues } from "@/domain/models/forms/IContactForm";
 import { IEmpresaServiceReturn } from "@/domain/services/EmpresaService";
+import useModalStore from "@/domain/store/useModalStore";
 import { useState } from "react";
 import { UseFormReset } from "react-hook-form";
 
@@ -18,23 +19,13 @@ export interface IContactoViewModelReturn {
     resetForm: UseFormReset<IContactoFormValues>,
     dataResetForm: IContactoFormValues
   ) => Promise<string>;
-  handleCloseModal: () => void;
-  openModal: boolean;
-  dataModal: {
-    title: string;
-    message: string;
-  };
 }
 
 const ContactoViewModel = ({ EmpresaService }: IContactoViewModelProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [empresa, setEmpresa] = useState<IDatosEmpresaDto | null>(null);
   const [sending, setSending] = useState<boolean>(false);
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [dataModal, setDataModal] = useState<{
-    title: string;
-    message: string;
-  }>({ title: "", message: "" });
+  const { updateDataModal, closeModal } = useModalStore();
 
   const cargarDatosEmpresa = async () => {
     setLoading(true);
@@ -44,12 +35,12 @@ const ContactoViewModel = ({ EmpresaService }: IContactoViewModelProps) => {
   };
 
   const handleOpenModal = (title: string, message: string) => {
-    setOpenModal(true);
-    setDataModal({ title, message });
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
+    updateDataModal({
+      open: true,
+      title,
+      message,
+      onAccept: closeModal,
+    });
   };
 
   const handleSubmitForm = async (
@@ -81,9 +72,6 @@ const ContactoViewModel = ({ EmpresaService }: IContactoViewModelProps) => {
     cargarDatosEmpresa,
     sending,
     handleSubmitForm,
-    handleCloseModal,
-    openModal,
-    dataModal,
   };
 };
 

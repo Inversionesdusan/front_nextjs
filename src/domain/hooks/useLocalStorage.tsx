@@ -2,44 +2,47 @@ import { constantes } from "../constants";
 import { CartItem } from "../models/store/CarItem";
 
 const useLocalStorage = () => {
-  const getDataShoppingCart = (): string => {
-    const data = localStorage.getItem(constantes.keys.shoppingCar) || "";
-    return data;
+  const getDataShoppingCart = (): CartItem[] => {
+    return JSON.parse(
+      localStorage.getItem(constantes.keys.shoppingCar) || "[]"
+    ) as CartItem[];
   };
 
-  const saveDataShoppingCart = (
-    productId: number,
-    presentationId: number,
-    quantity: number
-  ): CartItem[] => {
-    const dataSaved = getDataShoppingCart();
-    let arrProds = [];
-    if (dataSaved) {
-      arrProds = JSON.parse(dataSaved) as {
-        productId: number;
-        presentationId: number;
-        quantity: number;
-      }[];
-      const idxProd = arrProds.findIndex(
-        (prod) =>
-          prod.productId === productId && prod.presentationId === presentationId
-      );
-      if (idxProd >= 0) {
-        arrProds[idxProd].presentationId = presentationId;
-        arrProds[idxProd].quantity = quantity;
-      } else {
-        arrProds.push({ productId, presentationId, quantity });
-      }
+  const saveDataShoppingCart = (cartItem: CartItem): CartItem[] => {
+    const dataSaved = getDataShoppingCart() as CartItem[];
+    const idxProd = dataSaved.findIndex(
+      (prod) =>
+        prod.productId === cartItem.productId &&
+        prod.presentationId === cartItem.presentationId
+    );
+    if (idxProd >= 0) {
+      dataSaved[idxProd].presentationId = cartItem.presentationId;
+      dataSaved[idxProd].quantity = cartItem.quantity;
     } else {
-      arrProds.push({ productId, presentationId, quantity });
+      dataSaved.push({ ...cartItem });
     }
-    localStorage.setItem(constantes.keys.shoppingCar, JSON.stringify(arrProds));
-    return arrProds;
+    localStorage.setItem(
+      constantes.keys.shoppingCar,
+      JSON.stringify(dataSaved)
+    );
+    return dataSaved;
+  };
+
+  const saveAllItemsShoppingCart = (items: CartItem[]) => {
+    if (localStorage.getItem(constantes.keys.shoppingCar))
+      localStorage.removeItem(constantes.keys.shoppingCar);
+    localStorage.setItem(constantes.keys.shoppingCar, JSON.stringify(items));
+  };
+
+  const clearShoppingCart = () => {
+    localStorage.removeItem(constantes.keys.shoppingCar);
   };
 
   return {
     getDataShoppingCart,
     saveDataShoppingCart,
+    saveAllItemsShoppingCart,
+    clearShoppingCart,
   };
 };
 

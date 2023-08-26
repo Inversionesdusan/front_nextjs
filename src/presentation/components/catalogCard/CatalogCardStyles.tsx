@@ -35,7 +35,7 @@ export const styles = (url: string) => {
     alignItems: "center",
     height: "230px",
     borderRadius: "10px",
-    backgroundImage: `url('https://backendmysql-production.up.railway.app${url}')`,
+    backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${url}')`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
     backgroundPosition: "center",
@@ -51,10 +51,11 @@ export const styles = (url: string) => {
   };
 
   const moreButton: SxProps<Theme> = {
-    background: colors.mediumGray,
-    color: colors.solidGreen,
+    background: colors.black,
+    color: colors.white,
     width: "100%",
     marginY: "0.24rem",
+    borderRadius: "50px",
   };
 
   const labelMoreButton: SxProps<Theme> = {
@@ -70,6 +71,7 @@ export const styles = (url: string) => {
     color: colors.white,
     width: "100%",
     marginY: "0.25rem",
+    borderRadius: "50px",
   };
 
   const labelCarButton: SxProps<Theme> = {

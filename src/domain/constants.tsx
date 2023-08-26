@@ -20,7 +20,7 @@ export const constantes = {
   ],
   catalog: {
     pageTitle: "Catálogo de productos",
-    detailButtonLabel: "Ver detalle",
+    detailButtonLabel: "Comprar ahora",
     addItemButtonLabel: "Agregar al carrito",
     filterPlaceholder: "Todos los registros",
     removeFilterText: "Todos los registros",

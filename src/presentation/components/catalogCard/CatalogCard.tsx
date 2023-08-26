@@ -1,16 +1,19 @@
 import { IProductoWithPricesDto } from "@/domain/models/Dto/IProductoDto";
 import { Box, Button, Typography } from "@mui/material";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import AddIcon from "@mui/icons-material/Add";
 import { styles } from "./CatalogCardStyles";
 import { constantes } from "@/domain/constants";
 
 interface CatalogCardProps {
   producto: IProductoWithPricesDto;
   handleClickCarButton: (producto: IProductoWithPricesDto) => void;
+  handleClickBuyButton: (producto: IProductoWithPricesDto) => void;
 }
 
-const CatalogCard = ({ producto, handleClickCarButton }: CatalogCardProps) => {
+const CatalogCard = ({
+  producto,
+  handleClickCarButton,
+  handleClickBuyButton,
+}: CatalogCardProps) => {
   const {
     card,
     typeLabel,
@@ -35,13 +38,17 @@ const CatalogCard = ({ producto, handleClickCarButton }: CatalogCardProps) => {
       <Typography sx={priceLabel}>
         {precio > 0 ? `$${formatNumber.format(precio)} - ${unidad}` : unidad}
       </Typography>
-      <Button startIcon={<AddIcon />} sx={moreButton}>
+      <Button
+        sx={moreButton}
+        onClick={() => {
+          handleClickBuyButton(producto);
+        }}
+      >
         <Typography sx={labelMoreButton}>
           {constantes.catalog.detailButtonLabel}
         </Typography>
       </Button>
       <Button
-        startIcon={<AddShoppingCartIcon />}
         sx={carButton}
         onClick={() => {
           handleClickCarButton(producto);

@@ -40,6 +40,7 @@ export function ProductosRepository({
           descripcion:
             producto.attributes.tipos_fertilizante.data.attributes.descripcion,
         },
+        ventajas: "",
       };
       return newProducto;
     });

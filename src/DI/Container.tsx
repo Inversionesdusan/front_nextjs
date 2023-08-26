@@ -5,6 +5,7 @@ import * as SeccionInformacionDataSource from "@/data/dataSource/SeccionInformac
 import * as ProductosDataSource from "@/data/dataSource/ProductosDataSource";
 import * as EmpresaDataSource from "@/data/dataSource/EmpresaDataSource";
 import * as PreciosDataSource from "@/data/dataSource/PrecioProductoDataSource";
+import * as PresentacionesDataSource from "@/data/dataSource/PresentacionesDataSource";
 import { BannersRepository } from "../data/repository/BannersRepository";
 import { SeccionInformacionRepository } from "../data/repository/SeccionInformacionRepository";
 import { BannersService } from "@/domain/services/BannersService";
@@ -21,6 +22,10 @@ import { PreciosRepository } from "@/data/repository/PreciosRepository";
 import { PreciosService } from "@/domain/services/PreciosService";
 import CatalogViewModel from "@/presentation/catalog/CatalogViewModel";
 import { PresentacionRepository } from "@/data/repository/PresentacionesRepository";
+import ProductViewModel from "@/presentation/productDetail/ProductViewModel";
+import LandingViewModel from "@/presentation/landing/LandingViewModel";
+import OrderDetailViewModel from "@/presentation/orderDetail/OrderDetailViewModel";
+import { PresentacionesService } from "@/domain/services/PresentacionesService";
 
 const Container = createContainer();
 
@@ -31,6 +36,7 @@ Container.register({
   ProductosDataSource: asValue(ProductosDataSource),
   EmpresaDataSource: asValue(EmpresaDataSource),
   PreciosDataSource: asValue(PreciosDataSource),
+  PresentacionesDataSource: asValue(PresentacionesDataSource),
 
   //Repositories
   BannersRepository: asFunction(BannersRepository),
@@ -46,6 +52,7 @@ Container.register({
   ProductosService: asFunction(ProductosService),
   EmpresaService: asFunction(EmpresaService),
   PreciosService: asFunction(PreciosService),
+  PresentacionesService: asFunction(PresentacionesService),
 
   //ViewModels
   HeroViewModel: asFunction(HeroViewModel),
@@ -54,6 +61,9 @@ Container.register({
   ContactoViewModel: asFunction(ContactoViewModel),
   HeaderViewModel: asFunction(HeaderViewModel),
   CatalogViewModel: asFunction(CatalogViewModel),
+  ProductViewModel: asFunction(ProductViewModel),
+  LandingViewModel: asFunction(LandingViewModel),
+  OrderDetailViewModel: asFunction(OrderDetailViewModel),
 });
 
 export default Container;

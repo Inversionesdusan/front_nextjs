@@ -14,7 +14,6 @@ import ButtonCustom from "@/app/components/basic/ButtonCustom";
 import { IContactoFormValues } from "@/domain/models/forms/IContactForm";
 import { colors } from "@/presentation/styles/colors";
 import { styles } from "./ContactoViewStyles";
-import ModalComponent from "@/presentation/components/common/ModalComponent";
 
 const initialFormData: IContactoFormValues = {
   nombreCliente: "",
@@ -268,13 +267,6 @@ const ContactoView = () => {
           </Box>
         </Box>
       </Box>
-      <ModalComponent
-        open={contactoVideModel.openModal}
-        title={contactoVideModel.dataModal.title}
-        message={contactoVideModel.dataModal.message}
-        onAccept={contactoVideModel.handleCloseModal}
-        onClose={contactoVideModel.handleCloseModal}
-      />
     </>
   );
 };

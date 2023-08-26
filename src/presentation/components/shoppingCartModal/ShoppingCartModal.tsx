@@ -1,5 +1,5 @@
 import { Box, Button, Grow, IconButton, Typography } from "@mui/material";
-import { styles } from "./ShoppingCarModalStyles";
+import { styles } from "./ShoppingCartModalStyles";
 import {
   IPrecioProd,
   IProductoWithPricesDto,
@@ -7,27 +7,23 @@ import {
 import { useState, useEffect } from "react";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import QuantityComponent from "../common/QuantityComponent";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import InventoryRoundedIcon from "@mui/icons-material/InventoryRounded";
+import { constantes } from "@/domain/constants";
+import { CartItem } from "@/domain/models/store/CarItem";
 
 interface ShoppingCarModalProps {
   producto: IProductoWithPricesDto;
   open: boolean;
   handleClose: () => void;
   handleOrder: () => void;
-  handleShoppingCar: (
-    productId: number,
-    presentationId: number,
-    quantity: number
-  ) => void;
+  handleShoppingCart: (cartItem: CartItem) => void;
 }
 
-const ShoppingCarModal = ({
+const ShoppingCartModal = ({
   producto,
   open,
   handleClose,
   handleOrder,
-  handleShoppingCar,
+  handleShoppingCart,
 }: ShoppingCarModalProps) => {
   const [precioSeleccionado, setPrecioSeleccionado] = useState<IPrecioProd>();
   const [cantidad, setCantidad] = useState<number>(0);
@@ -60,7 +56,7 @@ const ShoppingCarModal = ({
 
   const listaPrecios = [...producto.precios];
 
-  const formatNumber = Intl.NumberFormat("es-CO");
+  const formatNumber = Intl.NumberFormat(constantes.locale);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const id = parseInt(event.target.value);
@@ -142,22 +138,26 @@ const ShoppingCarModal = ({
               />
             </Box>
             <Box sx={dataRow}>
-              <Button
-                startIcon={<InventoryRoundedIcon />}
-                sx={orderButton}
-                onClick={handleOrder}
-              >
-                <Typography sx={labelOrderButton}>Hacer Pedido</Typography>
+              <Button sx={orderButton} onClick={handleClose}>
+                <Typography sx={labelOrderButton}>Cancelar</Typography>
               </Button>
               <Button
-                startIcon={<AddShoppingCartIcon />}
                 sx={carButton}
                 onClick={() =>
-                  handleShoppingCar(
-                    producto.id,
-                    precioSeleccionado!.idPresentacion,
-                    cantidad
-                  )
+                  handleShoppingCart({
+                    productTypeId: producto.tipo.id,
+                    productTypeName: producto.tipo.descripcion,
+                    productId: producto.id,
+                    poductName: producto.nombreProducto,
+                    imageUrl:
+                      producto.imagen.urlSmall ||
+                      producto.imagen.urlThumbnail ||
+                      "",
+                    presentationId: precioSeleccionado!.idPresentacion,
+                    presentationName: precioSeleccionado?.descripcionPres || "",
+                    quantity: cantidad,
+                    value: precioSeleccionado?.valor || 0,
+                  })
                 }
               >
                 <Typography sx={labelCarButton}>Agregar al Carrito</Typography>
@@ -170,4 +170,4 @@ const ShoppingCarModal = ({
   );
 };
 
-export default ShoppingCarModal;
+export default ShoppingCartModal;

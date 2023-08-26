@@ -13,12 +13,13 @@ import CatalogCard from "../components/catalogCard/CatalogCard";
 import Container from "@/DI/Container";
 import { ICatalogoViewModel } from "./CatalogViewModel";
 import { useEffect } from "react";
-import ShoppingCarModal from "../components/shoppinCarModal/ShoppingCarModal";
+import ShoppingCarModal from "../components/shoppingCartModal/ShoppingCartModal";
 import ModalComponent from "../components/common/ModalComponent";
 import { constantes } from "@/domain/constants";
 import Dropdown from "../components/dropdown/Dropdown";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchOffIcon from "@mui/icons-material/SearchOff";
+import FooterView from "../landing/footer/FooterView";
 
 const CatalogView = () => {
   const catalogViewModel = Container.resolve(
@@ -52,7 +53,9 @@ const CatalogView = () => {
         <HeaderView menuOptions={menuOptions} landing={false} />
         <Box sx={catalogContainer}>
           <Box sx={titleBox}>
-            <Typography sx={title}>{constantes.catalog.pageTitle}</Typography>
+            <Typography variant="h1" sx={title}>
+              {constantes.catalog.pageTitle}
+            </Typography>
           </Box>
           <Box sx={filterBox}>
             {catalogViewModel.tipoProducto && (
@@ -108,6 +111,7 @@ const CatalogView = () => {
                       <CatalogCard
                         key={`Pr-${producto.id}`}
                         producto={producto}
+                        handleClickBuyButton={catalogViewModel.buyProduct}
                         handleClickCarButton={
                           catalogViewModel.handleClickCarDetail
                         }
@@ -131,6 +135,7 @@ const CatalogView = () => {
             </Grow>
           )}
         </Box>
+        <FooterView />
       </Box>
       {catalogViewModel.productoSeleccionado && (
         <ShoppingCarModal
@@ -138,7 +143,7 @@ const CatalogView = () => {
           open={catalogViewModel.openModalCar}
           handleClose={catalogViewModel.handleOpenModalCar}
           handleOrder={() => console.log("ordenar")}
-          handleShoppingCar={catalogViewModel.handleClickShoppingCar}
+          handleShoppingCart={catalogViewModel.handleClickShoppingCar}
         />
       )}
       <ModalComponent

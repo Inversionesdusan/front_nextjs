@@ -9,7 +9,7 @@ import logo from "../../../../public/images/logos/Isologo.svg";
 import isoTipo from "../../../../public/images/logos/Isotipo.svg";
 import { styles } from "./HeaderStyles";
 import HeaderLink from "@/app/components/basic/HeaderLink";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { constantes } from "@/domain/constants";
 import SideMenu from "../../components/sidemenu/SideMenu";
 import Container from "@/DI/Container";
@@ -17,8 +17,7 @@ import { IHeaderViewModelReturn } from "./HeaderViewModel";
 import DropDownMenu, {
   DropDownMenuOpion,
 } from "@/presentation/components/dropdownMenu/DropDownMenu";
-import useAppStore from "@/domain/store/useStore";
-import { CartItem } from "@/domain/models/store/CarItem";
+import ShoppingCartDetail from "@/presentation/components/shoppingCartDetail/ShoppingCartDetail";
 
 interface HeaderViewProps {
   menuOptions: DropDownMenuOpion[];
@@ -26,10 +25,6 @@ interface HeaderViewProps {
 }
 
 const HeaderView = ({ menuOptions, landing }: HeaderViewProps) => {
-  const [open, setOpen] = useState<boolean>(false);
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
-  const { shoppingCart, initializeCart } = useAppStore();
-
   const theme = useTheme();
   const downMd = useMediaQuery(theme.breakpoints.down("md"));
   const headerViewModel = Container.resolve(
@@ -37,24 +32,11 @@ const HeaderView = ({ menuOptions, landing }: HeaderViewProps) => {
   ) as IHeaderViewModelReturn;
 
   useEffect(() => {
-    const data = JSON.parse(
-      localStorage.getItem(constantes.keys.shoppingCar) || "[]"
-    ) as CartItem[];
-    initializeCart(data);
+    headerViewModel.loadItems();
   }, []);
 
   const { navbar, iconBox, optionsBox, isologo, isotipo, menuBox, icon } =
     styles(downMd);
-
-  const handleOpenDrawer = () => {
-    setOpen(!open);
-  };
-
-  const handleOpenMenu = () => {
-    setOpenMenu(!openMenu);
-  };
-
-  console.log("carrito de compras en el header -> ", shoppingCart);
 
   return (
     <>
@@ -84,27 +66,37 @@ const HeaderView = ({ menuOptions, landing }: HeaderViewProps) => {
           ))}
         </nav>
         <Box sx={menuBox}>
-          <div onClick={handleOpenDrawer}>
+          <div onClick={headerViewModel.handleOpenDrawer}>
             <MenuTwoToneIcon sx={icon} />
           </div>
         </Box>
         <Box sx={iconBox}>
-          <IconButton onClick={handleOpenMenu}>
+          <IconButton onClick={headerViewModel.handleOpenMenu}>
             <AccountCircleTwoToneIcon sx={icon} />
           </IconButton>
-          <IconButton>
-            <Badge badgeContent={shoppingCart.length} color="primary">
+          <IconButton onClick={headerViewModel.handleOpenCart}>
+            <Badge
+              badgeContent={headerViewModel?.shoppingCart?.length}
+              color="primary"
+            >
               <ShoppingCartTwoToneIcon sx={icon} />
             </Badge>
           </IconButton>
         </Box>
       </Box>
       <DropDownMenu
-        handleOpenMenu={handleOpenMenu}
-        openMenu={openMenu}
+        handleOpenMenu={headerViewModel.handleOpenMenu}
+        openMenu={headerViewModel.openMenu}
         options={menuOptions}
       />
-      <SideMenu open={open} handleOpenDrawer={handleOpenDrawer} />
+      <SideMenu
+        open={headerViewModel.open}
+        handleOpenDrawer={headerViewModel.handleOpenDrawer}
+      />
+      <ShoppingCartDetail
+        open={headerViewModel.openCart}
+        handleOpenModal={headerViewModel.handleOpenCart}
+      />
     </>
   );
 };
