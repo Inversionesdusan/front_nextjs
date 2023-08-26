@@ -14,7 +14,6 @@ import Container from "@/DI/Container";
 import { ICatalogoViewModel } from "./CatalogViewModel";
 import { useEffect } from "react";
 import ShoppingCarModal from "../components/shoppingCartModal/ShoppingCartModal";
-import ModalComponent from "../components/common/ModalComponent";
 import { constantes } from "@/domain/constants";
 import Dropdown from "../components/dropdown/Dropdown";
 import SearchIcon from "@mui/icons-material/Search";
@@ -146,13 +145,14 @@ const CatalogView = () => {
           handleShoppingCart={catalogViewModel.handleClickShoppingCar}
         />
       )}
-      <ModalComponent
+
+      {/*<ModalComponent
         open={catalogViewModel.openModalMessage}
         title={catalogViewModel.dataModalMessage.title}
         message={catalogViewModel.dataModalMessage.message}
         onAccept={catalogViewModel.handleOpenModalMessage}
         onClose={catalogViewModel.handleOpenModalMessage}
-      />
+      />*/}
     </>
   );
 };

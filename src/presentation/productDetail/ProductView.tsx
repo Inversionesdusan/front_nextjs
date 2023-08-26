@@ -12,7 +12,6 @@ import Slider from "react-slick";
 import CatalogCard from "../components/catalogCard/CatalogCard";
 import FooterView from "../landing/footer/FooterView";
 import ShoppingCarModal from "../components/shoppingCartModal/ShoppingCartModal";
-import ModalComponent from "../components/common/ModalComponent";
 import { useRouter } from "next/router";
 
 const sliderSettings = {
@@ -57,7 +56,7 @@ const ProductView = () => {
     detailItem,
     headerBox,
     productSliderContainer,
-  } = styles(productViewModel.selectedProduct.imagen.url || "");
+  } = styles(productViewModel?.selectedProduct?.imagen?.url || "");
 
   const formatNumber = Intl.NumberFormat(constantes.locale);
 
@@ -105,7 +104,9 @@ const ProductView = () => {
           <Box sx={imageBox}>
             <img
               style={image}
-              src={`${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${productViewModel.selectedProduct.imagen.url}`}
+              src={`${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${
+                productViewModel?.selectedProduct?.imagen?.url || ""
+              }`}
               alt={productViewModel.selectedProduct.nombreProducto}
             />
           </Box>
@@ -260,16 +261,16 @@ const ProductView = () => {
           open={productViewModel.openModalCart}
           handleClose={productViewModel.handleClickOpenModal}
           handleOrder={productViewModel.handleClickOpenModal}
-          handleShoppingCar={productViewModel.handleClickShoppingCar}
+          handleShoppingCart={productViewModel.handleClickShoppingCar}
         />
       )}
-      <ModalComponent
+      {/*<ModalComponent
         open={productViewModel.openModalMessage}
         title={productViewModel.dataModalMessage.title}
         message={productViewModel.dataModalMessage.message}
         onAccept={productViewModel.handleOpenModalMessage}
         onClose={productViewModel.handleOpenModalMessage}
-      />
+      />*/}
     </Box>
   );
 };

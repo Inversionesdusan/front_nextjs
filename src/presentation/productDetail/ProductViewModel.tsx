@@ -3,6 +3,7 @@ import { setProductPrices } from "@/domain/helpers/utils";
 import useLocalStorage from "@/domain/hooks/useLocalStorage";
 import { IProductoWithPricesDto } from "@/domain/models/Dto/IProductoDto";
 import { IProductoService } from "@/domain/models/services/IProductosService";
+import { CartItem } from "@/domain/models/store/CarItem";
 import { IPreciosService } from "@/domain/services/PreciosService";
 import useAppStore from "@/domain/store/useStore";
 import { useRouter } from "next/navigation";
@@ -30,11 +31,7 @@ export interface ProductViewModelReturn {
     message: string;
   };
   handleOpenModalMessage: () => void;
-  handleClickShoppingCar: (
-    productId: number,
-    presentationId: number,
-    quantity: number
-  ) => void;
+  handleClickShoppingCar: (cartIem: CartItem) => void;
   precioSeleccionado: string;
   setPrecioSeleccionado: Dispatch<SetStateAction<string>>;
   precio: number;
@@ -103,12 +100,8 @@ const ProductViewModel = ({
     setOpenModalMessage(!openModalMessage);
   };
 
-  const handleClickShoppingCar = (
-    productId: number,
-    presentationId: number,
-    quantity: number
-  ) => {
-    const dataSaved = saveDataShoppingCart(productId, presentationId, quantity);
+  const handleClickShoppingCar = (cartItem: CartItem) => {
+    const dataSaved = saveDataShoppingCart(cartItem);
     initializeCart(dataSaved);
     handleClickOpenModal();
     setdataModalMessage({
