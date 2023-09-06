@@ -1,6 +1,7 @@
 "use client";
 import { constantes } from "@/domain/constants";
 import { CartItem } from "@/domain/models/store/CarItem";
+import useModalStore from "@/domain/store/useModalStore";
 import useAppStore from "@/domain/store/useStore";
 import React, { useState } from "react";
 
@@ -23,6 +24,7 @@ const HeaderViewModel = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const { shoppingCart, initializeCart } = useAppStore();
   const [openCart, setOpenCart] = useState<boolean>(false);
+  const { closeModal, updateDataModal } = useModalStore();
 
   const handleOpenDrawer = () => {
     setOpen(!open);
@@ -33,6 +35,17 @@ const HeaderViewModel = () => {
   };
 
   const handleOpenCart = () => {
+    console.log(!openCart);
+    console.log(shoppingCart);
+    if (!openCart && shoppingCart.length === 0)
+      return updateDataModal({
+        open: true,
+        title: "Atención",
+        message: "No hay productos en el carrito de compras",
+        onAccept: closeModal,
+        onCancel: undefined,
+      });
+    console.log("abrir carrito");
     setOpenCart(!openCart);
   };
 

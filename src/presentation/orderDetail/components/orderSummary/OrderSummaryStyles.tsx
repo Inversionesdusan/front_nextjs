@@ -4,7 +4,6 @@ import { CuniaWhite16400 } from "../../../styles/colors";
 
 export const styles = () => {
   const summaryContainer: SxProps<Theme> = {
-    marginX: "1rem",
     width: "100%",
     minHeight: "100px",
     background: colors.green,

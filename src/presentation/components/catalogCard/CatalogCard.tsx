@@ -7,12 +7,14 @@ interface CatalogCardProps {
   producto: IProductoWithPricesDto;
   handleClickCarButton: (producto: IProductoWithPricesDto) => void;
   handleClickBuyButton: (producto: IProductoWithPricesDto) => void;
+  showCartButton?: boolean;
 }
 
 const CatalogCard = ({
   producto,
   handleClickCarButton,
   handleClickBuyButton,
+  showCartButton = true,
 }: CatalogCardProps) => {
   const {
     card,
@@ -48,16 +50,18 @@ const CatalogCard = ({
           {constantes.catalog.detailButtonLabel}
         </Typography>
       </Button>
-      <Button
-        sx={carButton}
-        onClick={() => {
-          handleClickCarButton(producto);
-        }}
-      >
-        <Typography sx={labelCarButton}>
-          {constantes.catalog.addItemButtonLabel}
-        </Typography>
-      </Button>
+      {showCartButton && (
+        <Button
+          sx={carButton}
+          onClick={() => {
+            handleClickCarButton(producto);
+          }}
+        >
+          <Typography sx={labelCarButton}>
+            {constantes.catalog.addItemButtonLabel}
+          </Typography>
+        </Button>
+      )}
     </Box>
   );
 };

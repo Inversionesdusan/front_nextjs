@@ -9,10 +9,17 @@ import Container from "@/DI/Container";
 import { OrderDetailViewModelReturn } from "./OrderDetailViewModel";
 import { constantes } from "@/domain/constants";
 import OrderSummary from "./components/orderSummary/OrderSummary";
-import { colors, MontserratWhite16700 } from "../styles/colors";
-import { useRouter } from "next/navigation";
+import { MontserratWhite16700 } from "../styles/colors";
+import ClientForm from "../components/clientForm/ClientForm";
+import FooterView from "../landing/footer/FooterView";
+import { useRouter } from "next/router";
+import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCartOutlined";
 
-const OrderDetail = () => {
+interface OrderDetailProps {
+  flow?: string;
+}
+
+const OrderDetail = ({ flow = "cart" }: OrderDetailProps) => {
   const {
     container,
     orderContainer,
@@ -26,7 +33,12 @@ const OrderDetail = () => {
     boxNoData,
     progress,
     textEmptyState,
+    formSection,
+    disclaimer,
+    iconEmptyState,
   } = styles();
+
+  console.log("proceso -> ", flow);
   const { menuOptions } = useMenuHook();
   const router = useRouter();
 
@@ -35,7 +47,7 @@ const OrderDetail = () => {
   ) as OrderDetailViewModelReturn;
 
   useEffect(() => {
-    orderDetailVM.getProductos();
+    orderDetailVM.getProductos(flow);
   }, []);
 
   return (
@@ -45,12 +57,11 @@ const OrderDetail = () => {
         <Box sx={headerBox}>
           <Box sx={titleBox}>
             <Typography variant="h1" sx={title}>
-              Detalle de Pedido
+              {constantes.orderDetail.pageTitle}
             </Typography>
-            {/*<Typography sx={subtitle}>Nro : 28383</Typography>*/}
           </Box>
           <CardButton
-            label="Ir al catálogo"
+            label={constantes.orderDetail.catalogButtonLabel}
             variant="green"
             onClick={() => {
               router.push("/catalogo");
@@ -70,7 +81,8 @@ const OrderDetail = () => {
               </Typography>
             </Box>
           </Grow>
-        ) : (
+        ) : orderDetailVM.productosPedido &&
+          orderDetailVM.productosPedido.length > 0 ? (
           <Box sx={detailBox}>
             <Box sx={productDetailBox}>
               {orderDetailVM.productosPedido.map((item, index) => (
@@ -86,32 +98,52 @@ const OrderDetail = () => {
                   confirmRemoveItem={orderDetailVM.confirmRemoveItem}
                 />
               ))}
+              <Box sx={formSection}>
+                {orderDetailVM.orderForm && (
+                  <ClientForm formRegister={orderDetailVM.orderForm} />
+                )}
+              </Box>
             </Box>
             <Box sx={summaryBox}>
               <OrderSummary
                 quantity={orderDetailVM.summaryData.cant}
                 value={orderDetailVM.summaryData.valor}
               />
+              <Box sx={disclaimer}>
+                <Typography sx={{ ...MontserratWhite16700, paddingX: "1rem" }}>
+                  {constantes.orderDetail.disclaimer}
+                </Typography>
+              </Box>
               <Box
                 sx={{
-                  margin: "1rem",
                   width: "100%",
-                  minHeight: "100px",
-                  background: colors.green,
-                  borderRadius: "50px",
-                  paddingX: "0.5rem",
-                  paddingY: "2.5rem",
+                  alignContent: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                <Typography sx={{ ...MontserratWhite16700, paddingX: "1rem" }}>
-                  Los precios especificados en el total del pedido NO Incluyen
-                  el valor del flete
-                </Typography>
+                <CardButton
+                  label={constantes.orderDetail.createButtonLabel}
+                  variant="black"
+                  onClick={orderDetailVM.createOrderVerification}
+                  disabled={orderDetailVM.savingData}
+                />
               </Box>
             </Box>
           </Box>
+        ) : (
+          <Grow in style={{ transformOrigin: "0" }} timeout={500}>
+            <Box sx={boxNoData}>
+              <RemoveShoppingCartOutlinedIcon sx={iconEmptyState} />
+              <Typography sx={textEmptyState}>
+                {constantes.orderDetail.emptyCart}
+              </Typography>
+            </Box>
+          </Grow>
         )}
       </Box>
+      <FooterView />
     </Box>
   );
 };

@@ -6,6 +6,7 @@ interface CardButtonProperties {
   label: string;
   onClick: () => void;
   variant?: "black" | "green" | "gray";
+  disabled?: boolean;
 }
 
 const styles = (variant: "black" | "green" | "gray") => {
@@ -19,7 +20,7 @@ const styles = (variant: "black" | "green" | "gray") => {
         : colors.gradientGray,
     borderRadius: "50px",
     width: "220px",
-    height: "30px",
+    height: "36px",
     padding: "6px 8px",
     transition: "all 0.4s ease",
     "&:hover": {
@@ -44,11 +45,12 @@ const CardButton = ({
   label,
   onClick,
   variant = "black",
+  disabled = false,
 }: CardButtonProperties) => {
   const { button, labelButton } = styles(variant);
 
   return (
-    <Button sx={button} onClick={onClick}>
+    <Button sx={button} onClick={onClick} disabled={disabled}>
       <span style={labelButton}>{label}</span>
     </Button>
   );

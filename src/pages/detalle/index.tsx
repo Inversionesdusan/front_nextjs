@@ -1,7 +1,7 @@
 import ProductView from "@/presentation/productDetail/ProductView";
 
-const index = () => {
+const Index = () => {
   return <ProductView />;
 };
 
-export default index;
+export default Index;

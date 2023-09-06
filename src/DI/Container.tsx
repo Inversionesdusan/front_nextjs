@@ -6,6 +6,8 @@ import * as ProductosDataSource from "@/data/dataSource/ProductosDataSource";
 import * as EmpresaDataSource from "@/data/dataSource/EmpresaDataSource";
 import * as PreciosDataSource from "@/data/dataSource/PrecioProductoDataSource";
 import * as PresentacionesDataSource from "@/data/dataSource/PresentacionesDataSource";
+import * as ClientesDataSource from "@/data/dataSource/ClientesDataSource";
+import * as PedidosDataSource from "@/data/dataSource/PedidosDataRource";
 import { BannersRepository } from "../data/repository/BannersRepository";
 import { SeccionInformacionRepository } from "../data/repository/SeccionInformacionRepository";
 import { BannersService } from "@/domain/services/BannersService";
@@ -26,6 +28,10 @@ import ProductViewModel from "@/presentation/productDetail/ProductViewModel";
 import LandingViewModel from "@/presentation/landing/LandingViewModel";
 import OrderDetailViewModel from "@/presentation/orderDetail/OrderDetailViewModel";
 import { PresentacionesService } from "@/domain/services/PresentacionesService";
+import { ClientsRepository } from "@/data/repository/ClientsRepository";
+import { ClientsService } from "@/domain/services/ClientsService";
+import { PedidosRepository } from "@/data/repository/PedidosRepository";
+import { PedidosService } from "@/domain/services/PedidosService";
 
 const Container = createContainer();
 
@@ -37,6 +43,8 @@ Container.register({
   EmpresaDataSource: asValue(EmpresaDataSource),
   PreciosDataSource: asValue(PreciosDataSource),
   PresentacionesDataSource: asValue(PresentacionesDataSource),
+  ClientesDataSource: asValue(ClientesDataSource),
+  PedidosDataSource: asValue(PedidosDataSource),
 
   //Repositories
   BannersRepository: asFunction(BannersRepository),
@@ -45,6 +53,8 @@ Container.register({
   EmpresaRepository: asFunction(EmpresaRepository),
   PreciosRepository: asFunction(PreciosRepository),
   PresentacionRepository: asFunction(PresentacionRepository),
+  ClientsRepository: asFunction(ClientsRepository),
+  PedidosRepository: asFunction(PedidosRepository),
 
   //Services
   BannersService: asFunction(BannersService),
@@ -53,6 +63,8 @@ Container.register({
   EmpresaService: asFunction(EmpresaService),
   PreciosService: asFunction(PreciosService),
   PresentacionesService: asFunction(PresentacionesService),
+  ClientsService: asFunction(ClientsService),
+  PedidosService: asFunction(PedidosService),
 
   //ViewModels
   HeroViewModel: asFunction(HeroViewModel),

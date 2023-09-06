@@ -76,3 +76,10 @@ export const CuniaWhite16400: SxProps<Theme> = {
   color: colors.white,
   fontWeight: "400",
 };
+
+export const CuniaGreen16400: SxProps<Theme> = {
+  fontFamily: "Cunia",
+  fontSize: "1rem",
+  color: colors.solidGreen,
+  fontWeight: "400",
+};

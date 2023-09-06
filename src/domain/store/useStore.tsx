@@ -12,9 +12,15 @@ interface AppStore {
   initializeCart: (items: CartItem[]) => void;
   flujo: "compra" | "carrito" | "";
   setFlujo: (flujo: "compra" | "carrito" | "") => void;
+  itemToBuy: CartItem | undefined;
+  setItemToBuy: (item: CartItem) => void;
 }
 
 const useAppStore = create<AppStore>((set) => ({
+  itemToBuy: undefined,
+  setItemToBuy: (item: CartItem) => {
+    set((state) => ({ ...state, itemToBuy: { ...item } }));
+  },
   flujo: "",
   setFlujo: (flujo) => {
     set((state) => ({ ...state, flujo }));

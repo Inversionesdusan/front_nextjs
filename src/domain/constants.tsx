@@ -8,6 +8,8 @@ export const constantes = {
     contacto: "datos-contactos",
     precios: "precios-productos",
     presentaciones: "presentaciones",
+    clientesNoRegistrados: "clientes-nrs",
+    pedidos: "pedidos",
   },
   keys: {
     shoppingCar: "shoppingCarData",
@@ -33,5 +35,13 @@ export const constantes = {
       message:
         "El artículo se ha guardado / actualizado en el carrito de compras",
     },
+  },
+  orderDetail: {
+    pageTitle: "Detalle de Pedido",
+    catalogButtonLabel: "Ir al catálogo",
+    createButtonLabel: "Crear Pedido",
+    emptyCart: "No hay productos para hacer el pedido",
+    disclaimer:
+      "Los precios especificados en el total del pedido NO Incluyen el valor del flete",
   },
 };

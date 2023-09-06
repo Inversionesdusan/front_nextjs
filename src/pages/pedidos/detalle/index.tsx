@@ -1,7 +1,9 @@
 import OrderDetail from "@/presentation/orderDetail/OrderDetail";
+import { useRouter } from "next/router";
 
-const index = () => {
-  return <OrderDetail />;
+const Index = () => {
+  const router = useRouter();
+  return <OrderDetail flow={router.query["flow"] as string} />;
 };
 
-export default index;
+export default Index;

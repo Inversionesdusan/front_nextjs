@@ -11,7 +11,6 @@ import { useEffect } from "react";
 import Slider from "react-slick";
 import CatalogCard from "../components/catalogCard/CatalogCard";
 import FooterView from "../landing/footer/FooterView";
-import ShoppingCarModal from "../components/shoppingCartModal/ShoppingCartModal";
 import { useRouter } from "next/router";
 
 const sliderSettings = {
@@ -149,13 +148,16 @@ const ProductView = () => {
               />
             </Box>
             <Box sx={dataRow}>
-              <Button sx={buyButton} onClick={() => {}}>
+              <Button sx={buyButton} onClick={productViewModel.buyItem}>
                 <Typography sx={buttonLabel}>Comprar ahora</Typography>
               </Button>
             </Box>
             {
               <Box sx={dataRow}>
-                <Button sx={shoppingCarButton} onClick={() => {}}>
+                <Button
+                  sx={shoppingCarButton}
+                  onClick={productViewModel.handleClickShoppingCart}
+                >
                   <Typography sx={buttonLabel}>Agregar al Carrito</Typography>
                 </Button>
               </Box>
@@ -246,8 +248,9 @@ const ProductView = () => {
               >
                 <CatalogCard
                   producto={producto}
-                  handleClickCarButton={productViewModel.handleClickCartButton}
+                  handleClickCarButton={() => {}}
                   handleClickBuyButton={productViewModel.handleClickBuyButton}
+                  showCartButton={false}
                 />
               </Box>
             ))}
@@ -255,7 +258,7 @@ const ProductView = () => {
         </Box>
       </Box>
       <FooterView />
-      {productViewModel.productoSeleccionado && (
+      {/*productViewModel.productoSeleccionado && (
         <ShoppingCarModal
           producto={productViewModel.productoSeleccionado!}
           open={productViewModel.openModalCart}
@@ -263,7 +266,7 @@ const ProductView = () => {
           handleOrder={productViewModel.handleClickOpenModal}
           handleShoppingCart={productViewModel.handleClickShoppingCar}
         />
-      )}
+      )*/}
       {/*<ModalComponent
         open={productViewModel.openModalMessage}
         title={productViewModel.dataModalMessage.title}

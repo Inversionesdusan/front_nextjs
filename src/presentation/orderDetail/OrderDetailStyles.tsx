@@ -64,7 +64,10 @@ export const styles = () => {
 
   const summaryBox: SxProps<Theme> = {
     flex: "1",
-    paddingX: "1rem",
+    paddingLeft: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
   };
 
   const boxNoData: SxProps<Theme> = {
@@ -87,6 +90,31 @@ export const styles = () => {
     marginBottom: "2rem",
   };
 
+  const formSection: SxProps<Theme> = {
+    marginTop: "1rem",
+    borderTop: `solid 1px ${colors.solidGreen}`,
+    display: "flex",
+    flexDirection: "column",
+  };
+
+  const disclaimer: SxProps<Theme> = {
+    marginY: "1rem",
+    width: "100%",
+    minHeight: "100px",
+    background: colors.green,
+    borderRadius: "50px",
+    paddingX: "0.5rem",
+    paddingY: "2.5rem",
+  };
+
+  const iconEmptyState: SxProps<Theme> = {
+    backgroundColor: colors.mediumGray,
+    borderRadius: "100%",
+    padding: "2rem",
+    fontSize: "10rem",
+    marginBottom: "2rem",
+  };
+
   return {
     container,
     orderContainer,
@@ -100,5 +128,8 @@ export const styles = () => {
     boxNoData,
     textEmptyState,
     progress,
+    formSection,
+    disclaimer,
+    iconEmptyState,
   };
 };

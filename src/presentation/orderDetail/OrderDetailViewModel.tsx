@@ -8,49 +8,80 @@ import { IPresentacionesService } from "@/domain/services/PresentacionesService"
 import { useState } from "react";
 import useModalStore from "../../domain/store/useModalStore";
 import useAppStore from "@/domain/store/useStore";
+import { UseFormReturn, useForm } from "react-hook-form";
+import {
+  OrderFormValues,
+  initialFormData,
+} from "@/domain/models/forms/OrderForm";
+import { IClientsService } from "@/domain/services/ClientsService";
+import { IPedidosService } from "@/domain/services/PedidosService";
+import { v4 as uuid } from "uuid";
+import { IDetallePedido } from "@/domain/models/requests/ISAveDataOrder";
+import { useRouter } from "next/navigation";
 
 interface OrderDetailViewModelProps {
   ProductosService: IProductoService;
   PreciosService: IPreciosService;
   PresentacionesService: IPresentacionesService;
+  ClientsService: IClientsService;
+  PedidosService: IPedidosService;
 }
 
 export interface OrderDetailViewModelReturn {
   loading: boolean;
-  getProductos: () => void;
+  getProductos: (flow: string) => void;
   productosPedido: ProductoPedidos[];
   handleChangePresentation: (index: number, presentationId: number) => void;
   handleAddQty: (index: number) => void;
   handleRemoveQty: (index: number) => void;
   confirmRemoveItem: (index: number) => void;
   summaryData: { cant: number; valor: number };
+  orderForm: UseFormReturn<OrderFormValues, any, undefined>;
+  createOrderVerification: () => {};
+  savingData: boolean;
 }
 
 const OrderDetailViewModel = ({
   ProductosService,
   PreciosService,
   PresentacionesService,
+  ClientsService,
+  PedidosService,
 }: OrderDetailViewModelProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [productosPedido, setProductosPedido] = useState<ProductoPedidos[]>([]);
   const { getDataShoppingCart, saveAllItemsShoppingCart, clearShoppingCart } =
     useLocalStorage();
   const { updateDataModal, closeModal } = useModalStore();
-  const { initializeCart } = useAppStore();
+  const { initializeCart, itemToBuy } = useAppStore();
   const [summaryData, setSummaryData] = useState<{
     cant: number;
     valor: number;
   }>({ cant: 0, valor: 0 });
+  const [savingData, setSavingData] = useState<boolean>(false);
+  const orderForm = useForm<OrderFormValues>({
+    defaultValues: { ...initialFormData },
+    reValidateMode: "onBlur",
+    mode: "onTouched",
+  });
+  const router = useRouter();
+  const [localflow, setLocalflow] = useState<string>("cart");
 
-  const getProductos = () => {
+  const getProductos = (flow: string) => {
     try {
+      setLocalflow(flow);
       setLoading(true);
       Promise.all([
         ProductosService.getProductos(),
         PreciosService.getPrecioProductos(),
         PresentacionesService.getPresentaciones(),
       ]).then((response) => {
-        const data = getDataShoppingCart();
+        const data =
+          flow === "cart"
+            ? getDataShoppingCart()
+            : itemToBuy
+            ? [{ ...itemToBuy }]
+            : [];
         updateSummaryData(data);
         const productos = response[0].filter(
           (prod) =>
@@ -84,27 +115,27 @@ const OrderDetailViewModel = ({
     prod.quantity!.presentationName = precio!.descripcionPres;
     prod.quantity!.value = precio!.valor;
     setProductosPedido([...productosPedido]);
-    updateShoppingCart(productosPedido);
+    if (localflow === "cart") updateShoppingCart(productosPedido);
   };
 
   const handleAddQty = (index: number) => {
     const prod = productosPedido[index];
     prod.quantity!.quantity++;
     setProductosPedido([...productosPedido]);
-    updateShoppingCart(productosPedido);
+    if (localflow === "cart") updateShoppingCart(productosPedido);
   };
 
   const handleRemoveQty = (index: number) => {
     const prod = productosPedido[index];
     if (prod.quantity!.quantity > 1) prod.quantity!.quantity--;
     setProductosPedido([...productosPedido]);
-    updateShoppingCart(productosPedido);
+    if (localflow === "cart") updateShoppingCart(productosPedido);
   };
 
   const removeItem = (index: number) => {
     productosPedido.splice(index, 1);
     setProductosPedido([...productosPedido]);
-    updateShoppingCart(productosPedido);
+    if (localflow === "cart") updateShoppingCart(productosPedido);
   };
 
   const confirmRemoveItem = (index: number) => {
@@ -141,6 +172,142 @@ const OrderDetailViewModel = ({
     updateSummaryData(cartProducts);
   };
 
+  const createOrder = async () => {
+    setSavingData(true);
+    const data = orderForm.getValues();
+    try {
+      updateDataModal({
+        open: true,
+        title: "Atención",
+        message: "Verificando cliente ...",
+        onAccept: undefined,
+        onCancel: undefined,
+      });
+
+      const clienteExistente = await ClientsService.getClienteByEmail(
+        data.email
+      );
+
+      if (clienteExistente.id === 0) {
+        updateDataModal({
+          open: true,
+          title: "Atención",
+          message: "Cliente no existente. Se esta realizando la creacion...",
+          onAccept: undefined,
+          onCancel: undefined,
+        });
+
+        const cliente = await ClientsService.saveNotRegisteredClient({
+          email: data.email,
+          nombresCliente: data.nombresCliente,
+          apellidosCliente: data.apellidosCliente,
+          telefonoCliente: data.apellidosCliente,
+          direccion: data.direccionEnvio,
+          departamento: data.departamento,
+          ciudad: data.ciudad,
+          complementoDireccion: "",
+        });
+
+        if (!cliente || !cliente.id || cliente.id <= 0)
+          throw new Error("No se ha realizado la grabación del cliente");
+      }
+
+      updateDataModal({
+        open: true,
+        title: "Atención",
+        message: "Guardando datos del pedido...",
+        onAccept: closeModal,
+        onCancel: undefined,
+      });
+
+      const pedidoGrabado = await PedidosService.saveOrder({
+        uid: uuid(),
+        emailCliente: data.email,
+        fechaGrabacion: new Date().toISOString(),
+        valorTotal: summaryData.valor,
+        detallePedido: productosPedido.map((producto) => {
+          const detalle: IDetallePedido = {
+            nombreProducto: producto.nombreProducto,
+            tipo: producto.tipo.descripcion,
+            urlImagen:
+              producto.imagen.urlSmall || producto.imagen.urlThumbnail || "",
+            precio: producto.quantity?.value || 0,
+            presentacion: producto.quantity?.presentationName || "",
+            cantidad: producto.quantity?.quantity || 0,
+          };
+          return detalle;
+        }),
+        direccion: {
+          direccion: data.direccionEnvio,
+          departamento: data.departamento,
+          ciudad: data.ciudad,
+        },
+      });
+
+      if (!pedidoGrabado || !pedidoGrabado.id || pedidoGrabado.id <= 0)
+        throw new Error("No se ha realizado la grabación del pedido");
+
+      updateDataModal({
+        open: true,
+        title: "Atención",
+        message: `Nro de pedido grabado : ${pedidoGrabado.id}`,
+        onAccept: () => {
+          orderForm.reset({ ...initialFormData });
+          if (localflow === "cart") clearShoppingCart();
+          closeModal();
+          router.push("/catalogo");
+        },
+        onCancel: undefined,
+      });
+
+      setSavingData(false);
+    } catch (error) {
+      console.log(error);
+      updateDataModal({
+        open: true,
+        title: "Error",
+        message: "Ha ocurrido un error en en la grabación del pedido",
+        onAccept: () => {
+          setSavingData(false);
+          closeModal();
+        },
+      });
+    }
+  };
+
+  const createOrderVerification = async () => {
+    console.log("createOrderVerification");
+    setSavingData(true);
+    console.log("setSavingData");
+    await orderForm.trigger();
+    console.log("trigger -> ", orderForm.formState.isValid);
+    if (!orderForm.formState.isValid) {
+      updateDataModal({
+        open: true,
+        title: "Atención",
+        message:
+          "Debe diligenciar la información necesaria para crear el pedido",
+        onAccept: () => {
+          setSavingData(false);
+          closeModal();
+        },
+      });
+      setSavingData(false);
+      return;
+    }
+
+    updateDataModal({
+      open: true,
+      title: "Pedido",
+      message: "Confirma la creación del pedido con los datos especificados?",
+      onAccept: createOrder,
+      onCancel: () => {
+        setSavingData(false);
+        closeModal();
+      },
+    });
+  };
+
   return {
     loading,
     getProductos,
@@ -150,6 +317,9 @@ const OrderDetailViewModel = ({
     handleRemoveQty,
     confirmRemoveItem,
     summaryData,
+    orderForm,
+    createOrderVerification,
+    savingData,
   };
 };
 
