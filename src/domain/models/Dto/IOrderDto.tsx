@@ -5,11 +5,11 @@ export interface IOrderDto {
   fechaGrabacion: string;
   valorTotal: number;
   estado: string;
-  detallePedido: IDetallePedidoDto;
-  direccion: IDireccionPedidoDto[];
+  detallePedido: IDetallePedidoDto[];
+  direccion: IDireccionPedidoDto;
 }
 
-interface IDetallePedidoDto {
+export interface IDetallePedidoDto {
   nombreProducto: string;
   tipo: string;
   urlImagen: string;
@@ -18,9 +18,19 @@ interface IDetallePedidoDto {
   cantidad: number;
 }
 
-interface IDireccionPedidoDto {
+export interface IDireccionPedidoDto {
   direccion: string;
   complemento?: string;
   departamento: string;
   ciudad: string;
+}
+
+export interface IOrderQueryDto {
+  data: IOrderDto[];
+  meta: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  };
 }

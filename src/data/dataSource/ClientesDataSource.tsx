@@ -13,9 +13,9 @@ export const saveNotRegisteredClient = async (
     baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
     url: constantes.endpoints.clientesNoRegistrados,
     data: { data: { ...clientData } },
-    headers: {
-      Authorization: "Bearer " + process.env.NEXT_PUBLIC_API_TOKEN,
-    },
+    //headers: {
+    //  Authorization: "Bearer " + process.env.NEXT_PUBLIC_API_TOKEN,
+    //},
   };
 
   try {
@@ -33,9 +33,9 @@ export const getClienteByEmail = async (email: string) => {
     method: "GET",
     baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
     url: `${constantes.endpoints.clientesNoRegistrados}?filters[email]$eq=${email}`,
-    headers: {
-      Authorization: "Bearer " + process.env.NEXT_PUBLIC_API_TOKEN,
-    },
+    //headers: {
+    //  Authorization: "Bearer " + process.env.NEXT_PUBLIC_API_TOKEN,
+    //},
   };
 
   try {

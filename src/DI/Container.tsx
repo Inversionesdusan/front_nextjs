@@ -32,6 +32,7 @@ import { ClientsRepository } from "@/data/repository/ClientsRepository";
 import { ClientsService } from "@/domain/services/ClientsService";
 import { PedidosRepository } from "@/data/repository/PedidosRepository";
 import { PedidosService } from "@/domain/services/PedidosService";
+import OrderListViewModel from "@/presentation/orderList/OrderListViewModel";
 
 const Container = createContainer();
 
@@ -76,6 +77,7 @@ Container.register({
   ProductViewModel: asFunction(ProductViewModel),
   LandingViewModel: asFunction(LandingViewModel),
   OrderDetailViewModel: asFunction(OrderDetailViewModel),
+  OrderListViewModel: asFunction(OrderListViewModel),
 });
 
 export default Container;
