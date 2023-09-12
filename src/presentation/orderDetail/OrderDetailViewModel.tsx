@@ -94,7 +94,6 @@ const OrderDetailViewModel = ({
           precios,
           presentaciones
         );
-        console.log(" productos completos para pedido -> ", productosCompletos);
         setProductosPedido(
           setOrderQuantity(productosCompletos.productos, data)
         );
@@ -262,7 +261,6 @@ const OrderDetailViewModel = ({
 
       setSavingData(false);
     } catch (error) {
-      console.log(error);
       updateDataModal({
         open: true,
         title: "Error",
@@ -276,11 +274,8 @@ const OrderDetailViewModel = ({
   };
 
   const createOrderVerification = async () => {
-    console.log("createOrderVerification");
     setSavingData(true);
-    console.log("setSavingData");
     await orderForm.trigger();
-    console.log("trigger -> ", orderForm.formState.isValid);
     if (!orderForm.formState.isValid) {
       updateDataModal({
         open: true,

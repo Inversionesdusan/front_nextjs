@@ -58,7 +58,7 @@ const ShoppingCartDetail = ({
   };
 
   const { container, cartContainer } = styles(open);
-  console.log("Items del carrito de compra -> ", itemsCart);
+
   return (
     <div style={container}>
       <Grow

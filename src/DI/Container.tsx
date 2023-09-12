@@ -8,6 +8,7 @@ import * as PreciosDataSource from "@/data/dataSource/PrecioProductoDataSource";
 import * as PresentacionesDataSource from "@/data/dataSource/PresentacionesDataSource";
 import * as ClientesDataSource from "@/data/dataSource/ClientesDataSource";
 import * as PedidosDataSource from "@/data/dataSource/PedidosDataRource";
+import * as AuthDataSource from "@/data/dataSource/AuthDataSource";
 import { BannersRepository } from "../data/repository/BannersRepository";
 import { SeccionInformacionRepository } from "../data/repository/SeccionInformacionRepository";
 import { BannersService } from "@/domain/services/BannersService";
@@ -33,6 +34,10 @@ import { ClientsService } from "@/domain/services/ClientsService";
 import { PedidosRepository } from "@/data/repository/PedidosRepository";
 import { PedidosService } from "@/domain/services/PedidosService";
 import OrderListViewModel from "@/presentation/orderList/OrderListViewModel";
+import OrderSavedViewModel from "@/presentation/orderSaved/OrderSavedViewModel";
+import { AuthRepository } from "@/data/repository/AuthRepository";
+import { AuthService } from "@/domain/services/AuthService";
+import ProfileViewModel from "@/presentation/profile/ProfileViewModel";
 
 const Container = createContainer();
 
@@ -46,6 +51,7 @@ Container.register({
   PresentacionesDataSource: asValue(PresentacionesDataSource),
   ClientesDataSource: asValue(ClientesDataSource),
   PedidosDataSource: asValue(PedidosDataSource),
+  AuthDataSource: asValue(AuthDataSource),
 
   //Repositories
   BannersRepository: asFunction(BannersRepository),
@@ -56,6 +62,7 @@ Container.register({
   PresentacionRepository: asFunction(PresentacionRepository),
   ClientsRepository: asFunction(ClientsRepository),
   PedidosRepository: asFunction(PedidosRepository),
+  AuthRepository: asFunction(AuthRepository),
 
   //Services
   BannersService: asFunction(BannersService),
@@ -66,6 +73,7 @@ Container.register({
   PresentacionesService: asFunction(PresentacionesService),
   ClientsService: asFunction(ClientsService),
   PedidosService: asFunction(PedidosService),
+  AuthService: asFunction(AuthService),
 
   //ViewModels
   HeroViewModel: asFunction(HeroViewModel),
@@ -78,6 +86,8 @@ Container.register({
   LandingViewModel: asFunction(LandingViewModel),
   OrderDetailViewModel: asFunction(OrderDetailViewModel),
   OrderListViewModel: asFunction(OrderListViewModel),
+  OrderSavedViewModel: asFunction(OrderSavedViewModel),
+  ProfileViewModel: asFunction(ProfileViewModel),
 });
 
 export default Container;

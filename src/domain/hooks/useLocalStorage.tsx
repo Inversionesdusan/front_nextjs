@@ -38,11 +38,24 @@ const useLocalStorage = () => {
     localStorage.removeItem(constantes.keys.shoppingCar);
   };
 
+  const saveUserData = (token: string, id: number) => {
+    if (localStorage.getItem(constantes.keys.user))
+      localStorage.removeItem(constantes.keys.user);
+    localStorage.setItem(constantes.keys.user, JSON.stringify({ token, id }));
+  };
+
+  const clearUserData = () => {
+    if (localStorage.getItem(constantes.keys.user))
+      localStorage.removeItem(constantes.keys.user);
+  };
+
   return {
     getDataShoppingCart,
     saveDataShoppingCart,
     saveAllItemsShoppingCart,
     clearShoppingCart,
+    saveUserData,
+    clearUserData,
   };
 };
 

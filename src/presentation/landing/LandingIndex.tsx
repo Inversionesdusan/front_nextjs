@@ -7,9 +7,6 @@ import { Box, useMediaQuery, useTheme } from "@mui/material";
 import ContactoView from "./contacto/ContactoView";
 import FooterView from "./footer/FooterView";
 import { colors } from "../styles/colors";
-import ModalRegistro from "@/presentation/components/modalRegistro/ModalRegistro";
-import ModalLogin from "@/presentation/components/modalLogin/ModalLogin";
-import useMenuHook from "@/domain/hooks/useMenuHook";
 import Container from "@/DI/Container";
 import { LandingViewModelReturn } from "./LandingViewModel";
 
@@ -17,25 +14,17 @@ const LandingIndex = () => {
   const theme = useTheme();
   const downXl = useMediaQuery(theme.breakpoints.down("xl"));
 
-  const {
-    menuOptions,
-    handleOpenModalLogin,
-    handleOpenModalRegistro,
-    openModalLogin,
-    openModalRegistro,
-  } = useMenuHook();
-
   const landingViewModel = Container.resolve(
     "LandingViewModel"
   ) as LandingViewModelReturn;
 
   return (
     <>
-      <HeaderView menuOptions={menuOptions} landing={true} />
+      <HeaderView landing={true} />
       <Box sx={{ width: "100%", marginX: "auto", height: "100vh" }}>
         <HeroView
-          handleOpenModalLogin={handleOpenModalLogin}
-          handleOpenModalRegistro={handleOpenModalRegistro}
+          handleOpenModalLogin={() => {}}
+          handleOpenModalRegistro={() => {}}
         />
       </Box>
       <Box
@@ -67,20 +56,6 @@ const LandingIndex = () => {
       <Box sx={{ width: "100%" }}>
         <FooterView />
       </Box>
-      <ModalRegistro
-        open={openModalRegistro}
-        title="Registro"
-        message="Prueba"
-        onClose={handleOpenModalRegistro}
-        onAccept={handleOpenModalRegistro}
-      />
-      <ModalLogin
-        open={openModalLogin}
-        title="Ingreso"
-        message="Prueba"
-        onClose={handleOpenModalLogin}
-        onAccept={handleOpenModalLogin}
-      />
     </>
   );
 };

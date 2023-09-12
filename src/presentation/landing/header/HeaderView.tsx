@@ -1,5 +1,12 @@
 "use client";
-import { Badge, Box, IconButton, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Badge,
+  Box,
+  IconButton,
+  useMediaQuery,
+  useTheme,
+  Typography,
+} from "@mui/material";
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
@@ -14,17 +21,18 @@ import { constantes } from "@/domain/constants";
 import SideMenu from "../../components/sidemenu/SideMenu";
 import Container from "@/DI/Container";
 import { IHeaderViewModelReturn } from "./HeaderViewModel";
-import DropDownMenu, {
-  DropDownMenuOpion,
-} from "@/presentation/components/dropdownMenu/DropDownMenu";
+import DropDownMenu from "@/presentation/components/dropdownMenu/DropDownMenu";
 import ShoppingCartDetail from "@/presentation/components/shoppingCartDetail/ShoppingCartDetail";
+import ModalRegistro from "@/presentation/components/modalRegistro/ModalRegistro";
+import ModalLogin from "@/presentation/components/modalLogin/ModalLogin";
+import useMenuHook from "@/domain/hooks/useMenuHook";
+import useAuthStore from "@/domain/store/useAuthStore";
 
 interface HeaderViewProps {
-  menuOptions: DropDownMenuOpion[];
   landing: boolean;
 }
 
-const HeaderView = ({ menuOptions, landing }: HeaderViewProps) => {
+const HeaderView = ({ landing }: HeaderViewProps) => {
   const theme = useTheme();
   const downMd = useMediaQuery(theme.breakpoints.down("md"));
   const headerViewModel = Container.resolve(
@@ -33,10 +41,22 @@ const HeaderView = ({ menuOptions, landing }: HeaderViewProps) => {
 
   useEffect(() => {
     headerViewModel.loadItems();
+    headerViewModel.loadUserData();
   }, []);
 
   const { navbar, iconBox, optionsBox, isologo, isotipo, menuBox, icon } =
     styles(downMd);
+
+  const { handleOpenModalLogin, openModalLogin } = useMenuHook();
+  const { authData } = useAuthStore();
+
+  console.log(authData);
+
+  useEffect(() => {
+    if (authData.isAuthenticated) {
+      console.log("datos -> ", authData);
+    }
+  }, [authData.isAuthenticated]);
 
   return (
     <>
@@ -71,6 +91,9 @@ const HeaderView = ({ menuOptions, landing }: HeaderViewProps) => {
           </div>
         </Box>
         <Box sx={iconBox}>
+          {authData.isAuthenticated && authData.user.nombres && (
+            <Typography>Hola, {authData.user.nombres}</Typography>
+          )}
           <IconButton onClick={headerViewModel.handleOpenMenu}>
             <AccountCircleTwoToneIcon sx={icon} />
           </IconButton>
@@ -87,7 +110,13 @@ const HeaderView = ({ menuOptions, landing }: HeaderViewProps) => {
       <DropDownMenu
         handleOpenMenu={headerViewModel.handleOpenMenu}
         openMenu={headerViewModel.openMenu}
-        options={menuOptions}
+        options={
+          headerViewModel &&
+          authData.isAuthenticated &&
+          headerViewModel.menuOptionsLogged
+            ? headerViewModel.menuOptionsLogged
+            : headerViewModel.menuOptions
+        }
       />
       <SideMenu
         open={headerViewModel.open}
@@ -96,6 +125,20 @@ const HeaderView = ({ menuOptions, landing }: HeaderViewProps) => {
       <ShoppingCartDetail
         open={headerViewModel.openCart}
         handleOpenModal={headerViewModel.handleOpenCart}
+      />
+      <ModalRegistro
+        open={headerViewModel.openModalRegistro}
+        title="Registro"
+        onClose={headerViewModel.handleOpenModalRegistro}
+        onAccept={headerViewModel.registerClient}
+        loadingData={headerViewModel.savingData}
+      />
+      <ModalLogin
+        open={headerViewModel.openModalLogin}
+        title="Ingreso"
+        onClose={headerViewModel.handleOpenModalLogin}
+        onAccept={headerViewModel.login}
+        loadingData={headerViewModel.savingData}
       />
     </>
   );

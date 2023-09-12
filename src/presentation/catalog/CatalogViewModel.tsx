@@ -81,7 +81,6 @@ const CatalogViewModel = ({
         const prices = resp[1];
         setPrecios(prices);
         const converProductos = setProductPrices(prods, prices);
-        console.log("respuesta de productos con precios -> ", converProductos);
         settipoProducto(converProductos.tipos);
         setProductos(converProductos.productosConPrecios);
         setLoadingProds(false);

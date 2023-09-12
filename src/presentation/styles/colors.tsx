@@ -56,6 +56,13 @@ export const MontserratGreen14700: SxProps<Theme> = {
   fontWeight: "700",
 };
 
+export const MontserratGreen14400: SxProps<Theme> = {
+  fontFamily: "Montserrat",
+  fontSize: "0.875rem",
+  color: colors.solidGreen,
+  fontWeight: "400",
+};
+
 export const CuniaBlack20400: SxProps<Theme> = {
   fontFamily: "Cunia",
   fontSize: "1.25rem",

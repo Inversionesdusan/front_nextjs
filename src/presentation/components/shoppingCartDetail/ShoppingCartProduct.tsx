@@ -26,8 +26,6 @@ const ShoppingCartProduct = ({
     cartRowInfoName,
     cartRowPresentation,
   } = styles(true, product.imageUrl);
-  console.log(product);
-
   const formatNumber = Intl.NumberFormat(constantes.locale);
 
   return (

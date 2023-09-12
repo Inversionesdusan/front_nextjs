@@ -10,9 +10,13 @@ export const constantes = {
     presentaciones: "presentaciones",
     clientesNoRegistrados: "clientes-nrs",
     pedidos: "pedidos",
+    registro: "auth/local/register",
+    user: "users/me",
+    login: "auth/local/",
   },
   keys: {
     shoppingCar: "shoppingCarData",
+    user: "userData",
   },
   options: [
     { label: "Inicio", section: "inicio" },
@@ -43,5 +47,16 @@ export const constantes = {
     emptyCart: "No hay productos para hacer el pedido",
     disclaimer:
       "Los precios especificados en el total del pedido NO Incluyen el valor del flete",
+  },
+  orderList: {
+    title: "Listado de Pedidos",
+    loadingMessage: "Consultando registros de pedidos...",
+    emptyStateMessage: "No se han encontrado registros",
+  },
+  errores: {
+    taken: "Este correo electrónico ya se ha registrado",
+    attempts:
+      "Demasiadas solicitudes. Por favor intente en aproximadamente 1 minuto",
+    credentials: "Email o contraseña incorrecta",
   },
 };

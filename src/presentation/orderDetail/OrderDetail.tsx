@@ -1,7 +1,6 @@
 import { Box, Grow, Typography, CircularProgress } from "@mui/material";
 import { styles } from "./OrderDetailStyles";
 import HeaderView from "../landing/header/HeaderView";
-import useMenuHook from "@/domain/hooks/useMenuHook";
 import CardButton from "../components/common/CardButton";
 import { useEffect } from "react";
 import OrderRow from "./components/orderRow/OrderRow";
@@ -38,8 +37,6 @@ const OrderDetail = ({ flow = "cart" }: OrderDetailProps) => {
     iconEmptyState,
   } = styles();
 
-  console.log("proceso -> ", flow);
-  const { menuOptions } = useMenuHook();
   const router = useRouter();
 
   const orderDetailVM = Container.resolve(
@@ -52,7 +49,7 @@ const OrderDetail = ({ flow = "cart" }: OrderDetailProps) => {
 
   return (
     <Box sx={container}>
-      <HeaderView menuOptions={menuOptions} landing={false} />
+      <HeaderView landing={false} />
       <Box sx={orderContainer}>
         <Box sx={headerBox}>
           <Box sx={titleBox}>

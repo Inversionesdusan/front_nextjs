@@ -1,4 +1,3 @@
-import useMenuHook from "@/domain/hooks/useMenuHook";
 import HeaderView from "../landing/header/HeaderView";
 import {
   Box,
@@ -25,7 +24,6 @@ const CatalogView = () => {
     "CatalogViewModel"
   ) as ICatalogoViewModel;
 
-  const { menuOptions } = useMenuHook();
   const {
     container,
     catalogContainer,
@@ -49,7 +47,7 @@ const CatalogView = () => {
   return (
     <>
       <Box sx={container}>
-        <HeaderView menuOptions={menuOptions} landing={false} />
+        <HeaderView landing={false} />
         <Box sx={catalogContainer}>
           <Box sx={titleBox}>
             <Typography variant="h1" sx={title}>
@@ -141,18 +139,10 @@ const CatalogView = () => {
           producto={catalogViewModel.productoSeleccionado!}
           open={catalogViewModel.openModalCar}
           handleClose={catalogViewModel.handleOpenModalCar}
-          handleOrder={() => console.log("ordenar")}
+          handleOrder={() => {}}
           handleShoppingCart={catalogViewModel.handleClickShoppingCar}
         />
       )}
-
-      {/*<ModalComponent
-        open={catalogViewModel.openModalMessage}
-        title={catalogViewModel.dataModalMessage.title}
-        message={catalogViewModel.dataModalMessage.message}
-        onAccept={catalogViewModel.handleOpenModalMessage}
-        onClose={catalogViewModel.handleOpenModalMessage}
-      />*/}
     </>
   );
 };

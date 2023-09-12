@@ -12,8 +12,9 @@ import {
 import { TransitionProps } from "@mui/material/transitions";
 import React from "react";
 import { styles } from "./ModalLoginStyles";
-import { useForm } from "react-hook-form";
+import { UseFormReset, useForm } from "react-hook-form";
 import { ILoginFormValues } from "@/domain/models/forms/ILoginForm";
+import { ILoginRequest } from "@/domain/models/requests/ILoginRequest";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -32,17 +33,20 @@ const initialFormData: ILoginFormValues = {
 interface ModalRegistroProps {
   open: boolean;
   title: string;
-  message: string;
   onClose: () => void;
-  onAccept: () => void;
+  onAccept: (
+    loginData: ILoginRequest,
+    reset: UseFormReset<ILoginFormValues>
+  ) => void;
+  loadingData: boolean;
 }
 
 const ModalLogin = ({
   open,
   title,
-  message,
   onClose,
   onAccept,
+  loadingData,
 }: ModalRegistroProps) => {
   const { modalDialog, inputStyle } = styles();
   const formLogin = useForm<ILoginFormValues>({
@@ -60,33 +64,33 @@ const ModalLogin = ({
       onClose={onClose}
       sx={modalDialog}
     >
-      <DialogTitle
-        sx={{
-          fontFamily: "Cunia",
-          color: colors.green,
-          fontSize: "1.5rem",
-          padding: 0,
-          marginBottom: "1rem",
-        }}
+      <form
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit((data) => {
+          onAccept({ identifier: data.email, password: data.clave }, reset);
+        })}
+        style={{ width: "100%", marginBottom: "2rem" }}
       >
-        {title}
-      </DialogTitle>
-      <DialogContent
-        sx={{
-          padding: 0,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <form
-          noValidate
-          autoComplete="off"
-          onSubmit={(data) => {
-            console.log(data);
+        <DialogTitle
+          sx={{
+            fontFamily: "Cunia",
+            color: colors.green,
+            fontSize: "1.5rem",
+            padding: 0,
+            marginBottom: "1rem",
           }}
-          style={{ width: "100%", marginBottom: "2rem" }}
+        >
+          {title}
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            padding: 0,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <FormControl
             fullWidth
@@ -94,6 +98,7 @@ const ModalLogin = ({
             error={!!errors.email?.message}
           >
             <Input
+              disabled={loadingData}
               id="email"
               type="email"
               aria-describedby="email-error"
@@ -127,6 +132,7 @@ const ModalLogin = ({
             error={!!errors.clave?.message}
           >
             <Input
+              disabled={loadingData}
               id="clave"
               type="password"
               aria-describedby="clave-error"
@@ -154,18 +160,28 @@ const ModalLogin = ({
               {errors.clave?.message}
             </span>
           </FormControl>
-        </form>
-      </DialogContent>
-      <DialogActions
-        sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}
-      >
-        <ButtonCustom typeButton="modal" invert={true} onClick={onAccept}>
-          Cancelar
-        </ButtonCustom>
-        <ButtonCustom typeButton="modal" onClick={onAccept}>
-          Aceptar
-        </ButtonCustom>
-      </DialogActions>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "1rem",
+            marginTop: "2rem",
+          }}
+        >
+          <ButtonCustom
+            typeButton="modal"
+            invert={true}
+            onClick={onClose}
+            disabled={loadingData}
+          >
+            Cancelar
+          </ButtonCustom>
+          <ButtonCustom type="submit" typeButton="modal" disabled={loadingData}>
+            Aceptar
+          </ButtonCustom>
+        </DialogActions>
+      </form>
     </Dialog>
   );
 };

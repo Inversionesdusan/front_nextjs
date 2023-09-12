@@ -1,21 +1,31 @@
 import { NotRegisteredClientDto } from "@/domain/models/Dto/NotRegisteredClientDto";
+import { IClientRegisterRequest } from "@/domain/models/requests/IClientRegisterRequest";
 import { ISaveDataNotRegisteredClient } from "@/domain/models/requests/ISaveDataNotRegisteredClient";
+import { IClientRegisterResponse } from "@/domain/models/responses/IClientRegisterResponse";
 import { IGetClientByEmailResponse } from "@/domain/models/responses/IGetClientByEmailResponse";
+import { IUserDto } from "@/domain/models/Dto/IClientDto";
+import { IClientDataQueryResponse } from "@/domain/models/responses/IClientDataQueryResponse";
 
 interface IClientRepositoryProps {
   ClientesDataSource: {
+    registerClient: (
+      clientData: IClientRegisterRequest
+    ) => Promise<IClientRegisterResponse>;
     saveNotRegisteredClient: (
       clientData: ISaveDataNotRegisteredClient
     ) => Promise<number>;
     getClienteByEmail: (email: string) => Promise<IGetClientByEmailResponse>;
+    loadClientData: (token: string) => Promise<IClientDataQueryResponse>;
   };
 }
 
 export interface IClientRepositoryReturn {
+  registerClient: (clientData: IClientRegisterRequest) => Promise<IUserDto>;
   saveNotRegisteredClient: (
     clientData: ISaveDataNotRegisteredClient
   ) => Promise<NotRegisteredClientDto>;
   getClienteByEmail: (email: string) => Promise<NotRegisteredClientDto>;
+  loadClientData: (token: string) => Promise<IUserDto>;
 }
 
 export const ClientsRepository = ({
@@ -24,7 +34,6 @@ export const ClientsRepository = ({
   const saveNotRegisteredClient = async (
     clientData: ISaveDataNotRegisteredClient
   ): Promise<NotRegisteredClientDto> => {
-    console.log("entrada al repositorio -> ", clientData);
     const response = await ClientesDataSource.saveNotRegisteredClient(
       clientData
     );
@@ -60,8 +69,46 @@ export const ClientsRepository = ({
     } as NotRegisteredClientDto;
   };
 
+  const registerClient = async (
+    clientData: IClientRegisterRequest
+  ): Promise<IUserDto> => {
+    const response = await ClientesDataSource.registerClient(clientData);
+    return {
+      jwt: response.jwt,
+      id: response.user.id,
+      nombres: response.user.nombres,
+      apellidos: response.user.apellidos,
+      email: response.user.email,
+      telefono: response.user.telefono,
+      tipoDocumento: response.user.tipo_documento,
+      numeroDocumento: response.user.numero_documento,
+      digitoVerificacion: response.user.digito_verificacion,
+      blocked: response.user.blocked,
+      confirmed: response.user.confirmed,
+    };
+  };
+
+  const loadClientData = async (token: string): Promise<IUserDto> => {
+    const response = await ClientesDataSource.loadClientData(token);
+    return {
+      jwt: token,
+      id: response.id,
+      nombres: response.nombres,
+      apellidos: response.apellidos,
+      email: response.email,
+      telefono: response.telefono,
+      tipoDocumento: response.tipo_documento,
+      numeroDocumento: response.numero_documento,
+      digitoVerificacion: response.digito_verificacion,
+      blocked: response.blocked,
+      confirmed: response.confirmed,
+    };
+  };
+
   return {
     saveNotRegisteredClient,
     getClienteByEmail,
+    registerClient,
+    loadClientData,
   };
 };

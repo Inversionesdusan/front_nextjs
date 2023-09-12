@@ -74,7 +74,6 @@ const OrderRow = ({
                   style={selectBox}
                   value={item.quantity?.presentationId}
                   onChange={(e) => {
-                    console.log(e);
                     handleChangePresentation(index, parseInt(e.target.value));
                   }}
                 >

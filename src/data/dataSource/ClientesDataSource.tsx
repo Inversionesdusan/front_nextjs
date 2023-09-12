@@ -1,21 +1,38 @@
 import { constantes } from "@/domain/constants";
+import { IClientRegisterRequest } from "@/domain/models/requests/IClientRegisterRequest";
 import { ISaveDataNotRegisteredClient } from "@/domain/models/requests/ISaveDataNotRegisteredClient";
+import { IClientDataQueryResponse } from "@/domain/models/responses/IClientDataQueryResponse";
+import { IClientRegisterResponse } from "@/domain/models/responses/IClientRegisterResponse";
 import { IGetClientByEmailResponse } from "@/domain/models/responses/IGetClientByEmailResponse";
 import { NotRegisteredClientResponse } from "@/domain/models/responses/NotRegisteredClientResponse";
 import axios, { AxiosRequestConfig } from "axios";
 
+export const registerClient = async (
+  clientData: IClientRegisterRequest
+): Promise<IClientRegisterResponse> => {
+  const request: AxiosRequestConfig = {
+    method: "POST",
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    url: constantes.endpoints.registro,
+    data: clientData,
+  };
+
+  try {
+    const { data } = await axios.request<IClientRegisterResponse>(request);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const saveNotRegisteredClient = async (
   clientData: ISaveDataNotRegisteredClient
 ): Promise<number> => {
-  console.log("entrada al datasource -> ", clientData);
   const request: AxiosRequestConfig = {
     method: "POST",
     baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
     url: constantes.endpoints.clientesNoRegistrados,
     data: { data: { ...clientData } },
-    //headers: {
-    //  Authorization: "Bearer " + process.env.NEXT_PUBLIC_API_TOKEN,
-    //},
   };
 
   try {
@@ -23,7 +40,6 @@ export const saveNotRegisteredClient = async (
     if (data.data.id && data.data.id > 0) return data.data.id;
     return -1;
   } catch (error) {
-    console.log("Ha ocurrido un error al grabar la información");
     return -1;
   }
 };
@@ -33,15 +49,28 @@ export const getClienteByEmail = async (email: string) => {
     method: "GET",
     baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
     url: `${constantes.endpoints.clientesNoRegistrados}?filters[email]$eq=${email}`,
-    //headers: {
-    //  Authorization: "Bearer " + process.env.NEXT_PUBLIC_API_TOKEN,
-    //},
   };
 
   try {
     const { data } = await axios.request<IGetClientByEmailResponse>(request);
     return data;
   } catch (error) {
-    throw new Error("Error al consultar cliente por email");
+    throw error;
   }
+};
+
+export const loadClientData = async (token: string) => {
+  const request: AxiosRequestConfig = {
+    method: "GET",
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    url: constantes.endpoints.user,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const { data } = await axios.request<IClientDataQueryResponse>(request);
+    return data;
+  } catch (error) {}
 };

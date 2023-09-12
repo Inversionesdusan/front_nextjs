@@ -13,7 +13,8 @@ import { TransitionProps } from "@mui/material/transitions";
 import React from "react";
 import { styles } from "./ModalRegistroStyles";
 import { IRegisterFormValues } from "@/domain/models/forms/IRegisterForm";
-import { useForm } from "react-hook-form";
+import { UseFormReset, useForm } from "react-hook-form";
+import { IClientRegisterRequest } from "@/domain/models/requests/IClientRegisterRequest";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -36,17 +37,20 @@ const initialFormData: IRegisterFormValues = {
 interface ModalRegistroProps {
   open: boolean;
   title: string;
-  message: string;
   onClose: () => void;
-  onAccept: () => void;
+  onAccept: (
+    clientData: IClientRegisterRequest,
+    reset: UseFormReset<IRegisterFormValues>
+  ) => void;
+  loadingData: boolean;
 }
 
 const ModalRegistro = ({
   open,
   title,
-  message,
   onClose,
   onAccept,
+  loadingData,
 }: ModalRegistroProps) => {
   const { modalDialog, inputStyle } = styles();
   const formRegister = useForm<IRegisterFormValues>({
@@ -64,31 +68,43 @@ const ModalRegistro = ({
       onClose={onClose}
       sx={modalDialog}
     >
-      <DialogTitle
-        sx={{
-          fontFamily: "Cunia",
-          color: colors.green,
-          fontSize: "1.5rem",
-          padding: 0,
-          marginBottom: "1rem",
-        }}
+      <form
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit((data) => {
+          onAccept(
+            {
+              email: data.email,
+              username: data.email,
+              nombres: data.nombresCliente,
+              apellidos: data.apellidosCliente,
+              telefono: data.nroTelefono,
+              password: data.clave,
+            },
+            reset
+          );
+        })}
+        style={{ width: "100%", marginBottom: "2rem" }}
       >
-        {title}
-      </DialogTitle>
-      <DialogContent
-        sx={{
-          padding: 0,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <form
-          noValidate
-          autoComplete="off"
-          onSubmit={(data) => {}}
-          style={{ width: "100%", marginBottom: "2rem" }}
+        <DialogTitle
+          sx={{
+            fontFamily: "Cunia",
+            color: colors.green,
+            fontSize: "1.5rem",
+            padding: 0,
+            marginBottom: "1rem",
+          }}
+        >
+          {title}
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            padding: 0,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <FormControl
             fullWidth
@@ -96,6 +112,7 @@ const ModalRegistro = ({
             error={!!errors.nombresCliente?.message}
           >
             <Input
+              disabled={loadingData}
               id="nombresCliente"
               type="text"
               aria-describedby="nombresCliente-error"
@@ -129,6 +146,7 @@ const ModalRegistro = ({
             error={!!errors.apellidosCliente?.message}
           >
             <Input
+              disabled={loadingData}
               id="apellidosCliente"
               type="text"
               aria-describedby="apellidosCliente-error"
@@ -163,6 +181,7 @@ const ModalRegistro = ({
             error={!!errors.email?.message}
           >
             <Input
+              disabled={loadingData}
               id="email"
               type="email"
               aria-describedby="email-error"
@@ -196,6 +215,7 @@ const ModalRegistro = ({
             error={!!errors.nroTelefono?.message}
           >
             <Input
+              disabled={loadingData}
               id="nroTelefono"
               aria-describedby="nroTelefono-error"
               placeholder="Nro Telefónico / Celular"
@@ -240,6 +260,7 @@ const ModalRegistro = ({
             error={!!errors.clave?.message}
           >
             <Input
+              disabled={loadingData}
               id="clave"
               type="password"
               aria-describedby="clave-error"
@@ -273,6 +294,7 @@ const ModalRegistro = ({
             error={!!errors.confirmarClave?.message}
           >
             <Input
+              disabled={loadingData}
               id="confirmarClave"
               type="password"
               aria-describedby="confirmarClave-error"
@@ -300,18 +322,28 @@ const ModalRegistro = ({
               {errors.confirmarClave?.message}
             </span>
           </FormControl>
-        </form>
-      </DialogContent>
-      <DialogActions
-        sx={{ display: "flex", flexDirection: "row", gap: "1rem" }}
-      >
-        <ButtonCustom typeButton="modal" invert={true} onClick={onAccept}>
-          Cancelar
-        </ButtonCustom>
-        <ButtonCustom typeButton="modal" onClick={onAccept}>
-          Aceptar
-        </ButtonCustom>
-      </DialogActions>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "1rem",
+            marginTop: "2rem",
+          }}
+        >
+          <ButtonCustom
+            typeButton="modal"
+            invert={true}
+            onClick={onClose}
+            disabled={loadingData}
+          >
+            Cancelar
+          </ButtonCustom>
+          <ButtonCustom typeButton="modal" type="submit" disabled={loadingData}>
+            Aceptar
+          </ButtonCustom>
+        </DialogActions>
+      </form>
     </Dialog>
   );
 };

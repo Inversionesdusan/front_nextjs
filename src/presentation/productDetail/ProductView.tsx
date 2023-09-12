@@ -1,7 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import { styles } from "./ProductViewStyles";
 import HeaderView from "../landing/header/HeaderView";
-import useMenuHook from "@/domain/hooks/useMenuHook";
 import { constantes } from "@/domain/constants";
 import QuantityComponent from "../components/common/QuantityComponent";
 import { colors } from "../styles/colors";
@@ -27,7 +26,6 @@ const sliderSettings = {
 };
 
 const ProductView = () => {
-  const { menuOptions } = useMenuHook();
   const router = useRouter();
 
   const productViewModel = Container.resolve(
@@ -84,7 +82,7 @@ const ProductView = () => {
 
   return (
     <Box sx={container}>
-      <HeaderView menuOptions={menuOptions} landing={false} />
+      <HeaderView landing={false} />
       <Box sx={productContainer}>
         <Box sx={headerBox}>
           <Box sx={titleBox}>
@@ -258,22 +256,6 @@ const ProductView = () => {
         </Box>
       </Box>
       <FooterView />
-      {/*productViewModel.productoSeleccionado && (
-        <ShoppingCarModal
-          producto={productViewModel.productoSeleccionado!}
-          open={productViewModel.openModalCart}
-          handleClose={productViewModel.handleClickOpenModal}
-          handleOrder={productViewModel.handleClickOpenModal}
-          handleShoppingCart={productViewModel.handleClickShoppingCar}
-        />
-      )*/}
-      {/*<ModalComponent
-        open={productViewModel.openModalMessage}
-        title={productViewModel.dataModalMessage.title}
-        message={productViewModel.dataModalMessage.message}
-        onAccept={productViewModel.handleOpenModalMessage}
-        onClose={productViewModel.handleOpenModalMessage}
-      />*/}
     </Box>
   );
 };
