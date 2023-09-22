@@ -42,6 +42,8 @@ export interface ICatalogoViewModel {
   textFilter: string;
   handleChangetextFilter: (text: string) => void;
   buyProduct: (producto: IProductoWithPricesDto) => void;
+  handleOpenDetail: (producto?: IProductoWithPricesDto) => void;
+  openDetail: boolean;
 }
 
 const CatalogViewModel = ({
@@ -69,6 +71,8 @@ const CatalogViewModel = ({
   const [tipoProducto, settipoProducto] = useState<TipoProductoDto[]>([]);
   const [textFilter, setTextFilter] = useState<string>("");
   const router = useRouter();
+
+  const [openDetail, setOpenDetail] = useState<boolean>(false);
 
   const getProductos = async () => {
     setLoadingProds(true);
@@ -161,6 +165,11 @@ const CatalogViewModel = ({
     router.push("/detalle");
   };
 
+  const handleOpenDetail = (producto?: IProductoWithPricesDto) => {
+    if (!openDetail && producto) setSelectedProduct(producto);
+    setOpenDetail(!openDetail);
+  };
+
   return {
     loadingPrices,
     precios,
@@ -182,6 +191,8 @@ const CatalogViewModel = ({
     textFilter,
     handleChangetextFilter,
     buyProduct,
+    handleOpenDetail,
+    openDetail,
   };
 };
 

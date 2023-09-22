@@ -11,6 +11,7 @@ export const styles = () => {
     borderRadius: "20px",
     height: "70px",
     paddingX: "2rem",
+    marginTop: "2rem",
     marginBottom: "1rem",
     background: colors.green,
   };

@@ -6,9 +6,12 @@ export const styles = () => {
     border: `1px solid ${colors.mediumGray}`,
     borderRadius: "50px",
     paddingX: "3rem",
-    paddingTop: "1.5rem",
+    paddingTop: "2.5rem",
     marginTop: "1rem",
     paddingBottom: "2.5rem",
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
   };
 
   const inputStyle: SxProps<Theme> = {
@@ -37,8 +40,17 @@ export const styles = () => {
     },
   };
 
+  const clientLbelBox: SxProps<Theme> = {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "0.5rem",
+  };
+
   return {
     formContainer,
     inputStyle,
+    clientLbelBox,
   };
 };

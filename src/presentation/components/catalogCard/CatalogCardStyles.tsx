@@ -31,7 +31,8 @@ export const styles = (url: string) => {
 
   const productImage: SxProps<Theme> = {
     display: "flex",
-    justifyContent: "center",
+    flexDirection: "column",
+    justifyContent: "end",
     alignItems: "center",
     height: "230px",
     borderRadius: "10px",
@@ -82,6 +83,28 @@ export const styles = (url: string) => {
     marginY: "auto",
   };
 
+  const typeProductBox: SxProps<Theme> = {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  };
+
+  const moreInfoIcon: SxProps<Theme> = {
+    color: colors.solidBlack,
+    fontSize: "1.5rem",
+  };
+
+  const lowInventoryText: SxProps<Theme> = {
+    border: "solid 1px #FF8F39",
+    background: "#FFF4EC",
+    borderRadius: "5px",
+    fontFamily: "Cunia",
+    fontSize: "0.7rem",
+    padding: "0.5rem",
+    color: "#B95000",
+  };
+
   return {
     card,
     typeLabel,
@@ -92,5 +115,8 @@ export const styles = (url: string) => {
     carButton,
     labelCarButton,
     priceLabel,
+    typeProductBox,
+    moreInfoIcon,
+    lowInventoryText,
   };
 };

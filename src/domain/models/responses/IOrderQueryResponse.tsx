@@ -23,6 +23,7 @@ export interface IOrderQueryResponseAttributes {
   fechaPago: any;
   transaccionPago: any;
   direccion: Direccion;
+  direccionEnvio: Direccion;
   createdAt: string;
   updatedAt: string;
   emailCliente: string;
@@ -30,9 +31,11 @@ export interface IOrderQueryResponseAttributes {
 }
 
 export interface Direccion {
-  ciudad: string;
   direccion: string;
+  complemento?: string;
   departamento: string;
+  ciudad: string;
+  barrio?: string;
 }
 
 export interface DetallePedido {

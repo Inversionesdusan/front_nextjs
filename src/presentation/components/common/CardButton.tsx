@@ -11,20 +11,21 @@ interface CardButtonProperties {
 
 const styles = (variant: "black" | "green" | "gray") => {
   const button: SxProps<Theme> = {
-    color: colors.white,
+    color: variant === "gray" ? colors.gray : colors.white,
     background:
       variant === "black"
         ? colors.black
         : variant === "green"
         ? colors.green
-        : colors.gradientGray,
+        : colors.mediumGray,
     borderRadius: "50px",
     width: "220px",
     height: "36px",
     padding: "6px 8px",
     transition: "all 0.4s ease",
     "&:hover": {
-      color: colors.mediumGray,
+      background: variant === "gray" ? colors.mediumGray : undefined,
+      color: variant !== "gray" ? colors.mediumGray : undefined,
       transition: "all 0.4s ease",
       transform: "scale(1.05)",
     },

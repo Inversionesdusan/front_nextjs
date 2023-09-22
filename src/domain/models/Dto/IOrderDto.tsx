@@ -7,6 +7,7 @@ export interface IOrderDto {
   estado: string;
   detallePedido: IDetallePedidoDto[];
   direccion: IDireccionPedidoDto;
+  direccionEnvio: IDireccionPedidoDto;
 }
 
 export interface IDetallePedidoDto {
@@ -23,6 +24,7 @@ export interface IDireccionPedidoDto {
   complemento?: string;
   departamento: string;
   ciudad: string;
+  barrio?: string;
 }
 
 export interface IOrderQueryDto {

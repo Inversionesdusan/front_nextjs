@@ -177,6 +177,11 @@ const HeaderViewModel = ({
       email: resp.email,
       nombres: resp.nombres,
       apellidos: resp.apellidos,
+      tipoDocumento: resp.tipoDocumento || "",
+      numeroDocumento: resp.numeroDocumento || "",
+      digitoVerifica: resp.digitoVerificacion || "",
+      tipoUsuario: resp.tipoUsuario,
+      telefono: resp.telefono,
     });
     reset();
     setSavingData(false);
@@ -226,6 +231,11 @@ const HeaderViewModel = ({
             email: resp.email,
             nombres: resp.nombres,
             apellidos: resp.apellidos,
+            tipoDocumento: resp.tipoDocumento || "",
+            numeroDocumento: resp.numeroDocumento || "",
+            digitoVerifica: resp.digitoVerificacion || "",
+            tipoUsuario: resp.tipoUsuario,
+            telefono: resp.telefono,
           });
         });
       }

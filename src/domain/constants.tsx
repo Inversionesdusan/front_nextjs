@@ -13,6 +13,8 @@ export const constantes = {
     registro: "auth/local/register",
     user: "users/me",
     login: "auth/local/",
+    updateUser: "users",
+    changePassword: "auth/change-password",
   },
   keys: {
     shoppingCar: "shoppingCarData",
@@ -53,10 +55,15 @@ export const constantes = {
     loadingMessage: "Consultando registros de pedidos...",
     emptyStateMessage: "No se han encontrado registros",
   },
+  profile: {
+    loading: "Cargando información del cliente...",
+  },
   errores: {
     taken: "Este correo electrónico ya se ha registrado",
     attempts:
       "Demasiadas solicitudes. Por favor intente en aproximadamente 1 minuto",
     credentials: "Email o contraseña incorrecta",
+    password: "La contraseña es inválida",
+    current: "La contraseña actual y la nueva deben ser diferente",
   },
 };

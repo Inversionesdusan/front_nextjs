@@ -43,6 +43,7 @@ interface ModalRegistroProps {
     reset: UseFormReset<IRegisterFormValues>
   ) => void;
   loadingData: boolean;
+  openModalLogin: () => void;
 }
 
 const ModalRegistro = ({
@@ -51,8 +52,9 @@ const ModalRegistro = ({
   onClose,
   onAccept,
   loadingData,
+  openModalLogin,
 }: ModalRegistroProps) => {
-  const { modalDialog, inputStyle } = styles();
+  const { modalDialog, inputStyle, linkText } = styles();
   const formRegister = useForm<IRegisterFormValues>({
     defaultValues: { ...initialFormData },
     reValidateMode: "onBlur",
@@ -343,6 +345,15 @@ const ModalRegistro = ({
             Aceptar
           </ButtonCustom>
         </DialogActions>
+        <div
+          onClick={() => {
+            onClose();
+            openModalLogin();
+          }}
+          style={linkText}
+        >
+          Ya estoy registrado
+        </div>
       </form>
     </Dialog>
   );

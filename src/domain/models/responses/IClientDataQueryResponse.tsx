@@ -13,4 +13,21 @@ export interface IClientDataQueryResponse {
   telefono: string;
   createdAt: string;
   updatedAt: string;
+  tipo_usuario?: string;
+  direccion?: IClientDataAddressResponse;
+  direccion_envio?: IClientDataAddressResponse | null;
+}
+
+export interface IClientDataAddressResponse {
+  direccion: string;
+  complemento?: string;
+  departamento: string;
+  ciudad: string;
+  barrio?: string;
+}
+
+export interface IClientDataShippingAddressResponse
+  extends IClientDataAddressResponse {
+  descripcion?: string;
+  favorita: boolean;
 }

@@ -3,7 +3,6 @@ import { styles } from "./ProductViewStyles";
 import HeaderView from "../landing/header/HeaderView";
 import { constantes } from "@/domain/constants";
 import QuantityComponent from "../components/common/QuantityComponent";
-import { colors } from "../styles/colors";
 import Container from "@/DI/Container";
 import { ProductViewModelReturn } from "./ProductViewModel";
 import { useEffect } from "react";
@@ -11,6 +10,9 @@ import Slider from "react-slick";
 import CatalogCard from "../components/catalogCard/CatalogCard";
 import FooterView from "../landing/footer/FooterView";
 import { useRouter } from "next/router";
+import ComposicionView from "./components/composicion/ComposicionView";
+import Descripcion from "./components/descripcion/Descripcion";
+import VentajasView from "./components/ventajas/VentajasView";
 
 const sliderSettings = {
   infinite: true,
@@ -160,73 +162,15 @@ const ProductView = () => {
                 </Button>
               </Box>
             }
-            <Box sx={dataRow}>
-              <Typography
-                sx={{
-                  ...dataText,
-                  textAlign: "center",
-                  marginTop: "1rem",
-                  paddingY: "0.5rem",
-                  borderTop: `solid 1px ${colors.solidGreen}`,
-                  borderBottom: `solid 1px ${colors.solidGreen}`,
-                }}
-              >
-                Composición Garantizada
-              </Typography>
-            </Box>
-            {productViewModel.selectedProduct.composicion
-              ?.split(";")
-              .map((componente) => {
-                const info = componente.split("=");
-                return (
-                  <Box key={info[0]} sx={dataRow}>
-                    <Typography sx={dataText}>{info[0]}</Typography>
-                    <Typography sx={dataText}>{info[1]}</Typography>
-                  </Box>
-                );
-              })}
+            <ComposicionView producto={productViewModel.selectedProduct} />
           </Box>
         </Box>
         <Box sx={detailBox}>
-          <Box sx={detailItem}>
-            <span
-              style={{
-                color: colors.solidGreen,
-                fontFamily: "Cunia",
-                textAlign: "center",
-                marginBottom: "1rem",
-              }}
-            >
-              Descripción del producto
-            </span>
-            <Typography
-              sx={{ fontFamily: "Montserrat", color: colors.solidGreen }}
-            >
-              {productViewModel.selectedProduct.descripcion}
-            </Typography>
-          </Box>
-          <Box sx={detailItem}>
-            <span
-              style={{
-                color: colors.solidGreen,
-                fontFamily: "Cunia",
-                textAlign: "center",
-                marginBottom: "1rem",
-              }}
-            >
-              Ventajas
-            </span>
-            {productViewModel.selectedProduct.ventajas
-              .split(";")
-              .map((ventaja, index) => (
-                <span
-                  key={index}
-                  style={{ fontFamily: "Montserrat", color: colors.solidGreen }}
-                >
-                  {ventaja}
-                </span>
-              ))}
-          </Box>
+          <Descripcion
+            label="Descripción del Producto"
+            text={productViewModel.selectedProduct.descripcion}
+          />
+          <VentajasView text={productViewModel.selectedProduct.ventajas} />
         </Box>
         <Box sx={productSliderContainer}>
           <Typography

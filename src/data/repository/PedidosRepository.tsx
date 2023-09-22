@@ -107,9 +107,17 @@ export const PedidosRepository = ({
         detallePedido: [...registros],
         direccion: {
           direccion: order.attributes.direccion.direccion,
+          complemento: order.attributes.direccion.complemento,
           departamento: order.attributes.direccion.departamento,
           ciudad: order.attributes.direccion.ciudad,
-          complemento: "",
+          barrio: order.attributes.direccion.barrio,
+        },
+        direccionEnvio: {
+          direccion: order.attributes.direccionEnvio.direccion,
+          complemento: order.attributes.direccionEnvio.complemento,
+          departamento: order.attributes.direccionEnvio.departamento,
+          ciudad: order.attributes.direccionEnvio.ciudad,
+          barrio: order.attributes.direccionEnvio.barrio,
         },
       };
       orders.push(newOrderDto);

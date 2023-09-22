@@ -18,6 +18,7 @@ import Dropdown from "../components/dropdown/Dropdown";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchOffIcon from "@mui/icons-material/SearchOff";
 import FooterView from "../landing/footer/FooterView";
+import MoreInfoView from "../components/moreInfoDrawer/MoreInfoView";
 
 const CatalogView = () => {
   const catalogViewModel = Container.resolve(
@@ -112,6 +113,9 @@ const CatalogView = () => {
                         handleClickCarButton={
                           catalogViewModel.handleClickCarDetail
                         }
+                        handleClickMoreButton={
+                          catalogViewModel.handleOpenDetail
+                        }
                       />
                     ))}
                 </Box>
@@ -143,6 +147,10 @@ const CatalogView = () => {
           handleShoppingCart={catalogViewModel.handleClickShoppingCar}
         />
       )}
+      <MoreInfoView
+        open={catalogViewModel.openDetail}
+        onClose={catalogViewModel.handleOpenDetail}
+      />
     </>
   );
 };

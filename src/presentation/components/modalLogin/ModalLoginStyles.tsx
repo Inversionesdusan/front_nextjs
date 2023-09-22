@@ -1,5 +1,6 @@
 import { colors } from "@/presentation/styles/colors";
 import { SxProps, Theme } from "@mui/material";
+import { CSSProperties } from "react";
 
 export const styles = () => {
   const modalDialog: SxProps<Theme> = {
@@ -45,5 +46,54 @@ export const styles = () => {
     },
   };
 
-  return { modalDialog, inputStyle };
+  const linkText: CSSProperties = {
+    textAlign: "right",
+    marginTop: "1rem",
+    fontFamily: "Cunia",
+    fontSize: "0.9rem",
+    paddingRight: "1rem",
+    cursor: "pointer",
+  };
+
+  const dialogTitle: SxProps<Theme> = {
+    fontFamily: "Cunia",
+    color: colors.green,
+    fontSize: "1.5rem",
+    padding: 0,
+    marginBottom: "1rem",
+  };
+
+  const dialogContent: SxProps<Theme> = {
+    padding: 0,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const errorText: CSSProperties = {
+    color: colors.gray,
+    fontFamily: "Montserrat",
+    fontSize: "0.8rem",
+  };
+
+  const dialogAActions: SxProps<Theme> = {
+    display: "flex",
+    flexDirection: "row",
+    gap: "1rem",
+    marginTop: "2rem",
+  };
+
+  const form: CSSProperties = { width: "100%", marginBottom: "2rem" };
+
+  return {
+    form,
+    modalDialog,
+    inputStyle,
+    linkText,
+    dialogTitle,
+    dialogContent,
+    errorText,
+    dialogAActions,
+  };
 };

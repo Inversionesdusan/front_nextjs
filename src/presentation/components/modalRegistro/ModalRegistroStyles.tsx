@@ -1,5 +1,6 @@
 import { colors } from "@/presentation/styles/colors";
 import { SxProps, Theme } from "@mui/material";
+import { CSSProperties } from "react";
 
 export const styles = () => {
   const modalDialog: SxProps<Theme> = {
@@ -45,5 +46,14 @@ export const styles = () => {
     },
   };
 
-  return { modalDialog, inputStyle };
+  const linkText: CSSProperties = {
+    textAlign: "right",
+    marginTop: "1rem",
+    fontFamily: "Cunia",
+    fontSize: "0.9rem",
+    paddingRight: "1rem",
+    cursor: "pointer",
+  };
+
+  return { modalDialog, inputStyle, linkText };
 };

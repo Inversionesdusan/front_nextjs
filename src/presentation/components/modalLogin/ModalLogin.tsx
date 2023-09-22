@@ -1,5 +1,4 @@
 import ButtonCustom from "@/app/components/basic/ButtonCustom";
-import { colors } from "@/presentation/styles/colors";
 import {
   Dialog,
   DialogActions,
@@ -39,6 +38,7 @@ interface ModalRegistroProps {
     reset: UseFormReset<ILoginFormValues>
   ) => void;
   loadingData: boolean;
+  openModalRegister: () => void;
 }
 
 const ModalLogin = ({
@@ -47,8 +47,18 @@ const ModalLogin = ({
   onClose,
   onAccept,
   loadingData,
+  openModalRegister,
 }: ModalRegistroProps) => {
-  const { modalDialog, inputStyle } = styles();
+  const {
+    form,
+    modalDialog,
+    inputStyle,
+    linkText,
+    dialogTitle,
+    dialogContent,
+    errorText,
+    dialogAActions,
+  } = styles();
   const formLogin = useForm<ILoginFormValues>({
     defaultValues: { ...initialFormData },
     reValidateMode: "onBlur",
@@ -70,28 +80,10 @@ const ModalLogin = ({
         onSubmit={handleSubmit((data) => {
           onAccept({ identifier: data.email, password: data.clave }, reset);
         })}
-        style={{ width: "100%", marginBottom: "2rem" }}
+        style={form}
       >
-        <DialogTitle
-          sx={{
-            fontFamily: "Cunia",
-            color: colors.green,
-            fontSize: "1.5rem",
-            padding: 0,
-            marginBottom: "1rem",
-          }}
-        >
-          {title}
-        </DialogTitle>
-        <DialogContent
-          sx={{
-            padding: 0,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <DialogTitle sx={dialogTitle}>{title}</DialogTitle>
+        <DialogContent sx={dialogContent}>
           <FormControl
             fullWidth
             variant="standard"
@@ -112,19 +104,11 @@ const ModalLogin = ({
                 pattern: {
                   value:
                     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                  message: "Debes indicar un correo eletrónico válido",
+                  message: "Debes indicar un correo electrónico válido",
                 },
               })}
             />
-            <span
-              style={{
-                color: colors.gray,
-                fontFamily: "Montserrat",
-                fontSize: "0.8rem",
-              }}
-            >
-              {errors.email?.message}
-            </span>
+            <span style={errorText}>{errors.email?.message}</span>
           </FormControl>
           <FormControl
             fullWidth
@@ -149,26 +133,12 @@ const ModalLogin = ({
                 },
               })}
             />
-            <span
-              style={{
-                color: colors.gray,
-                fontFamily: "Montserrat",
-                fontSize: "0.8rem",
-              }}
-              id="clave-error"
-            >
+            <span style={errorText} id="clave-error">
               {errors.clave?.message}
             </span>
           </FormControl>
         </DialogContent>
-        <DialogActions
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "1rem",
-            marginTop: "2rem",
-          }}
-        >
+        <DialogActions sx={dialogAActions}>
           <ButtonCustom
             typeButton="modal"
             invert={true}
@@ -181,6 +151,19 @@ const ModalLogin = ({
             Aceptar
           </ButtonCustom>
         </DialogActions>
+
+        <div
+          onClick={() => {
+            onClose();
+            openModalRegister();
+          }}
+          style={linkText}
+        >
+          No tengo cuenta
+        </div>
+        <div onClick={() => {}} style={linkText}>
+          Olvidé mi constraseña
+        </div>
       </form>
     </Dialog>
   );

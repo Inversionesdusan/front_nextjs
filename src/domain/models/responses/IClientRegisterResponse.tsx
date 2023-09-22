@@ -1,3 +1,5 @@
+import { IClientDataAddressResponse } from "./IClientDataQueryResponse";
+
 export interface IClientRegisterResponse {
   jwt: string;
   user: {
@@ -15,5 +17,8 @@ export interface IClientRegisterResponse {
     telefono: string;
     createdAt: Date;
     updatedAt: Date;
+    tipo_usuario?: string;
+    direccion: IClientDataAddressResponse;
+    direccion_envio?: IClientDataAddressResponse;
   };
 }

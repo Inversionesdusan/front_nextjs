@@ -5,6 +5,11 @@ interface UserDataAuthStore {
   email: string;
   nombres: string;
   apellidos: string;
+  telefono: string;
+  tipoDocumento: string;
+  numeroDocumento: string;
+  digitoVerifica: string;
+  tipoUsuario: string;
 }
 
 export interface AuthDataStore {
@@ -19,6 +24,7 @@ interface AuthStore {
   authData: AuthDataStore;
   authenticate: (token: string, user: UserDataAuthStore) => void;
   logout: () => void;
+  updateUserData: (userData: UserDataAuthStore) => void;
 }
 
 const initialData: AuthDataStore = {
@@ -31,6 +37,11 @@ const initialData: AuthDataStore = {
     email: "",
     nombres: "",
     apellidos: "",
+    telefono: "",
+    tipoDocumento: "",
+    numeroDocumento: "",
+    digitoVerifica: "",
+    tipoUsuario: "",
   },
 };
 
@@ -51,6 +62,15 @@ const useAuthStore = create<AuthStore>((set) => ({
 
   logout: () => {
     set((state) => ({ authData: { ...initialData } }));
+  },
+
+  updateUserData: (userData: UserDataAuthStore) => {
+    set((state) => ({
+      authData: {
+        ...state.authData,
+        user: { ...userData },
+      },
+    }));
   },
 }));
 

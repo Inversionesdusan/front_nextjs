@@ -1,6 +1,7 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { styles } from "./DetailHeaderStyle";
 import { MontserratWhite16700 } from "@/presentation/styles/colors";
+import Grid from "@mui/material/Unstable_Grid2";
 
 const DetailHeaderView = () => {
   const { container, cell } = styles();

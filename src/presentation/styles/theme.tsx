@@ -1,15 +1,9 @@
-import { createTheme } from "@mui/material";
+import { SxProps, Theme, createTheme } from "@mui/material";
+import { colors } from "./colors";
 
 const theme = createTheme({
   typography: {
-    fontFamily: [
-      "Montserrat",
-      "Nunito",
-      "Nunito Sans",
-      "Arial",
-      "sans-serif",
-      "Cunia",
-    ].join(","),
+    fontFamily: ["Montserrat", "Nunito", "Nunito Sans", "Cunia"].join(","),
   },
   palette: {
     common: {
@@ -29,3 +23,39 @@ const theme = createTheme({
 });
 
 export default theme;
+
+export const inputStyle: SxProps<Theme> = {
+  fontFamily: "Montserrat",
+  marginY: "1rem",
+  fontSize: "1rem",
+  fontWeight: "300",
+  color: colors.solidGreen,
+  "&.MuiInputBase-root": {
+    borderBottomColor: colors.solidGreen,
+    color: colors.solidGreen,
+  },
+  "&.MuiInputBase-root:hover": {
+    borderBottomColor: colors.solidGreen,
+  },
+  "&.MuiInputBase-root:after": {
+    borderBottomColor: colors.solidGreen,
+  },
+  "&.MuiInputBase-root:before": {
+    borderBottomColor: colors.solidGreen,
+  },
+  "&.MuiInputBase-root:focus": {
+    borderBottomColor: colors.solidGreen,
+  },
+  "&.MuiInputBase-root:hover:not(.Mui-disabled):before": {
+    borderBottomColor: colors.solidGreen,
+  },
+};
+
+export const inputLabel: SxProps<Theme> = {
+  fontFamily: "Cunia",
+  color: colors.solidGreen,
+  "&.MuiInputLabel-root": {
+    fontFamily: "Cunia",
+    color: colors.solidGreen,
+  },
+};

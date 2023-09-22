@@ -17,18 +17,18 @@ const DataRow = ({ label, value, strong }: DataRowProps) => {
   const { labelBox, clientDataBox, valueField } = styles();
 
   return (
-    <Grid container sx={clientDataBox}>
-      <Grid xs={3}>
+    <>
+      <Grid xs={2}>
         <Box sx={labelBox}>
           <Typography sx={CuniaGreen16400}>{label}</Typography>
         </Box>
       </Grid>
-      <Grid xs={9}>
+      <Grid xs={4}>
         <Typography sx={strong ? MontserratGreen16700 : MonserratGreen16400}>
           {value}
         </Typography>
       </Grid>
-    </Grid>
+    </>
   );
 };
 

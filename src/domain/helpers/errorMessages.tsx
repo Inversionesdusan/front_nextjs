@@ -2,14 +2,8 @@ import { AxiosError } from "axios";
 import { constantes } from "../constants";
 
 export const getErrorMessage = (error: any): string => {
-  console.log(error);
   if (error instanceof AxiosError) {
     const response = error.response?.data?.error?.message;
-    console.log(
-      "response - > ",
-      error.response?.data?.error,
-      error.response?.data?.error?.message
-    );
     if (response) {
       if (response instanceof Array) {
         const message = response[0]?.message;
@@ -30,5 +24,17 @@ const transformMessage = (message: string): string => {
     return constantes.errores.attempts;
   if (message.toLocaleLowerCase().includes("invalid identifier"))
     return constantes.errores.credentials;
+  if (
+    message.toLocaleLowerCase().includes("password") &&
+    message.toLocaleLowerCase().includes("invalid")
+  )
+    return constantes.errores.password;
+
+  if (
+    message.toLocaleLowerCase().includes("password") &&
+    message.toLocaleLowerCase().includes("current")
+  )
+    return constantes.errores.current;
+
   return "Ha ocurrido un error al procesar la solicitud";
 };

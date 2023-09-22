@@ -3,8 +3,10 @@ export interface ISaveDataOrder {
   emailCliente: string;
   fechaGrabacion: string;
   valorTotal: number;
+
   detallePedido: IDetallePedido[];
   direccion: IDireccion;
+  direccionEnvio: IDireccion;
 }
 
 export interface IDetallePedido {
@@ -21,4 +23,5 @@ export interface IDireccion {
   complemento?: string;
   departamento: string;
   ciudad: string;
+  barrio?: string;
 }

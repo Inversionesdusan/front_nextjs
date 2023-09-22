@@ -1,5 +1,5 @@
 import { SxProps, Theme } from "@mui/material";
-import { colors } from "../styles/colors";
+import { CuniaGreen16400, colors } from "../styles/colors";
 
 export const styles = () => {
   const container: SxProps<Theme> = {
@@ -8,6 +8,7 @@ export const styles = () => {
     flexDirection: "column",
     gap: "0.25rem",
     paddingY: "1rem",
+    marginBottom: "5rem",
   };
 
   const clientDataBox: SxProps<Theme> = {
@@ -34,11 +35,17 @@ export const styles = () => {
     marginY: "0.5rem",
   };
 
+  const sectionTitle: SxProps<Theme> = {
+    ...CuniaGreen16400,
+    marginTop: "1.5rem",
+  };
+
   return {
     container,
     clientDataBox,
     labelBox,
     sectionBox,
     valueField,
+    sectionTitle,
   };
 };

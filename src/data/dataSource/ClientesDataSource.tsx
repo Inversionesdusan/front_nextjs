@@ -1,5 +1,6 @@
 import { constantes } from "@/domain/constants";
 import { IClientRegisterRequest } from "@/domain/models/requests/IClientRegisterRequest";
+import { IClientUpdateRequest } from "@/domain/models/requests/IClientUpdateRequest";
 import { ISaveDataNotRegisteredClient } from "@/domain/models/requests/ISaveDataNotRegisteredClient";
 import { IClientDataQueryResponse } from "@/domain/models/responses/IClientDataQueryResponse";
 import { IClientRegisterResponse } from "@/domain/models/responses/IClientRegisterResponse";
@@ -59,7 +60,9 @@ export const getClienteByEmail = async (email: string) => {
   }
 };
 
-export const loadClientData = async (token: string) => {
+export const loadClientData = async (
+  token: string
+): Promise<IClientDataQueryResponse> => {
   const request: AxiosRequestConfig = {
     method: "GET",
     baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
@@ -72,5 +75,34 @@ export const loadClientData = async (token: string) => {
   try {
     const { data } = await axios.request<IClientDataQueryResponse>(request);
     return data;
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateClientData = async (
+  token: string,
+  clientID: number,
+  clientData: IClientUpdateRequest,
+  direccionEnvio: string
+): Promise<IClientDataQueryResponse> => {
+  if (direccionEnvio === "S") {
+    clientData.direccion_envio = null;
+  }
+  const request: AxiosRequestConfig = {
+    method: "PUT",
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    url: `${constantes.endpoints.updateUser}/${clientID}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: { ...clientData },
+  };
+
+  try {
+    const { data } = await axios.request<IClientDataQueryResponse>(request);
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };

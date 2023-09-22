@@ -18,6 +18,7 @@ import { IPedidosService } from "@/domain/services/PedidosService";
 import { v4 as uuid } from "uuid";
 import { IDetallePedido } from "@/domain/models/requests/ISAveDataOrder";
 import { useRouter } from "next/navigation";
+import useAuthStore, { AuthDataStore } from "@/domain/store/useAuthStore";
 
 interface OrderDetailViewModelProps {
   ProductosService: IProductoService;
@@ -39,6 +40,8 @@ export interface OrderDetailViewModelReturn {
   orderForm: UseFormReturn<OrderFormValues, any, undefined>;
   createOrderVerification: () => {};
   savingData: boolean;
+  authData: AuthDataStore;
+  getUserData: () => void;
 }
 
 const OrderDetailViewModel = ({
@@ -66,6 +69,7 @@ const OrderDetailViewModel = ({
   });
   const router = useRouter();
   const [localflow, setLocalflow] = useState<string>("cart");
+  const { authData } = useAuthStore();
 
   const getProductos = (flow: string) => {
     try {
@@ -175,40 +179,40 @@ const OrderDetailViewModel = ({
     setSavingData(true);
     const data = orderForm.getValues();
     try {
-      updateDataModal({
-        open: true,
-        title: "Atención",
-        message: "Verificando cliente ...",
-        onAccept: undefined,
-        onCancel: undefined,
-      });
-
-      const clienteExistente = await ClientsService.getClienteByEmail(
-        data.email
-      );
-
-      if (clienteExistente.id === 0) {
+      if (!authData.isAuthenticated) {
         updateDataModal({
           open: true,
           title: "Atención",
-          message: "Cliente no existente. Se esta realizando la creacion...",
+          message: "Verificando cliente ...",
           onAccept: undefined,
           onCancel: undefined,
         });
+        const clienteExistente = await ClientsService.getClienteByEmail(
+          data.email
+        );
+        if (clienteExistente.id === 0) {
+          updateDataModal({
+            open: true,
+            title: "Atención",
+            message: "Cliente no existente. Se esta realizando la creacion...",
+            onAccept: undefined,
+            onCancel: undefined,
+          });
 
-        const cliente = await ClientsService.saveNotRegisteredClient({
-          email: data.email,
-          nombresCliente: data.nombresCliente,
-          apellidosCliente: data.apellidosCliente,
-          telefonoCliente: data.apellidosCliente,
-          direccion: data.direccionEnvio,
-          departamento: data.departamento,
-          ciudad: data.ciudad,
-          complementoDireccion: "",
-        });
+          const cliente = await ClientsService.saveNotRegisteredClient({
+            email: data.email,
+            nombresCliente: data.nombresCliente,
+            apellidosCliente: data.apellidosCliente,
+            telefonoCliente: data.apellidosCliente,
+            direccion: data.direccionCliente,
+            departamento: data.departamentoCliente,
+            ciudad: data.ciudadCliente,
+            complementoDireccion: data.complementoCliente,
+          });
 
-        if (!cliente || !cliente.id || cliente.id <= 0)
-          throw new Error("No se ha realizado la grabación del cliente");
+          if (!cliente || !cliente.id || cliente.id <= 0)
+            throw new Error("No se ha realizado la grabación del cliente");
+        }
       }
 
       updateDataModal({
@@ -237,9 +241,18 @@ const OrderDetailViewModel = ({
           return detalle;
         }),
         direccion: {
+          direccion: data.direccionCliente,
+          complemento: data.complementoCliente,
+          departamento: data.departamentoCliente,
+          ciudad: data.ciudadCliente,
+          barrio: data.barrioCliente,
+        },
+        direccionEnvio: {
           direccion: data.direccionEnvio,
-          departamento: data.departamento,
-          ciudad: data.ciudad,
+          complemento: data.complementoEnvio,
+          departamento: data.departamentoEnvio,
+          ciudad: data.ciudadEnvio,
+          barrio: data.barrioEnvio,
         },
       });
 
@@ -303,6 +316,35 @@ const OrderDetailViewModel = ({
     });
   };
 
+  const getUserData = () => {
+    ClientsService.loadClientData(authData.token)
+      .then((user) => {
+        const dirEnvioDiferente =
+          !!user.direccion_envio && !!user.direccion_envio.direccion;
+        orderForm.reset({
+          nombresCliente: user.nombres,
+          apellidosCliente: user.apellidos,
+          email: user.email,
+          nroTelefono: user.telefono,
+          tipoDocumento: user.tipoDocumento,
+          numeroDocumento: user.numeroDocumento,
+          digitoVerificacion: user.digitoVerificacion,
+          direccionCliente: user.direccion?.direccion,
+          complementoCliente: user.direccion?.complemento,
+          departamentoCliente: user.direccion?.departamento,
+          ciudadCliente: user.direccion?.ciudad,
+          barrioCliente: user.direccion?.barrio,
+          usarEnvio: dirEnvioDiferente ? "S" : "N",
+          direccionEnvio: user.direccion_envio?.direccion,
+          complementoEnvio: user.direccion_envio?.complemento,
+          departamentoEnvio: user.direccion_envio?.departamento,
+          ciudadEnvio: user.direccion_envio?.ciudad,
+          barrioEnvio: user.direccion_envio?.barrio,
+        });
+      })
+      .catch((error) => {});
+  };
+
   return {
     loading,
     getProductos,
@@ -315,6 +357,8 @@ const OrderDetailViewModel = ({
     orderForm,
     createOrderVerification,
     savingData,
+    authData,
+    getUserData,
   };
 };
 

@@ -47,6 +47,12 @@ const OrderDetail = ({ flow = "cart" }: OrderDetailProps) => {
     orderDetailVM.getProductos(flow);
   }, []);
 
+  useEffect(() => {
+    if (orderDetailVM.authData && orderDetailVM.authData.isAuthenticated) {
+      orderDetailVM.getUserData();
+    }
+  }, [orderDetailVM.authData]);
+
   return (
     <Box sx={container}>
       <HeaderView landing={false} />

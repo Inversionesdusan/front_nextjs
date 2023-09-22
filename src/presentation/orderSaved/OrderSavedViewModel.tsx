@@ -10,6 +10,7 @@ export interface IOrderSavedViewModel {
 const OrderSavedViewModel = () => {
   const { order } = useAppStore();
   const { authData } = useAuthStore();
+
   return {
     order,
     authData,

@@ -25,7 +25,6 @@ import DropDownMenu from "@/presentation/components/dropdownMenu/DropDownMenu";
 import ShoppingCartDetail from "@/presentation/components/shoppingCartDetail/ShoppingCartDetail";
 import ModalRegistro from "@/presentation/components/modalRegistro/ModalRegistro";
 import ModalLogin from "@/presentation/components/modalLogin/ModalLogin";
-import useMenuHook from "@/domain/hooks/useMenuHook";
 import useAuthStore from "@/domain/store/useAuthStore";
 
 interface HeaderViewProps {
@@ -47,16 +46,7 @@ const HeaderView = ({ landing }: HeaderViewProps) => {
   const { navbar, iconBox, optionsBox, isologo, isotipo, menuBox, icon } =
     styles(downMd);
 
-  const { handleOpenModalLogin, openModalLogin } = useMenuHook();
   const { authData } = useAuthStore();
-
-  console.log(authData);
-
-  useEffect(() => {
-    if (authData.isAuthenticated) {
-      console.log("datos -> ", authData);
-    }
-  }, [authData.isAuthenticated]);
 
   return (
     <>
@@ -132,6 +122,7 @@ const HeaderView = ({ landing }: HeaderViewProps) => {
         onClose={headerViewModel.handleOpenModalRegistro}
         onAccept={headerViewModel.registerClient}
         loadingData={headerViewModel.savingData}
+        openModalLogin={headerViewModel.handleOpenModalLogin}
       />
       <ModalLogin
         open={headerViewModel.openModalLogin}
@@ -139,6 +130,7 @@ const HeaderView = ({ landing }: HeaderViewProps) => {
         onClose={headerViewModel.handleOpenModalLogin}
         onAccept={headerViewModel.login}
         loadingData={headerViewModel.savingData}
+        openModalRegister={headerViewModel.handleOpenModalRegistro}
       />
     </>
   );

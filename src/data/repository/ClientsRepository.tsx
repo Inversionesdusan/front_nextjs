@@ -5,6 +5,7 @@ import { IClientRegisterResponse } from "@/domain/models/responses/IClientRegist
 import { IGetClientByEmailResponse } from "@/domain/models/responses/IGetClientByEmailResponse";
 import { IUserDto } from "@/domain/models/Dto/IClientDto";
 import { IClientDataQueryResponse } from "@/domain/models/responses/IClientDataQueryResponse";
+import { IClientUpdateRequest } from "@/domain/models/requests/IClientUpdateRequest";
 
 interface IClientRepositoryProps {
   ClientesDataSource: {
@@ -16,6 +17,12 @@ interface IClientRepositoryProps {
     ) => Promise<number>;
     getClienteByEmail: (email: string) => Promise<IGetClientByEmailResponse>;
     loadClientData: (token: string) => Promise<IClientDataQueryResponse>;
+    updateClientData: (
+      token: string,
+      clientID: number,
+      clientData: IClientUpdateRequest,
+      direccionEnvio: string
+    ) => Promise<IClientDataQueryResponse>;
   };
 }
 
@@ -26,6 +33,12 @@ export interface IClientRepositoryReturn {
   ) => Promise<NotRegisteredClientDto>;
   getClienteByEmail: (email: string) => Promise<NotRegisteredClientDto>;
   loadClientData: (token: string) => Promise<IUserDto>;
+  updateClientData: (
+    token: string,
+    clientId: number,
+    clientData: IClientUpdateRequest,
+    direccionEnvio: string
+  ) => Promise<IUserDto>;
 }
 
 export const ClientsRepository = ({
@@ -85,6 +98,7 @@ export const ClientsRepository = ({
       digitoVerificacion: response.user.digito_verificacion,
       blocked: response.user.blocked,
       confirmed: response.user.confirmed,
+      tipoUsuario: response.user.tipo_usuario || "Cliente",
     };
   };
 
@@ -102,6 +116,38 @@ export const ClientsRepository = ({
       digitoVerificacion: response.digito_verificacion,
       blocked: response.blocked,
       confirmed: response.confirmed,
+      tipoUsuario: response.tipo_usuario || "Cliente",
+      direccion: response.direccion || undefined,
+      direccion_envio: response.direccion_envio || undefined,
+    };
+  };
+
+  const updateClientData = async (
+    token: string,
+    clientId: number,
+    clientData: IClientUpdateRequest,
+    direccionEnvio: string
+  ): Promise<IUserDto> => {
+    const response = await ClientesDataSource.updateClientData(
+      token,
+      clientId,
+      clientData,
+      direccionEnvio
+    );
+    return {
+      jwt: token,
+      id: response.id,
+      nombres: response.nombres,
+      apellidos: response.apellidos,
+      email: response.email,
+      telefono: response.telefono,
+      tipoDocumento: response.tipo_documento,
+      numeroDocumento: response.numero_documento,
+      digitoVerificacion: response.digito_verificacion,
+      blocked: response.blocked,
+      confirmed: response.confirmed,
+      tipoUsuario: response.tipo_usuario || "Cliente",
+      direccion_envio: response.direccion_envio || undefined,
     };
   };
 
@@ -110,5 +156,6 @@ export const ClientsRepository = ({
     getClienteByEmail,
     registerClient,
     loadClientData,
+    updateClientData,
   };
 };
