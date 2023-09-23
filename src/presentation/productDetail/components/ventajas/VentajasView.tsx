@@ -1,5 +1,6 @@
 import { colors } from "@/presentation/styles/colors";
-import { Box } from "@mui/material";
+import theme from "@/presentation/styles/theme";
+import { Box, useMediaQuery } from "@mui/material";
 
 interface VentajasViewProps {
   text: string;
@@ -7,6 +8,7 @@ interface VentajasViewProps {
 }
 
 const VentajasView = ({ text, type = "Page" }: VentajasViewProps) => {
+  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <>
       <Box
@@ -15,7 +17,7 @@ const VentajasView = ({ text, type = "Page" }: VentajasViewProps) => {
           flexDirection: "column",
           gap: "2rem",
           flex: 1,
-          width: "50%",
+          width: { xs: "100%", md: "50%" },
           justifyContent: "start",
         }}
       >
@@ -26,6 +28,11 @@ const VentajasView = ({ text, type = "Page" }: VentajasViewProps) => {
             textAlign: "center",
             marginBottom: type === "Page" ? "1rem" : "0.9rem",
             fontWeight: type === "Drawer" ? "700" : undefined,
+            fontSize: downSm
+              ? "0.9rem"
+              : type === "Drawer"
+              ? "0.9rem"
+              : undefined,
           }}
         >
           Ventajas
@@ -33,7 +40,15 @@ const VentajasView = ({ text, type = "Page" }: VentajasViewProps) => {
         {text.split(";").map((ventaja, index) => (
           <span
             key={index}
-            style={{ fontFamily: "Montserrat", color: colors.solidGreen }}
+            style={{
+              fontFamily: "Montserrat",
+              color: colors.solidGreen,
+              fontSize: downSm
+                ? "0.8125rem"
+                : type === "Drawer"
+                ? "0.9rem"
+                : undefined,
+            }}
           >
             {ventaja}
           </span>

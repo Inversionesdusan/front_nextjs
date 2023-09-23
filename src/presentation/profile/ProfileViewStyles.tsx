@@ -1,5 +1,5 @@
 import { SxProps, Theme } from "@mui/material";
-import { colors } from "../styles/colors";
+import { CuniaWhite16400, colors } from "../styles/colors";
 
 export const styles = () => {
   const container: SxProps<Theme> = {
@@ -19,7 +19,7 @@ export const styles = () => {
   const details: SxProps<Theme> = {
     background: colors.gradientGray,
     borderRadius: "30px",
-    padding: "3rem",
+    padding: { xs: "1.5rem", sm: "2rem", md: "3rem" },
   };
 
   const gridCellLeft: SxProps<Theme> = {
@@ -50,6 +50,11 @@ export const styles = () => {
     fontSize: "1.5rem",
   };
 
+  const summaryLabel: SxProps<Theme> = {
+    ...CuniaWhite16400,
+    fontSize: { xs: "0.875rem", sm: "0.925rem", md: "1rem" },
+  };
+
   return {
     container,
     accordion,
@@ -60,5 +65,6 @@ export const styles = () => {
     boxNoData,
     progress,
     textEmptyState,
+    summaryLabel,
   };
 };

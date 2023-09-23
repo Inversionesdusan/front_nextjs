@@ -1,5 +1,6 @@
 import { colors } from "@/presentation/styles/colors";
-import { Box, Typography } from "@mui/material";
+import theme from "@/presentation/styles/theme";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 
 interface DescripcionProps {
   label: string;
@@ -8,15 +9,17 @@ interface DescripcionProps {
 }
 
 const Descripcion = ({ text, label, type = "Page" }: DescripcionProps) => {
+  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: type === "Page" ? "2rem" : "1rem",
+          gap: downSm ? "1rem" : type === "Page" ? "2rem" : "1rem",
           flex: 1,
-          width: type === "Page" ? "50%" : "100%",
+          width: { xs: "100%", md: type === "Page" ? "50%" : "100%" },
           justifyContent: "start",
         }}
       >
@@ -25,8 +28,16 @@ const Descripcion = ({ text, label, type = "Page" }: DescripcionProps) => {
             color: colors.solidGreen,
             fontFamily: type === "Page" ? "Cunia" : "Montserrat",
             textAlign: "center",
-            marginBottom: type === "Page" ? "1rem" : undefined,
-            fontSize: type === "Drawer" ? "0.9rem" : undefined,
+            marginBottom: downSm
+              ? undefined
+              : type === "Page"
+              ? "1rem"
+              : undefined,
+            fontSize: downSm
+              ? "0.9rem"
+              : type === "Drawer"
+              ? "0.9rem"
+              : undefined,
             fontWeight: type === "Drawer" ? "700" : undefined,
           }}
         >
@@ -36,7 +47,11 @@ const Descripcion = ({ text, label, type = "Page" }: DescripcionProps) => {
           sx={{
             fontFamily: "Montserrat",
             color: colors.solidGreen,
-            fontSize: type === "Drawer" ? "0.9rem" : undefined,
+            fontSize: downSm
+              ? "0.8125rem"
+              : type === "Drawer"
+              ? "0.9rem"
+              : undefined,
           }}
         >
           {text}

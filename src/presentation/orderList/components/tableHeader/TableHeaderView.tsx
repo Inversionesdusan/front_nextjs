@@ -1,10 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { styles } from "./TableHeaderStyles";
 import Grid from "@mui/material/Unstable_Grid2";
-import { MontserratWhite16700 } from "@/presentation/styles/colors";
 
 const TableHeaderView = () => {
-  const { container, cell } = styles();
+  const { container, cell, title } = styles();
   return (
     <Box sx={container}>
       <Grid
@@ -13,26 +12,22 @@ const TableHeaderView = () => {
         sx={{ width: "100%" }}
         justifyContent="space-between"
       >
-        <Grid xs={2} sx={cell}>
-          <Typography sx={MontserratWhite16700}>Nro Pedido</Typography>
-        </Grid>
         <Grid xs={3} sx={cell}>
-          <Typography sx={MontserratWhite16700}>Fecha Grabación</Typography>
+          <Typography sx={title}>Nro Pedido</Typography>
         </Grid>
-        <Grid xs={2} sx={cell}>
-          <Typography sx={{ ...MontserratWhite16700, textAlign: "right" }}>
+        <Grid xs={4} sm={3} sx={cell}>
+          <Typography sx={title}>Fecha Grabación</Typography>
+        </Grid>
+        <Grid xs={4} sm={2} sx={cell}>
+          <Typography sx={{ ...title, textAlign: "right" }}>
             Valor Pedido
           </Typography>
         </Grid>
-        <Grid xs={3} sx={cell}>
-          <Typography sx={{ ...MontserratWhite16700, textAlign: "right" }}>
-            Estado
-          </Typography>
+        <Grid xs={3} sx={{ ...cell, display: { xs: "none", sm: "block" } }}>
+          <Typography sx={{ ...title, textAlign: "right" }}>Estado</Typography>
         </Grid>
         <Grid xs={1} sx={cell}>
-          <Typography sx={{ ...MontserratWhite16700, textAlign: "right" }}>
-            Accion
-          </Typography>
+          <Typography sx={{ ...title, textAlign: "right" }}>Accion</Typography>
         </Grid>
       </Grid>
     </Box>

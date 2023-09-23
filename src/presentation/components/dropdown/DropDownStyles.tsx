@@ -3,10 +3,10 @@ import { SxProps, Theme } from "@mui/material";
 
 export const styles = (openList: boolean) => {
   const labelSelectedBox: SxProps<Theme> = {
-    width: "250px",
+    width: "100%",
     height: "2rem",
     fontFamily: "Montserrat",
-    fontSize: "1rem",
+    fontSize: { xs: "0.875rem", sm: "1rem" },
     background: colors.white,
     color: colors.solidGreen,
     borderBottom: "1px solid " + colors.solidGreen,
@@ -24,7 +24,7 @@ export const styles = (openList: boolean) => {
     display: openList ? "flex" : "none",
     flexDirection: "column",
     position: "absolute",
-    width: "250px",
+    width: "100%",
     backgroundColor: colors.lightGray,
     transform: "translateY(101%)",
     border: "0.5px solid " + colors.solidGreen,

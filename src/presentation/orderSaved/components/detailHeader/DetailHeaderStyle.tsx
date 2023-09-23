@@ -1,4 +1,4 @@
-import { colors } from "@/presentation/styles/colors";
+import { MontserratWhite16700, colors } from "@/presentation/styles/colors";
 import { SxProps, Theme } from "@mui/material";
 
 export const styles = () => {
@@ -10,7 +10,7 @@ export const styles = () => {
     border: `1px solid ${colors.gray}`,
     borderRadius: "20px",
     height: "70px",
-    paddingX: "2rem",
+    paddingX: { xs: "1rem", md: "2rem" },
     marginTop: "2rem",
     marginBottom: "1rem",
     background: colors.green,
@@ -20,8 +20,14 @@ export const styles = () => {
     marginY: "auto",
   };
 
+  const title: SxProps<Theme> = {
+    ...MontserratWhite16700,
+    fontSize: { xs: "0.75rem", md: "1rem" },
+  };
+
   return {
     container,
     cell,
+    title,
   };
 };

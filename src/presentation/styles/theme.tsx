@@ -27,7 +27,7 @@ export default theme;
 export const inputStyle: SxProps<Theme> = {
   fontFamily: "Montserrat",
   marginY: "1rem",
-  fontSize: "1rem",
+  fontSize: { xs: "0.875rem", sm: "0.9rem", md: "1rem" },
   fontWeight: "300",
   color: colors.solidGreen,
   "&.MuiInputBase-root": {
@@ -53,6 +53,7 @@ export const inputStyle: SxProps<Theme> = {
 
 export const inputLabel: SxProps<Theme> = {
   fontFamily: "Cunia",
+  fontSize: { xs: "0.875rem", sm: "0.9rem", md: "1rem" },
   color: colors.solidGreen,
   "&.MuiInputLabel-root": {
     fontFamily: "Cunia",

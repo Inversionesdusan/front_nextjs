@@ -5,7 +5,11 @@ export const styles = (type: "Drawer" | "Page") => {
 
   const dataText: SxProps<Theme> = {
     fontFamily: "Montserrat",
-    fontSize: type === "Page" ? "1.125rem" : "0.9rem",
+    fontSize: {
+      xs: "0.9rem",
+      sm: "1rem",
+      md: type === "Page" ? "1.125rem" : "0.9rem",
+    },
     color: colors.solidGreen,
     fontWeight: "700",
     flex: "1",

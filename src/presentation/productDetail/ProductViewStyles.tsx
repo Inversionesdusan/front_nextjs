@@ -2,7 +2,7 @@ import { SxProps, Theme } from "@mui/material";
 import { CSSProperties } from "react";
 import { colors } from "../styles/colors";
 
-export const styles = (url: string) => {
+export const styles = (url: string, downSm: boolean) => {
   const container: SxProps<Theme> = {
     marginTop: "66px",
     display: "flex",
@@ -28,6 +28,7 @@ export const styles = (url: string) => {
     width: "100%",
     paddingY: "1rem",
     borderBottom: `solid 1px ${colors.solidGreen}`,
+    gap: "1rem",
   };
 
   const titleBox: SxProps<Theme> = {
@@ -39,19 +40,19 @@ export const styles = (url: string) => {
 
   const title: SxProps<Theme> = {
     fontFamily: "Cunia",
-    fontSize: "1.5rem",
+    fontSize: { xs: "0.9rem", sm: "1rem", md: "1.5rem" },
     color: colors.solidGreen,
   };
 
   const subtitle: SxProps<Theme> = {
     fontFamily: "Montserrat",
-    fontSize: "1.25rem",
+    fontSize: { xs: "0.8rem", sm: "1rem", md: "1.25rem" },
     color: colors.solidGreen,
   };
 
   const productInfo: SxProps<Theme> = {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: { xs: "column", md: "row" },
     width: "100%",
     paddingY: "1rem",
     gap: "2rem",
@@ -59,7 +60,7 @@ export const styles = (url: string) => {
   };
 
   const imageBox: SxProps<Theme> = {
-    flex: "2",
+    flex: { xs: undefined, md: "2" },
     padding: "2rem",
     borderRadius: "80px",
     boxSizing: "border-box",
@@ -93,21 +94,22 @@ export const styles = (url: string) => {
     flexDirection: "row",
     alignItems: "center",
     width: "100%",
-    marginY: "0.5rem",
+    marginY: { xs: "0.25rem", sm: "0.5rem" },
   };
 
   const dataText: SxProps<Theme> = {
     fontFamily: "Montserrat",
-    fontSize: "1.125rem",
+    fontSize: { xs: "0.875rem", sm: "0.925rem", md: "1.125rem" },
     color: colors.solidGreen,
     fontWeight: "700",
     flex: "1",
     width: "100%",
   };
+
   const selectBox: CSSProperties = {
     background: colors.lightGray,
     fontFamily: "Montserrat",
-    fontSize: "1.125rem",
+    fontSize: downSm ? "0.875rem" : "1.125rem",
     color: colors.solidGreen,
     fontWeight: "700",
     border: "none",
@@ -117,7 +119,7 @@ export const styles = (url: string) => {
 
   const priceLabel: CSSProperties = {
     fontFamily: "Montserrat",
-    fontSize: "1.25rem",
+    fontSize: downSm ? "0.875rem" : "1.125rem",
     color: colors.solidGreen,
     fontWeight: "700",
   };
@@ -151,7 +153,7 @@ export const styles = (url: string) => {
     borderTop: `solid 1px ${colors.solidGreen}`,
     marginTop: "2rem",
     display: "flex",
-    flexDirection: "row",
+    flexDirection: { xs: "column", md: "row" },
     width: "100%",
     paddingY: "2rem",
     gap: "2rem",
@@ -162,15 +164,20 @@ export const styles = (url: string) => {
     flexDirection: "column",
     gap: "2rem",
     flex: 1,
-    width: "50%",
+    width: { xs: "100%", md: "50%" },
     justifyContent: "start",
   };
 
   const productSliderContainer: SxProps<Theme> = {
     borderTop: `solid 1px ${colors.solidGreen}`,
     marginTop: "2rem",
-    padding: "2rem",
+    padding: { xs: "0.75rem", md: "2rem" },
     width: "100%",
+  };
+  const space: SxProps<Theme> = {
+    width: "100%",
+    background: "transparent",
+    height: { xs: "1.25rem", md: "0" },
   };
 
   return {
@@ -194,5 +201,6 @@ export const styles = (url: string) => {
     detailItem,
     headerBox,
     productSliderContainer,
+    space,
   };
 };

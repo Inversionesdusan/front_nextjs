@@ -43,7 +43,9 @@ const Dropdown = ({
 
   return (
     <Box sx={labelSelectedBox}>
-      <Typography sx={{ fontFamily: "inherit" }}>
+      <Typography
+        sx={{ fontFamily: "inherit", fontSize: { xs: "0.875rem", sm: "1rem" } }}
+      >
         {returnPlaceholderText(selectedValue, data, placeHolder)}
       </Typography>
       <IconButton sx={iconButton} onClick={handleClickIcon}>

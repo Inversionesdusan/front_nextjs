@@ -1,14 +1,10 @@
 import { IDetallePedidoDto } from "@/domain/models/Dto/IOrderDto";
 import { useRouter } from "next/router";
-import { styles } from "./DetailRowStyles";
+
 import { constantes } from "@/domain/constants";
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import {
-  CuniaBlack16400,
-  MontserratGreen14400,
-  MontserratGreen16700,
-} from "@/presentation/styles/colors";
+import { styles } from "./DetailRowStyles";
 
 interface DetailRowViewProps {
   producto: IDetallePedidoDto;
@@ -16,7 +12,7 @@ interface DetailRowViewProps {
 
 const DetailRowView = ({ producto }: DetailRowViewProps) => {
   const router = useRouter();
-  const { rowContainer, cell } = styles();
+  const { rowContainer, cell, typeLabel, dataText, priceLabel } = styles();
   const formatNumber = Intl.NumberFormat(constantes.locale);
 
   return (
@@ -28,28 +24,43 @@ const DetailRowView = ({ producto }: DetailRowViewProps) => {
         justifyContent="space-between"
       >
         <Grid xs={4} sx={cell}>
-          <Typography sx={MontserratGreen14400}>{producto.tipo}</Typography>
-          <Typography sx={MontserratGreen16700}>
-            {producto.nombreProducto}
-          </Typography>
+          <Typography sx={typeLabel}>{producto.tipo}</Typography>
+          <Typography sx={dataText}>{producto.nombreProducto}</Typography>
         </Grid>
-        <Grid xs={2} sx={cell}>
-          <Typography sx={MontserratGreen16700}>
+        <Grid xs={3} sm={2} sx={cell}>
+          <Typography
+            sx={{ ...dataText, textAlign: { xs: "center", sm: "right" } }}
+          >
             {producto.presentacion}
           </Typography>
-        </Grid>
-        <Grid xs={2} sx={cell}>
-          <Typography sx={{ ...MontserratGreen16700, textAlign: "right" }}>
+          <Typography
+            sx={{
+              ...dataText,
+              textAlign: { xs: "center", sm: "right" },
+              display: { xs: "block", sm: "none" },
+            }}
+          >
             {"$" + formatNumber.format(producto.precio)}
           </Typography>
         </Grid>
-        <Grid xs={2} sx={cell}>
-          <Typography sx={{ ...MontserratGreen16700, textAlign: "right" }}>
+        <Grid
+          xs={2}
+          sm={2}
+          sx={{ ...cell, display: { xs: "none", sm: "block" } }}
+        >
+          <Typography sx={{ ...dataText, textAlign: "right" }}>
+            {"$" + formatNumber.format(producto.precio)}
+          </Typography>
+        </Grid>
+        <Grid xs={2} sm={2} sx={cell}>
+          <Typography
+            sx={{ ...dataText, textAlign: { xs: "center", sm: "right" } }}
+          >
             {producto.cantidad}
           </Typography>
         </Grid>
-        <Grid xs={2} sx={cell}>
-          <Typography sx={{ ...CuniaBlack16400, textAlign: "right" }}>
+        <Grid xs={3} sm={2} sx={cell}>
+          <Typography sx={priceLabel}>
             {"$" + formatNumber.format(producto.precio * producto.cantidad)}
           </Typography>
         </Grid>

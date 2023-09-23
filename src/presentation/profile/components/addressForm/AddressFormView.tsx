@@ -24,7 +24,7 @@ const AddressFormView = ({
     <Box>
       <form noValidate autoComplete="off">
         <Grid container columnSpacing={6} rowSpacing={4}>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -68,7 +68,7 @@ const AddressFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -98,7 +98,7 @@ const AddressFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -137,7 +137,7 @@ const AddressFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -177,7 +177,7 @@ const AddressFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -211,7 +211,7 @@ const AddressFormView = ({
             xs={12}
             display="flex"
             direction="row"
-            justifyContent="flex-end"
+            sx={{ justifyContent: { xs: "center", md: "flex-end" } }}
           >
             <CardButton
               label={"Guardar datos"}

@@ -27,6 +27,7 @@ export const styles = () => {
     width: "100%",
     paddingY: "1rem",
     borderBottom: `solid 1px ${colors.solidGreen}`,
+    gap: { xs: "0.5rem", sm: undefined },
   };
 
   const titleBox: SxProps<Theme> = {
@@ -38,13 +39,13 @@ export const styles = () => {
 
   const titleSt: SxProps<Theme> = {
     fontFamily: "Cunia",
-    fontSize: "1.5rem",
+    fontSize: { xs: "0.9rem", sm: "1rem", md: "1.5rem" },
     color: colors.solidGreen,
   };
 
   const subtitleSt: SxProps<Theme> = {
     fontFamily: "Montserrat",
-    fontSize: "1.25rem",
+    fontSize: { xs: "0.8rem", sm: "1rem", md: "1.25rem" },
     color: colors.solidGreen,
   };
 

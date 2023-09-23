@@ -36,7 +36,7 @@ const ClientDataFormView = ({
     <Box>
       <form noValidate autoComplete="off">
         <Grid container columnSpacing={6} rowSpacing={4}>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -75,7 +75,7 @@ const ClientDataFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -119,7 +119,7 @@ const ClientDataFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -159,7 +159,7 @@ const ClientDataFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -211,7 +211,7 @@ const ClientDataFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               variant="standard"
               sx={{ width: "100%" }}
@@ -255,7 +255,7 @@ const ClientDataFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={4}>
+          <Grid xs={8} md={4}>
             <FormControl
               fullWidth
               variant="standard"
@@ -294,7 +294,7 @@ const ClientDataFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={2}>
+          <Grid xs={4} md={2}>
             <FormControl
               fullWidth
               variant="standard"
@@ -337,7 +337,7 @@ const ClientDataFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -381,7 +381,7 @@ const ClientDataFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -411,7 +411,7 @@ const ClientDataFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -450,7 +450,7 @@ const ClientDataFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -490,7 +490,7 @@ const ClientDataFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl
               fullWidth
               variant="standard"
@@ -520,7 +520,7 @@ const ClientDataFormView = ({
               </span>
             </FormControl>
           </Grid>
-          <Grid xs={6}>
+          <Grid xs={12} md={6}>
             <FormControl variant="standard" sx={{ width: "100%" }}>
               <InputLabel sx={inputLabel}>
                 Utilizar esta dirección para envíos
@@ -550,7 +550,7 @@ const ClientDataFormView = ({
             xs={12}
             display="flex"
             direction="row"
-            justifyContent="flex-end"
+            sx={{ justifyContent: { xs: "center", md: "flex-end" } }}
           >
             <CardButton
               label={"Guardar datos"}

@@ -4,13 +4,14 @@ import { CSSProperties } from "react";
 
 export const styles = () => {
   const drawerContainer: SxProps<Theme> = {
-    width: "450px",
+    minWidth: "360px",
+    maxWidth: { xs: "360px", sm: "450px" },
     height: "100%",
     backgroundColor: colors.gradientGray,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingX: "2rem",
+    paddingX: { xs: "1rem", sm: "2rem" },
   };
 
   const headerBox: SxProps<Theme> = {

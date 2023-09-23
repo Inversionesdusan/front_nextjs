@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useMediaQuery } from "@mui/material";
 import { styles } from "./ProductViewStyles";
 import HeaderView from "../landing/header/HeaderView";
 import { constantes } from "@/domain/constants";
@@ -13,13 +13,14 @@ import { useRouter } from "next/router";
 import ComposicionView from "./components/composicion/ComposicionView";
 import Descripcion from "./components/descripcion/Descripcion";
 import VentajasView from "./components/ventajas/VentajasView";
+import theme from "../styles/theme";
 
 const sliderSettings = {
   infinite: true,
   dots: false,
   speed: 2000,
   auutoplaySpeed: 2000,
-  slidesToShow: 3,
+  slidesToShow: 1,
   slidesToScroll: 1,
   autoplay: true,
   pauseOnHover: true,
@@ -29,6 +30,7 @@ const sliderSettings = {
 
 const ProductView = () => {
   const router = useRouter();
+  const downSm = useMediaQuery(theme.breakpoints.down("sm"));
 
   const productViewModel = Container.resolve(
     "ProductViewModel"
@@ -55,7 +57,8 @@ const ProductView = () => {
     detailItem,
     headerBox,
     productSliderContainer,
-  } = styles(productViewModel?.selectedProduct?.imagen?.url || "");
+    space,
+  } = styles(productViewModel?.selectedProduct?.imagen?.url || "", downSm);
 
   const formatNumber = Intl.NumberFormat(constantes.locale);
 
@@ -95,6 +98,7 @@ const ProductView = () => {
               {productViewModel.selectedProduct.nombreProducto}
             </Typography>
           </Box>
+
           <Button sx={buyButton} onClick={navigateToCatalog}>
             <Typography sx={buttonLabel}>Ir al catálogo</Typography>
           </Button>
@@ -147,21 +151,30 @@ const ProductView = () => {
                 removeQty={productViewModel.removeItem}
               />
             </Box>
-            <Box sx={dataRow}>
+            <Box sx={space}></Box>
+            <Box
+              sx={{
+                ...dataRow,
+                justifyContent: { xs: "center", sm: "start" },
+              }}
+            >
               <Button sx={buyButton} onClick={productViewModel.buyItem}>
                 <Typography sx={buttonLabel}>Comprar ahora</Typography>
               </Button>
             </Box>
-            {
-              <Box sx={dataRow}>
-                <Button
-                  sx={shoppingCarButton}
-                  onClick={productViewModel.handleClickShoppingCart}
-                >
-                  <Typography sx={buttonLabel}>Agregar al Carrito</Typography>
-                </Button>
-              </Box>
-            }
+            <Box
+              sx={{
+                ...dataRow,
+                justifyContent: { xs: "center", sm: "start" },
+              }}
+            >
+              <Button
+                sx={shoppingCarButton}
+                onClick={productViewModel.handleClickShoppingCart}
+              >
+                <Typography sx={buttonLabel}>Agregar al Carrito</Typography>
+              </Button>
+            </Box>
             <ComposicionView producto={productViewModel.selectedProduct} />
           </Box>
         </Box>

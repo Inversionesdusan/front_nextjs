@@ -26,20 +26,31 @@ const ChangePasswordFormView = ({
         <Grid
           container
           columnSpacing={3}
-          rowSpacing={4}
-          sx={{ paddingX: "4rem" }}
+          rowSpacing={2}
+          sx={{
+            paddingX: { xs: "0", sm: "1rem", md: "3rem" },
+          }}
         >
           <Grid
             xs={6}
+            sm={6}
             display="flex"
             flexDirection="row"
             justifyContent="end"
             alignItems="center"
           >
-            <Typography sx={CuniaGreen16400}>Contraseña Actual</Typography>
+            <Typography
+              sx={{
+                ...CuniaGreen16400,
+                fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+              }}
+            >
+              Contraseña Actual
+            </Typography>
           </Grid>
           <Grid
             xs={6}
+            sm={6}
             display="flex"
             flexDirection="row"
             justifyContent="start"
@@ -86,15 +97,24 @@ const ChangePasswordFormView = ({
           </Grid>
           <Grid
             xs={6}
+            sm={6}
             display="flex"
             flexDirection="row"
             justifyContent="end"
             alignItems="center"
           >
-            <Typography sx={CuniaGreen16400}>Nueva contraseña</Typography>
+            <Typography
+              sx={{
+                ...CuniaGreen16400,
+                fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+              }}
+            >
+              Nueva contraseña
+            </Typography>
           </Grid>
           <Grid
             xs={6}
+            sm={6}
             display="flex"
             flexDirection="row"
             justifyContent="start"
@@ -143,12 +163,20 @@ const ChangePasswordFormView = ({
           </Grid>
           <Grid
             xs={6}
+            sm={6}
             display="flex"
             flexDirection="row"
             justifyContent="end"
             alignItems="center"
           >
-            <Typography sx={CuniaGreen16400}>Confirmar contraseña</Typography>
+            <Typography
+              sx={{
+                ...CuniaGreen16400,
+                fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+              }}
+            >
+              Confirmar contraseña
+            </Typography>
           </Grid>
           <Grid
             xs={6}

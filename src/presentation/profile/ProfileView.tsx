@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import { IProfileViewModel } from "./ProfileViewModel";
 import { useEffect } from "react";
-import { CuniaWhite16400 } from "../styles/colors";
 import ClientDataFormView from "./components/clientDataForm/ClientDataFormView";
 import AddressFormView from "./components/addressForm/AddressFormView";
 import ChangePasswordFormView from "./components/passwordForm/ChangePasswordFormView";
@@ -28,6 +27,7 @@ const ProfileView = () => {
     boxNoData,
     progress,
     textEmptyState,
+    summaryLabel,
   } = styles();
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const ProfileView = () => {
         <Box>
           <Accordion sx={accordion} expanded>
             <AccordionSummary sx={accordionSummary}>
-              <Typography sx={CuniaWhite16400}>Datos del Cliente</Typography>
+              <Typography sx={summaryLabel}>Datos del Cliente</Typography>
             </AccordionSummary>
             <AccordionDetails sx={details}>
               {profileVM.formClientData && profileVM.userData && (
@@ -69,7 +69,7 @@ const ProfileView = () => {
           </Accordion>
           <Accordion sx={accordion} expanded>
             <AccordionSummary sx={accordionSummary}>
-              <Typography sx={CuniaWhite16400}>Dirección de envío</Typography>
+              <Typography sx={summaryLabel}>Dirección de envío</Typography>
             </AccordionSummary>
             <AccordionDetails sx={details}>
               {profileVM.formAddressData && profileVM.userData && (
@@ -85,7 +85,7 @@ const ProfileView = () => {
           </Accordion>
           <Accordion sx={accordion} expanded>
             <AccordionSummary sx={accordionSummary}>
-              <Typography sx={CuniaWhite16400}>Cambio contraseña</Typography>
+              <Typography sx={summaryLabel}>Cambio contraseña</Typography>
             </AccordionSummary>
             <AccordionDetails sx={details}>
               {profileVM.formAddressData && profileVM.userData && (

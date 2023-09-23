@@ -1,10 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { styles } from "./DetailHeaderStyle";
-import { MontserratWhite16700 } from "@/presentation/styles/colors";
 import Grid from "@mui/material/Unstable_Grid2";
 
 const DetailHeaderView = () => {
-  const { container, cell } = styles();
+  const { container, cell, title } = styles();
   return (
     <Box sx={container}>
       <Grid
@@ -14,23 +13,59 @@ const DetailHeaderView = () => {
         justifyContent="space-between"
       >
         <Grid xs={4} sx={cell}>
-          <Typography sx={MontserratWhite16700}>Nombre Producto</Typography>
+          <Typography sx={title}>Nombre Producto</Typography>
         </Grid>
-        <Grid xs={2} sx={cell}>
-          <Typography sx={{ ...MontserratWhite16700 }}>Presentación</Typography>
+        <Grid xs={3} sm={2} sx={cell}>
+          <Typography
+            sx={{
+              ...title,
+              textAlign: { xs: "center", sm: "right" },
+              display: { xs: "block", sm: "none" },
+            }}
+          >
+            Pres.
+          </Typography>
+          <Typography
+            sx={{
+              ...title,
+              textAlign: { xs: "center", sm: "right" },
+              display: { xs: "none", sm: "block" },
+            }}
+          >
+            Presentación
+          </Typography>
         </Grid>
-        <Grid xs={2} sx={cell}>
-          <Typography sx={{ ...MontserratWhite16700, textAlign: "right" }}>
+        <Grid
+          xs={2}
+          sm={2}
+          sx={{ ...cell, display: { xs: "none", sm: "block" } }}
+        >
+          <Typography sx={{ ...title, textAlign: "right" }}>
             Vlr Unitario
           </Typography>
         </Grid>
-        <Grid xs={2} sx={cell}>
-          <Typography sx={{ ...MontserratWhite16700, textAlign: "right" }}>
+        <Grid xs={2} sm={2} sx={cell}>
+          <Typography
+            sx={{
+              ...title,
+              textAlign: { xs: "center", sm: "right" },
+              display: { xs: "block", sm: "none" },
+            }}
+          >
+            Cant.
+          </Typography>
+          <Typography
+            sx={{
+              ...title,
+              textAlign: { xs: "center", sm: "right" },
+              display: { xs: "none", sm: "block" },
+            }}
+          >
             Cantidad
           </Typography>
         </Grid>
-        <Grid xs={2} sx={cell}>
-          <Typography sx={{ ...MontserratWhite16700, textAlign: "right" }}>
+        <Grid xs={3} sm={2} sx={cell}>
+          <Typography sx={{ ...title, textAlign: "right" }}>
             Vlr Total
           </Typography>
         </Grid>

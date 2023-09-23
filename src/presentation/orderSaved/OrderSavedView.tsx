@@ -26,7 +26,7 @@ const OrderSavedView = () => {
         <Box sx={container}>
           <Typography sx={sectionTitle}>Datos del Pedido</Typography>
           <Box sx={sectionBox}>
-            <Grid container rowSpacing={1}>
+            <Grid container rowSpacing={1} columnSpacing={2}>
               <DataRow
                 label="Nro Pedido"
                 value={orderSavedVM.order.id.toString()}
@@ -46,7 +46,7 @@ const OrderSavedView = () => {
           </Box>
           <Typography sx={sectionTitle}>Información del Cliente</Typography>
           <Box sx={sectionBox}>
-            <Grid container rowSpacing={1}>
+            <Grid container rowSpacing={1} columnSpacing={2}>
               <DataRow
                 label="Tipo documento"
                 value={orderSavedVM.authData.user.tipoDocumento}
@@ -100,7 +100,7 @@ const OrderSavedView = () => {
           </Box>
           <Typography sx={sectionTitle}>Dirección de envío</Typography>
           <Box sx={sectionBox}>
-            <Grid container rowSpacing={1}>
+            <Grid container rowSpacing={1} columnSpacing={2}>
               <DataRow
                 label="Direccion"
                 value={orderSavedVM.order.direccionEnvio.direccion}

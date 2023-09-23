@@ -29,7 +29,8 @@ export const styles = () => {
 
   const sectionBox: SxProps<Theme> = {
     border: "1px solid " + colors.solidGreen,
-    padding: "2rem",
+    paddingY: { xs: "1.25rem", sm: "2rem" },
+    paddingX: { xs: "1.25rem", sm: "2rem" },
     background: colors.lightGray,
     borderRadius: "30px",
     marginY: "0.5rem",
@@ -37,7 +38,8 @@ export const styles = () => {
 
   const sectionTitle: SxProps<Theme> = {
     ...CuniaGreen16400,
-    marginTop: "1.5rem",
+    marginTop: { xs: "1rem", sm: "1.5rem" },
+    fontSize: { xs: "0.875rem", sm: "1rem" },
   };
 
   return {
