@@ -3,7 +3,6 @@ import { colors } from "../styles/colors";
 
 export const styles = () => {
   const container: SxProps<Theme> = {
-    marginTop: "66px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -50,7 +49,7 @@ export const styles = () => {
 
   const detailBox: SxProps<Theme> = {
     width: "100%",
-    display: "flex",
+    display: { xs: "block", md: "flex" },
     flexDirection: "row",
     paddingY: "1rem",
   };
@@ -68,6 +67,7 @@ export const styles = () => {
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-end",
+    marginTop: { xs: "2rem", md: "0" },
   };
 
   const boxNoData: SxProps<Theme> = {

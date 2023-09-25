@@ -63,7 +63,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
 
         <Box sx={formContainer}>
           <Grid container columnSpacing={4} rowSpacing={4}>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* nombres */}
               <FormControl
                 fullWidth
@@ -103,7 +103,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* apellidos */}
               <FormControl
                 fullWidth
@@ -146,7 +146,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* email */}
               <FormControl
                 fullWidth
@@ -185,7 +185,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* Tipo Documento */}
               <FormControl
                 fullWidth
@@ -230,7 +230,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* numeroDocumento */}
               <FormControl
                 fullWidth
@@ -270,7 +270,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* nro telefono */}
               <FormControl
                 fullWidth
@@ -322,7 +322,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* direccion cliente */}
               <FormControl
                 fullWidth
@@ -367,7 +367,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* complemento direccion cliente */}
               <FormControl
                 fullWidth
@@ -408,7 +408,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* departamento direccion cliente */}
               <FormControl
                 fullWidth
@@ -453,7 +453,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* ciudad direccion cliente */}
               <FormControl
                 fullWidth
@@ -496,7 +496,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* barrio direccion cliente */}
               <FormControl
                 fullWidth
@@ -540,7 +540,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
               </FormControl>
             </Grid>
             {!authData.isAuthenticated && (
-              <Grid xs={6}>
+              <Grid xs={12} md={6}>
                 {/* Usar como dir envio? */}
                 <FormControl
                   fullWidth
@@ -595,7 +595,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
         </Typography>
         <Box sx={formContainer}>
           <Grid container columnSpacing={4} rowSpacing={4}>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* direccion envio */}
               <FormControl
                 fullWidth
@@ -640,7 +640,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* complemento direccion envío */}
               <FormControl
                 fullWidth
@@ -683,7 +683,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* departamento direccion envio */}
               <FormControl
                 fullWidth
@@ -730,7 +730,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* ciudad direccion cliente */}
               <FormControl
                 fullWidth
@@ -775,7 +775,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={6}>
+            <Grid xs={12} md={6}>
               {/* barrio direccion cliente */}
               <FormControl
                 fullWidth

@@ -1,6 +1,11 @@
-import { Box, Grow, Typography, CircularProgress } from "@mui/material";
+import {
+  Box,
+  Grow,
+  Typography,
+  CircularProgress,
+  useMediaQuery,
+} from "@mui/material";
 import { styles } from "./OrderDetailStyles";
-import HeaderView from "../landing/header/HeaderView";
 import CardButton from "../components/common/CardButton";
 import { useEffect } from "react";
 import OrderRow from "./components/orderRow/OrderRow";
@@ -10,9 +15,10 @@ import { constantes } from "@/domain/constants";
 import OrderSummary from "./components/orderSummary/OrderSummary";
 import { MontserratWhite16700 } from "../styles/colors";
 import ClientForm from "../components/clientForm/ClientForm";
-import FooterView from "../landing/footer/FooterView";
 import { useRouter } from "next/router";
 import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCartOutlined";
+import OrderRowSmallView from "./components/orderRowSmall/OrderRowSmallView";
+import theme from "../styles/theme";
 
 interface OrderDetailProps {
   flow?: string;
@@ -43,6 +49,8 @@ const OrderDetail = ({ flow = "cart" }: OrderDetailProps) => {
     "OrderDetailViewModel"
   ) as OrderDetailViewModelReturn;
 
+  const downLg = useMediaQuery(theme.breakpoints.down("lg"));
+
   useEffect(() => {
     orderDetailVM.getProductos(flow);
   }, []);
@@ -55,22 +63,7 @@ const OrderDetail = ({ flow = "cart" }: OrderDetailProps) => {
 
   return (
     <Box sx={container}>
-      <HeaderView landing={false} />
       <Box sx={orderContainer}>
-        <Box sx={headerBox}>
-          <Box sx={titleBox}>
-            <Typography variant="h1" sx={title}>
-              {constantes.orderDetail.pageTitle}
-            </Typography>
-          </Box>
-          <CardButton
-            label={constantes.orderDetail.catalogButtonLabel}
-            variant="green"
-            onClick={() => {
-              router.push("/catalogo");
-            }}
-          />
-        </Box>
         {orderDetailVM.loading ? (
           <Grow
             in={orderDetailVM.productosPedido.length === 0}
@@ -88,19 +81,34 @@ const OrderDetail = ({ flow = "cart" }: OrderDetailProps) => {
           orderDetailVM.productosPedido.length > 0 ? (
           <Box sx={detailBox}>
             <Box sx={productDetailBox}>
-              {orderDetailVM.productosPedido.map((item, index) => (
-                <OrderRow
-                  key={item.id}
-                  item={item}
-                  index={index}
-                  handleChangePresentation={
-                    orderDetailVM.handleChangePresentation
-                  }
-                  handleAddQty={orderDetailVM.handleAddQty}
-                  handleRemoveQty={orderDetailVM.handleRemoveQty}
-                  confirmRemoveItem={orderDetailVM.confirmRemoveItem}
-                />
-              ))}
+              {!downLg &&
+                orderDetailVM.productosPedido.map((item, index) => (
+                  <OrderRow
+                    key={item.id}
+                    item={item}
+                    index={index}
+                    handleChangePresentation={
+                      orderDetailVM.handleChangePresentation
+                    }
+                    handleAddQty={orderDetailVM.handleAddQty}
+                    handleRemoveQty={orderDetailVM.handleRemoveQty}
+                    confirmRemoveItem={orderDetailVM.confirmRemoveItem}
+                  />
+                ))}
+              {downLg &&
+                orderDetailVM.productosPedido.map((item, index) => (
+                  <OrderRowSmallView
+                    key={item.id}
+                    item={item}
+                    index={index}
+                    handleChangePresentation={
+                      orderDetailVM.handleChangePresentation
+                    }
+                    handleAddQty={orderDetailVM.handleAddQty}
+                    handleRemoveQty={orderDetailVM.handleRemoveQty}
+                    confirmRemoveItem={orderDetailVM.confirmRemoveItem}
+                  />
+                ))}
               <Box sx={formSection}>
                 {orderDetailVM.orderForm && (
                   <ClientForm formRegister={orderDetailVM.orderForm} />
@@ -120,7 +128,6 @@ const OrderDetail = ({ flow = "cart" }: OrderDetailProps) => {
               <Box
                 sx={{
                   width: "100%",
-                  alignContent: "center",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -146,7 +153,6 @@ const OrderDetail = ({ flow = "cart" }: OrderDetailProps) => {
           </Grow>
         )}
       </Box>
-      <FooterView />
     </Box>
   );
 };

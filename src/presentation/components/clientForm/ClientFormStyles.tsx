@@ -4,8 +4,8 @@ import { SxProps, Theme } from "@mui/material";
 export const styles = () => {
   const formContainer: SxProps<Theme> = {
     border: `1px solid ${colors.mediumGray}`,
-    borderRadius: "50px",
-    paddingX: "3rem",
+    borderRadius: { xs: "30px", sm: "50px" },
+    paddingX: { xs: "1.5rem", sm: "2rem", md: "3rem" },
     paddingTop: "2.5rem",
     marginTop: "1rem",
     paddingBottom: "2.5rem",

@@ -17,11 +17,12 @@ export const styles = (url: string, open: boolean) => {
   };
 
   const modalContainer: SxProps<Theme> = {
-    width: "780px",
+    width: { xs: "100%", md: "780px" },
+    maxWidth: "780px",
     background: colors.gradientGray,
     borderRadius: "2rem 7rem 2rem 7rem",
     display: "flex",
-    flexDirection: "row",
+    flexDirection: { xs: "column", md: "row" },
     alignItems: "center",
     paddingX: "2rem",
     paddingY: "3rem",
@@ -115,8 +116,8 @@ export const styles = (url: string, open: boolean) => {
     background: colors.mediumGray,
     color: colors.solidGreen,
     width: "100%",
-    marginRight: "0.75rem",
-    marginY: "2rem",
+    marginRight: { xs: "0", sm: "0.75rem" },
+    marginY: { xs: "0.5rem", md: "2rem" },
     borderRadius: "50px",
   };
 
@@ -132,8 +133,8 @@ export const styles = (url: string, open: boolean) => {
     background: colors.green,
     color: colors.white,
     width: "100%",
-    marginLeft: "0.75rem",
-    marginY: "2rem",
+    marginLeft: { xs: "0", sm: "0.75rem" },
+    marginY: { xs: "0.5rem", md: "2rem" },
     borderRadius: "50px",
   };
 
@@ -151,6 +152,15 @@ export const styles = (url: string, open: boolean) => {
     position: "absolute",
     top: "2rem",
     right: "4rem",
+  };
+
+  const buttonContainer: SxProps<Theme> = {
+    display: "flex",
+    flexDirection: { xs: "column", sm: "row" },
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    marginY: { xs: "0", md: "0.5rem" },
   };
 
   return {
@@ -171,5 +181,6 @@ export const styles = (url: string, open: boolean) => {
     labelOrderButton,
     carButton,
     iconClose,
+    buttonContainer,
   };
 };

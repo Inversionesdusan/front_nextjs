@@ -45,6 +45,7 @@ const ShoppingCartModal = ({
     labelOrderButton,
     carButton,
     iconClose,
+    buttonContainer,
   } = styles(producto.imagen.urlThumbnail || "", open);
 
   useEffect(() => {
@@ -83,7 +84,9 @@ const ShoppingCartModal = ({
       >
         <Box sx={modalContainer}>
           <IconButton sx={iconClose} onClick={handleClose}>
-            <CancelRoundedIcon sx={{ fontSize: "2rem " }} />
+            <CancelRoundedIcon
+              sx={{ fontSize: { xs: "1.5rem", md: "2rem " } }}
+            />
           </IconButton>
           <Box sx={productImage}></Box>
           <Box sx={infoContainer}>
@@ -91,12 +94,7 @@ const ShoppingCartModal = ({
               {producto.tipo.descripcion}
             </Typography>
             <Typography sx={nameLabel}>{producto.nombreProducto}</Typography>
-            <Typography sx={description}>
-              {
-                "Acondicionador de suelos que se formula de acuerdo a las necesidades especificas del suelo y del cultivo al cual va dirigido. Se requiere de un analisis del suelo para realizar el estudio y formulacion adecuada"
-              }
-            </Typography>
-
+            <Typography sx={description}>{producto.descripcion}</Typography>
             {precioSeleccionado && (
               <Box sx={dataRow}>
                 <Typography sx={dataText}>Precio</Typography>
@@ -137,7 +135,7 @@ const ShoppingCartModal = ({
                 removeQty={removeQty}
               />
             </Box>
-            <Box sx={dataRow}>
+            <Box sx={buttonContainer}>
               <Button sx={orderButton} onClick={handleClose}>
                 <Typography sx={labelOrderButton}>Cancelar</Typography>
               </Button>

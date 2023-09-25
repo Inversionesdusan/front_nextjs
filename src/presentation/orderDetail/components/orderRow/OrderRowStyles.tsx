@@ -10,7 +10,6 @@ export const styles = (url: string) => {
     alignItems: "center",
     border: `1px solid ${colors.mediumGray}`,
     borderRadius: "50px",
-    height: "180px",
     paddingX: "2rem",
   };
 

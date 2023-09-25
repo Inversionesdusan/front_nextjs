@@ -39,7 +39,7 @@ const QuantityComponent = ({
       </IconButton>
       <Typography
         sx={{
-          marginX: "0.5rem",
+          marginX: { sx: "0", sm: "0.5rem" },
           fontFamily: "Montserrat",
           fontSize: size === "regular" ? "1rem" : "0.875rem",
           color: colors.solidGreen,
