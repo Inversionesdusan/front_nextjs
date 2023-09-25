@@ -79,12 +79,9 @@ const ProfileViewModel = ({
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     setDireccionEnvio(event.target.value);
-    console.log("direccionEnvio -> ", event.target.value);
     if (event.target.value === "S") {
       const clientData = formClientData.getValues();
-      console.log("datos del cliente -> ", clientData);
       if (clientData) {
-        console.log("se actualiza los datos de la direccion");
         formAddressData.reset({
           direccion: clientData?.direccion || "",
           complemento: clientData?.complemento || "",
@@ -107,7 +104,6 @@ const ProfileViewModel = ({
       setLoadingData(true);
       setDataLoaded(false);
       const resp = await ClientsService.loadClientData(authData.token);
-      console.log("respuesta del servicio -> ", resp);
       setUserData(resp);
       const direccionEnv = resp.direccion_envio;
       formClientData.reset({

@@ -111,6 +111,14 @@ const HeaderView = ({ landing }: HeaderViewProps) => {
       <SideMenu
         open={headerViewModel.open}
         handleOpenDrawer={headerViewModel.handleOpenDrawer}
+        landing={landing}
+        options={
+          headerViewModel &&
+          authData.isAuthenticated &&
+          headerViewModel.menuOptionsLogged
+            ? headerViewModel.menuOptionsLogged
+            : headerViewModel.menuOptions
+        }
       />
       <ShoppingCartDetail
         open={headerViewModel.openCart}
