@@ -1,5 +1,6 @@
 import { colors } from "@/presentation/styles/colors";
 import { SxProps, Theme } from "@mui/material";
+import { CuniaWhite16400 } from "../../styles/colors";
 
 export const styles = () => {
   const menuContainer: SxProps<Theme> = {
@@ -27,16 +28,30 @@ export const styles = () => {
   const listItemButton: SxProps<Theme> = {
     color: colors.white,
     fontFamily: "Montserrat",
-    fontWeight: "500",
+    fontWeight: "400",
     width: "100%",
     "&:hover": {
       background: colors.lightGreen,
     },
   };
 
+  const userLabel: SxProps<Theme> = {
+    paddingX: "1rem",
+    ...CuniaWhite16400,
+  };
+
+  const nameBox: SxProps<Theme> = {
+    marginY: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.5rem",
+  };
+
   return {
     menuContainer,
     imageContainer,
     listItemButton,
+    userLabel,
+    nameBox,
   };
 };

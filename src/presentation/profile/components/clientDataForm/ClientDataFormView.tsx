@@ -42,7 +42,7 @@ const ClientDataFormView = ({
               variant="standard"
               error={!!errors.nombres?.message}
             >
-              <InputLabel htmlFor="nombres" sx={inputLabel}>
+              <InputLabel htmlFor="nombres" sx={inputLabel} shrink>
                 Nombres
               </InputLabel>
               <Input
@@ -50,7 +50,6 @@ const ClientDataFormView = ({
                 id="nombres"
                 type="text"
                 aria-describedby="nombres-error"
-                placeholder="Nombres"
                 sx={inputStyle}
                 {...register("nombres", {
                   required: {
@@ -81,7 +80,7 @@ const ClientDataFormView = ({
               variant="standard"
               error={!!errors?.apellidos?.message}
             >
-              <InputLabel htmlFor="apellidos" sx={inputLabel}>
+              <InputLabel htmlFor="apellidos" sx={inputLabel} shrink>
                 Apellidos
               </InputLabel>
               <Input
@@ -89,7 +88,6 @@ const ClientDataFormView = ({
                 id="apellidos"
                 type="text"
                 aria-describedby="apellidos-error"
-                placeholder="Apellidos"
                 sx={inputStyle}
                 {...register("apellidos", {
                   required: {
@@ -125,7 +123,7 @@ const ClientDataFormView = ({
               variant="standard"
               error={!!errors?.email?.message}
             >
-              <InputLabel htmlFor="email" sx={inputLabel}>
+              <InputLabel htmlFor="email" sx={inputLabel} shrink>
                 Email
               </InputLabel>
               <Input
@@ -133,7 +131,6 @@ const ClientDataFormView = ({
                 id="email"
                 type="text"
                 aria-describedby="email-error"
-                placeholder="Email"
                 sx={inputStyle}
                 {...register("email", {
                   required: {
@@ -165,7 +162,7 @@ const ClientDataFormView = ({
               variant="standard"
               error={!!errors?.telefono?.message}
             >
-              <InputLabel htmlFor="telefono" sx={inputLabel}>
+              <InputLabel htmlFor="telefono" sx={inputLabel} shrink>
                 Teléfono / Celular
               </InputLabel>
               <Input
@@ -173,7 +170,6 @@ const ClientDataFormView = ({
                 id="telefono"
                 type="text"
                 aria-describedby="telefono-error"
-                placeholder="Teléfono / Celular"
                 sx={inputStyle}
                 {...register("telefono", {
                   pattern: {
@@ -217,7 +213,9 @@ const ClientDataFormView = ({
               sx={{ width: "100%" }}
               error={!!errors?.tipoDocumento?.message}
             >
-              <InputLabel sx={inputLabel}>Tipo Documento</InputLabel>
+              <InputLabel sx={inputLabel} shrink>
+                Tipo Documento
+              </InputLabel>
               <Select
                 disabled={savingData}
                 id="tipoDocumento"
@@ -261,7 +259,7 @@ const ClientDataFormView = ({
               variant="standard"
               error={!!errors?.numeroDocumento?.message}
             >
-              <InputLabel htmlFor="numeroDocumento" sx={inputLabel}>
+              <InputLabel htmlFor="numeroDocumento" sx={inputLabel} shrink>
                 Número Documento
               </InputLabel>
               <Input
@@ -269,7 +267,6 @@ const ClientDataFormView = ({
                 id="numeroDocumento"
                 type="text"
                 aria-describedby="numeroDocumento-error"
-                placeholder="Número Documento"
                 sx={inputStyle}
                 {...register("numeroDocumento", {
                   required: {
@@ -300,7 +297,7 @@ const ClientDataFormView = ({
               variant="standard"
               error={!!errors?.digitoVerificacion?.message}
             >
-              <InputLabel htmlFor="digitoVerificacion" sx={inputLabel}>
+              <InputLabel htmlFor="digitoVerificacion" sx={inputLabel} shrink>
                 DV
               </InputLabel>
               <Input
@@ -308,7 +305,6 @@ const ClientDataFormView = ({
                 id="digitoVerificacion"
                 type="text"
                 aria-describedby="digitoVerificacion-error"
-                placeholder="DV"
                 sx={inputStyle}
                 {...register("digitoVerificacion", {
                   minLength: {
@@ -343,7 +339,7 @@ const ClientDataFormView = ({
               variant="standard"
               error={!!errors?.direccion?.message}
             >
-              <InputLabel htmlFor="direccion" sx={inputLabel}>
+              <InputLabel htmlFor="direccion" sx={inputLabel} shrink>
                 Dirección
               </InputLabel>
               <Input
@@ -351,7 +347,6 @@ const ClientDataFormView = ({
                 id="direccion"
                 type="text"
                 aria-describedby="direccion-error"
-                placeholder="Dirección"
                 sx={inputStyle}
                 {...register("direccion", {
                   required: {
@@ -387,7 +382,7 @@ const ClientDataFormView = ({
               variant="standard"
               error={!!errors.complemento?.message}
             >
-              <InputLabel htmlFor="complemento" sx={inputLabel}>
+              <InputLabel htmlFor="complemento" sx={inputLabel} shrink>
                 Complemento Dirección
               </InputLabel>
               <Input
@@ -395,7 +390,6 @@ const ClientDataFormView = ({
                 id="complemento"
                 type="text"
                 aria-describedby="complemento-error"
-                placeholder="Complemento Dirección"
                 sx={inputStyle}
                 {...register("complemento")}
               />
@@ -417,7 +411,7 @@ const ClientDataFormView = ({
               variant="standard"
               error={!!errors.departamento?.message}
             >
-              <InputLabel htmlFor="departamento" sx={inputLabel}>
+              <InputLabel htmlFor="departamento" sx={inputLabel} shrink>
                 Departamento
               </InputLabel>
               <Input
@@ -425,7 +419,6 @@ const ClientDataFormView = ({
                 id="departamento"
                 type="text"
                 aria-describedby="departamento-error"
-                placeholder="Departamento"
                 sx={inputStyle}
                 {...register("departamento", {
                   required: {
@@ -456,7 +449,7 @@ const ClientDataFormView = ({
               variant="standard"
               error={!!errors?.ciudad?.message}
             >
-              <InputLabel htmlFor="ciudad" sx={inputLabel}>
+              <InputLabel htmlFor="ciudad" sx={inputLabel} shrink>
                 Ciudad / Municipio
               </InputLabel>
               <Input
@@ -464,7 +457,6 @@ const ClientDataFormView = ({
                 id="ciudad"
                 type="text"
                 aria-describedby="ciudad-error"
-                placeholder="Ciudad / Municipio"
                 sx={inputStyle}
                 {...register("ciudad", {
                   required: {
@@ -496,7 +488,7 @@ const ClientDataFormView = ({
               variant="standard"
               error={!!errors?.barrio?.message}
             >
-              <InputLabel htmlFor="barrio" sx={inputLabel}>
+              <InputLabel htmlFor="barrio" sx={inputLabel} shrink>
                 Barrio
               </InputLabel>
               <Input
@@ -504,7 +496,6 @@ const ClientDataFormView = ({
                 id="barrio"
                 type="text"
                 aria-describedby="barrio-error"
-                placeholder="Barrio"
                 sx={inputStyle}
                 {...register("barrio")}
               />
@@ -522,7 +513,7 @@ const ClientDataFormView = ({
           </Grid>
           <Grid xs={12} md={6}>
             <FormControl variant="standard" sx={{ width: "100%" }}>
-              <InputLabel sx={inputLabel}>
+              <InputLabel sx={inputLabel} shrink>
                 Utilizar esta dirección para envíos
               </InputLabel>
               <Select

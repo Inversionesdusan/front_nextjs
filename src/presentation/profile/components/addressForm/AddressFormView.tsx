@@ -30,7 +30,7 @@ const AddressFormView = ({
               variant="standard"
               error={!!errors?.direccion?.message}
             >
-              <InputLabel htmlFor="direccion" sx={inputLabel}>
+              <InputLabel htmlFor="direccion" sx={inputLabel} shrink>
                 Dirección
               </InputLabel>
               <Input
@@ -38,7 +38,6 @@ const AddressFormView = ({
                 id="direccion"
                 type="text"
                 aria-describedby="direccion-error"
-                placeholder="Dirección"
                 sx={inputStyle}
                 {...register("direccion", {
                   required: {
@@ -74,7 +73,7 @@ const AddressFormView = ({
               variant="standard"
               error={!!errors.complemento?.message}
             >
-              <InputLabel htmlFor="complemento" sx={inputLabel}>
+              <InputLabel htmlFor="complemento" sx={inputLabel} shrink>
                 Complemento Dirección
               </InputLabel>
               <Input
@@ -82,7 +81,6 @@ const AddressFormView = ({
                 id="complemento"
                 type="text"
                 aria-describedby="complemento-error"
-                placeholder="Complemento Dirección"
                 sx={inputStyle}
                 {...register("complemento")}
               />
@@ -104,7 +102,7 @@ const AddressFormView = ({
               variant="standard"
               error={!!errors.departamento?.message}
             >
-              <InputLabel htmlFor="departamento" sx={inputLabel}>
+              <InputLabel htmlFor="departamento" sx={inputLabel} shrink>
                 Departamento
               </InputLabel>
               <Input
@@ -112,7 +110,6 @@ const AddressFormView = ({
                 id="departamento"
                 type="text"
                 aria-describedby="departamento-error"
-                placeholder="Departamento"
                 sx={inputStyle}
                 {...register("departamento", {
                   required: {
@@ -143,7 +140,7 @@ const AddressFormView = ({
               variant="standard"
               error={!!errors?.ciudad?.message}
             >
-              <InputLabel htmlFor="ciudad" sx={inputLabel}>
+              <InputLabel htmlFor="ciudad" sx={inputLabel} shrink>
                 Ciudad / Municipio
               </InputLabel>
               <Input
@@ -151,7 +148,6 @@ const AddressFormView = ({
                 id="ciudad"
                 type="text"
                 aria-describedby="ciudad-error"
-                placeholder="Ciudad / Municipio"
                 sx={inputStyle}
                 {...register("ciudad", {
                   required: {
@@ -183,7 +179,7 @@ const AddressFormView = ({
               variant="standard"
               error={!!errors?.barrio?.message}
             >
-              <InputLabel htmlFor="barrio" sx={inputLabel}>
+              <InputLabel htmlFor="barrio" sx={inputLabel} shrink>
                 Barrio
               </InputLabel>
               <Input
@@ -191,7 +187,6 @@ const AddressFormView = ({
                 id="barrio"
                 type="text"
                 aria-describedby="barrio-error"
-                placeholder="Barrio"
                 sx={inputStyle}
                 {...register("barrio")}
               />

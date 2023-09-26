@@ -14,6 +14,7 @@ import { styles } from "./SideMenuStyles";
 import { constantes } from "@/domain/constants";
 import MenuItem from "./MenuItem";
 import { DropDownMenuOpion } from "../dropdownMenu/DropDownMenu";
+import useAuthStore from "@/domain/store/useAuthStore";
 
 interface SideMenuProps {
   open: boolean;
@@ -28,8 +29,9 @@ const SideMenu = ({
   landing,
   options,
 }: SideMenuProps) => {
-  const { menuContainer, imageContainer, listItemButton } = styles();
-
+  const { menuContainer, imageContainer, listItemButton, userLabel, nameBox } =
+    styles();
+  const { authData } = useAuthStore();
   return (
     <SwipeableDrawer
       anchor="left"
@@ -46,6 +48,15 @@ const SideMenu = ({
         <Box sx={imageContainer}>
           <Image src={logo} alt="Logo Dusan" height={40} color={colors.white} />
         </Box>
+        {authData.isAuthenticated && authData.user.nombres && (
+          <>
+            <Box sx={nameBox}>
+              <Typography sx={userLabel}>Hola,</Typography>
+              <Typography sx={userLabel}>{authData.user.nombres}</Typography>
+            </Box>
+            <Divider />
+          </>
+        )}
         <List>
           {constantes.options.map((option) => (
             <MenuItem
@@ -65,7 +76,7 @@ const SideMenu = ({
                 sx={listItemButton}
                 onClick={option.handleClickOption}
               >
-                <Typography>{option.label}</Typography>
+                <Typography sx={listItemButton}>{option.label}</Typography>
               </ListItemButton>
             </ListItem>
           ))}

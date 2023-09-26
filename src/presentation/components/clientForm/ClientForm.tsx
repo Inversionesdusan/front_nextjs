@@ -19,6 +19,7 @@ import useAuthStore from "@/domain/store/useAuthStore";
 import Grid from "@mui/material/Unstable_Grid2";
 import CardButton from "../common/CardButton";
 import { useRouter } from "next/router";
+import { inputLabel, inputStyle } from "@/presentation/styles/theme";
 
 interface ClientFormProps {
   formRegister: UseFormReturn<OrderFormValues, any, undefined>;
@@ -28,7 +29,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
   const { register, formState } = formRegister;
   const { errors } = formState;
 
-  const { inputStyle, formContainer, clientLbelBox } = styles();
+  const { formContainer, clientLbelBox } = styles();
   const { authData } = useAuthStore();
   const router = useRouter();
 
@@ -70,7 +71,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.nombresCliente?.message}
               >
-                <InputLabel shrink={!!formRegister.getValues().nombresCliente}>
+                <InputLabel sx={inputLabel} shrink>
                   Nombre(s)
                 </InputLabel>
                 <Input
@@ -78,7 +79,6 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                   id="nombresCliente"
                   type="text"
                   aria-describedby="nombresCliente-error"
-                  placeholder="Nombres"
                   sx={inputStyle}
                   {...register("nombresCliente", {
                     required: {
@@ -110,9 +110,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.apellidosCliente?.message}
               >
-                <InputLabel
-                  shrink={!!formRegister.getValues().apellidosCliente}
-                >
+                <InputLabel sx={inputLabel} shrink>
                   Apellido(s)
                 </InputLabel>
                 <Input
@@ -120,7 +118,6 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                   id="apellidosCliente"
                   type="text"
                   aria-describedby="apellidosCliente-error"
-                  placeholder="Apellidos"
                   sx={inputStyle}
                   {...register("apellidosCliente", {
                     required: {
@@ -153,7 +150,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.email?.message}
               >
-                <InputLabel shrink={!!formRegister.getValues().email}>
+                <InputLabel sx={inputLabel} shrink>
                   Correo electrónico
                 </InputLabel>
                 <Input
@@ -192,7 +189,9 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.tipoDocumento?.message}
               >
-                <InputLabel shrink>Tipo Documento</InputLabel>
+                <InputLabel sx={inputLabel} shrink>
+                  Tipo Documento
+                </InputLabel>
                 <Select
                   disabled={authData.isAuthenticated}
                   id="tipoDocumento"
@@ -237,7 +236,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.numeroDocumento?.message}
               >
-                <InputLabel shrink={!!formRegister.getValues().numeroDocumento}>
+                <InputLabel sx={inputLabel} shrink>
                   Número de documento
                 </InputLabel>
                 <Input
@@ -277,7 +276,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.nroTelefono?.message}
               >
-                <InputLabel shrink={!!formRegister.getValues().nroTelefono}>
+                <InputLabel sx={inputLabel} shrink>
                   Nro Telefónico / Celular
                 </InputLabel>
                 <Input
@@ -329,9 +328,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.direccionCliente?.message}
               >
-                <InputLabel
-                  shrink={!!formRegister.getValues().direccionCliente}
-                >
+                <InputLabel sx={inputLabel} shrink>
                   Dirección
                 </InputLabel>
                 <Input
@@ -374,9 +371,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.complementoCliente?.message}
               >
-                <InputLabel
-                  shrink={!!formRegister.getValues().complementoCliente}
-                >
+                <InputLabel sx={inputLabel} shrink>
                   Complemento Direccion
                 </InputLabel>
                 <Input
@@ -415,9 +410,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.departamentoCliente?.message}
               >
-                <InputLabel
-                  shrink={!!formRegister.getValues().departamentoCliente}
-                >
+                <InputLabel sx={inputLabel} shrink>
                   Departamento
                 </InputLabel>
                 <Input
@@ -460,7 +453,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.ciudadCliente?.message}
               >
-                <InputLabel shrink={!!formRegister.getValues().ciudadCliente}>
+                <InputLabel sx={inputLabel} shrink>
                   Ciudad
                 </InputLabel>
                 <Input
@@ -503,7 +496,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.barrioCliente?.message}
               >
-                <InputLabel shrink={!!formRegister.getValues().barrioCliente}>
+                <InputLabel sx={inputLabel} shrink>
                   Barrio
                 </InputLabel>
                 <Input
@@ -547,7 +540,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                   variant="standard"
                   error={!!errors.usarEnvio?.message}
                 >
-                  <InputLabel shrink={!!formRegister.getValues().usarEnvio}>
+                  <InputLabel sx={inputLabel} shrink>
                     Usar esta dirección para envíos
                   </InputLabel>
                   <Select
@@ -602,7 +595,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.direccionEnvio?.message}
               >
-                <InputLabel shrink={!!formRegister.getValues().direccionEnvio}>
+                <InputLabel sx={inputLabel} shrink>
                   Dirección Envío
                 </InputLabel>
                 <Input
@@ -647,9 +640,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.complementoEnvio?.message}
               >
-                <InputLabel
-                  shrink={!!formRegister.getValues().complementoEnvio}
-                >
+                <InputLabel sx={inputLabel} shrink>
                   Complemento Dirección envío
                 </InputLabel>
                 <Input
@@ -690,9 +681,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.departamentoEnvio?.message}
               >
-                <InputLabel
-                  shrink={!!formRegister.getValues().departamentoEnvio}
-                >
+                <InputLabel sx={inputLabel} shrink>
                   Departamento envío
                 </InputLabel>
                 <Input
@@ -737,7 +726,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.ciudadEnvio?.message}
               >
-                <InputLabel shrink={!!formRegister.getValues().ciudadEnvio}>
+                <InputLabel sx={inputLabel} shrink>
                   Ciudad envío
                 </InputLabel>
                 <Input
@@ -782,7 +771,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 variant="standard"
                 error={!!errors.barrioEnvio?.message}
               >
-                <InputLabel shrink={!!formRegister.getValues().barrioEnvio}>
+                <InputLabel sx={inputLabel} shrink>
                   Barrio envío
                 </InputLabel>
                 <Input
