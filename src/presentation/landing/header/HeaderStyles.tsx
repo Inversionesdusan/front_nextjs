@@ -45,10 +45,16 @@ export const styles = (downMd: boolean) => {
   };
 
   const menuBox: SxProps<Theme> = {
-    display: downMd ? "block" : "none",
+    display: downMd ? "flex" : "none",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: "1.5rem",
   };
 
-  const icon: SxProps<Theme> = { fontSize: "2rem", color: colors.white };
+  const icon: SxProps<Theme> = {
+    fontSize: { xs: "1.75rem", sm: "2rem" },
+    color: colors.white,
+  };
 
   return {
     navbar,

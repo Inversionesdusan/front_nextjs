@@ -84,7 +84,8 @@ const ShoppingCartDetail = ({
               display: "flex",
               flexDirection: "row",
               justifyContent: "flex-end",
-              paddingRight: "1.5rem",
+              paddingLeft: { xs: "0.75rem", sm: "0" },
+              paddingRight: { xs: "0.75rem", sm: "1.5rem" },
               gap: "1rem",
               marginTop: "1rem",
             }}

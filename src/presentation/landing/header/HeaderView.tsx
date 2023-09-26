@@ -76,6 +76,14 @@ const HeaderView = ({ landing }: HeaderViewProps) => {
           ))}
         </nav>
         <Box sx={menuBox}>
+          <IconButton onClick={headerViewModel.handleOpenCart}>
+            <Badge
+              badgeContent={headerViewModel?.shoppingCart?.length}
+              color="primary"
+            >
+              <ShoppingCartTwoToneIcon sx={icon} />
+            </Badge>
+          </IconButton>
           <div onClick={headerViewModel.handleOpenDrawer}>
             <MenuTwoToneIcon sx={icon} />
           </div>
