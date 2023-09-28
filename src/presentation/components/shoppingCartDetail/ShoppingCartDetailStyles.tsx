@@ -3,8 +3,6 @@ import { SxProps, Theme } from "@mui/material";
 import { CSSProperties } from "react";
 
 export const styles = (open: boolean, imageLink: string = "") => {
-  console.log(`url('${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${imageLink}')`);
-
   const container: CSSProperties = {
     position: "fixed",
     top: "0",
@@ -32,7 +30,6 @@ export const styles = (open: boolean, imageLink: string = "") => {
     alignItems: "center",
     zIndex: 1400,
     maxHeight: "calc(100vh - 70px)",
-    overflow: "scroll",
   };
 
   const cartRow: SxProps<Theme> = {

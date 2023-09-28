@@ -28,7 +28,6 @@ const ShoppingCartProduct = ({
     cartRowPresentation,
   } = styles(true, product.imageUrl);
 
-  console.log("product -> ", product);
   const formatNumber = Intl.NumberFormat(constantes.locale);
   const downSm = useMediaQuery(theme.breakpoints.down("sm"));
 

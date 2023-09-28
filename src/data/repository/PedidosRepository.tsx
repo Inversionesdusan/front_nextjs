@@ -3,11 +3,13 @@ import {
   IOrderDto,
   IOrderQueryDto,
 } from "@/domain/models/Dto/IOrderDto";
+import { IOrderUpdateRequest } from "@/domain/models/requests/IOrderUpdateRequest";
 import { ISaveDataOrder } from "@/domain/models/requests/ISAveDataOrder";
 import {
   IOrderQueryResponse,
   IOrderQueryResponseData,
 } from "@/domain/models/responses/IOrderQueryResponse";
+import { IOrderUpdateResponse } from "@/domain/models/responses/IOrderUpdateResponse";
 
 interface IPedidosRepositoryProps {
   PedidosDataSource: {
@@ -18,6 +20,11 @@ interface IPedidosRepositoryProps {
       page: number,
       pageSize: number
     ) => Promise<IOrderQueryResponse>;
+    updateOrderData: (
+      token: string,
+      orderId: number,
+      orderData: IOrderUpdateRequest
+    ) => Promise<IOrderUpdateResponse>;
   };
 }
 
@@ -29,6 +36,11 @@ export interface IPedidosRepositoryReturn {
     page: number,
     pageSize: number
   ) => Promise<IOrderQueryDto>;
+  updateOrderData: (
+    token: string,
+    orderId: number,
+    orderData: IOrderUpdateRequest
+  ) => Promise<IOrderDto>;
 }
 
 export const PedidosRepository = ({
@@ -81,6 +93,22 @@ export const PedidosRepository = ({
     return newIOrderQueryDto;
   };
 
+  const updateOrderData = async (
+    token: string,
+    orderId: number,
+    orderData: IOrderUpdateRequest
+  ): Promise<IOrderDto> => {
+    const response = await PedidosDataSource.updateOrderData(
+      token,
+      orderId,
+      orderData
+    );
+    const orders: IOrderQueryResponseData[] = [];
+    orders.push(response.data);
+    const order = convertDataToDto(orders);
+    return order[0];
+  };
+
   const convertDataToDto = (data: IOrderQueryResponseData[]): IOrderDto[] => {
     const orders: IOrderDto[] = [];
     data.forEach((order) => {
@@ -119,6 +147,13 @@ export const PedidosRepository = ({
           ciudad: order.attributes.direccionEnvio.ciudad,
           barrio: order.attributes.direccionEnvio.barrio,
         },
+        fechaPago: order.attributes.fechaPago,
+        fechaRealDespacho: order.attributes.fechaRealDespacho,
+        fechaRealEntrega: order.attributes.fechaRealEntrega,
+        pagado: order.attributes.pagado,
+        transaccionPago: order.attributes.transaccionPago,
+        transportadora: order.attributes.transportadora,
+        valorFlete: order.attributes.valorFlete,
       };
       orders.push(newOrderDto);
     });
@@ -126,5 +161,5 @@ export const PedidosRepository = ({
     return orders;
   };
 
-  return { saveOrder, getOrders, getOrdersByEmail };
+  return { saveOrder, getOrders, getOrdersByEmail, updateOrderData };
 };

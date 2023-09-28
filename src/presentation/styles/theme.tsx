@@ -1,7 +1,11 @@
 import { SxProps, Theme, createTheme } from "@mui/material";
 import { colors } from "./colors";
+import type {} from "@mui/x-date-pickers/themeAugmentation";
 
 const theme = createTheme({
+  components: {
+    MuiDatePicker: {},
+  },
   typography: {
     fontFamily: ["Montserrat", "Nunito", "Nunito Sans", "Cunia"].join(","),
   },

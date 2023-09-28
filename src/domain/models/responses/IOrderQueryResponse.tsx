@@ -13,21 +13,23 @@ export interface IOrderQueryResponseData {
 export interface IOrderQueryResponseAttributes {
   uid: string;
   fechaGrabacion: string;
-  fechaEstimadaDespacho: any;
-  fechaRealDespacho: any;
-  fechaEstimadaEntrega: any;
-  fechaRealEntrega: any;
+  fechaEstimadaDespacho?: string;
+  fechaRealDespacho?: string;
+  fechaEstimadaEntrega?: string;
+  fechaRealEntrega?: string;
   valorTotal: number;
   estado: string;
   pagado: string;
-  fechaPago: any;
-  transaccionPago: any;
+  fechaPago?: string;
+  transaccionPago?: string;
   direccion: Direccion;
   direccionEnvio: Direccion;
   createdAt: string;
   updatedAt: string;
   emailCliente: string;
   detallePedido: DetallePedido[];
+  valorFlete?: number;
+  transportadora?: string;
 }
 
 export interface Direccion {

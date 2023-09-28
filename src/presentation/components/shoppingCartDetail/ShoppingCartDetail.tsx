@@ -67,7 +67,14 @@ const ShoppingCartDetail = ({
         {...(open ? { timeout: 600 } : {})}
       >
         <Box sx={cartContainer}>
-          <div style={{ width: "100%", zIndex: 1400 }}>
+          <div
+            style={{
+              width: "100%",
+              zIndex: 1400,
+              maxHeight: "500px",
+              overflowY: "auto",
+            }}
+          >
             {itemsCart.map((item, index) => (
               <ShoppingCartProduct
                 index={index}

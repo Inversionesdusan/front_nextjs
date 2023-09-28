@@ -8,6 +8,13 @@ export interface IOrderDto {
   detallePedido: IDetallePedidoDto[];
   direccion: IDireccionPedidoDto;
   direccionEnvio: IDireccionPedidoDto;
+  pagado?: string;
+  fechaPago?: string;
+  transaccionPago?: string;
+  fechaRealDespacho?: string;
+  fechaRealEntrega?: string;
+  valorFlete?: number;
+  transportadora?: string;
 }
 
 export interface IDetallePedidoDto {

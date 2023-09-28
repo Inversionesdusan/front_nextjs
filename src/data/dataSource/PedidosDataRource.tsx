@@ -1,7 +1,9 @@
 import { constantes } from "@/domain/constants";
+import { IOrderUpdateRequest } from "@/domain/models/requests/IOrderUpdateRequest";
 import { ISaveDataOrder } from "@/domain/models/requests/ISAveDataOrder";
 import { ICreateOrderResponse } from "@/domain/models/responses/ICreateOrderResponse";
 import { IOrderQueryResponse } from "@/domain/models/responses/IOrderQueryResponse";
+import { IOrderUpdateResponse } from "@/domain/models/responses/IOrderUpdateResponse";
 import axios, { AxiosRequestConfig } from "axios";
 
 export const saveOrder = async (orderData: ISaveDataOrder) => {
@@ -53,5 +55,24 @@ export const getOrdersByEmail = async (
     return data;
   } catch (error) {
     throw new Error("Error al consultar los pedidos");
+  }
+};
+
+export const updateOrderData = async (
+  token: string,
+  orderId: number,
+  orderData: IOrderUpdateRequest
+) => {
+  const request: AxiosRequestConfig = {
+    method: "PUT",
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    url: `${constantes.endpoints.pedidos}/${orderId}`,
+  };
+
+  try {
+    const { data } = await axios.request<IOrderUpdateResponse>(request);
+    return data;
+  } catch (error) {
+    throw new Error("Error al actualizar el pedido");
   }
 };

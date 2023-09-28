@@ -1,6 +1,7 @@
 import { IPedidosRepositoryReturn } from "@/data/repository/PedidosRepository";
 import { ISaveDataOrder } from "../models/requests/ISAveDataOrder";
 import { IOrderDto, IOrderQueryDto } from "../models/Dto/IOrderDto";
+import { IOrderUpdateRequest } from "../models/requests/IOrderUpdateRequest";
 
 interface IPedidosServiceProps {
   PedidosRepository: IPedidosRepositoryReturn;
@@ -14,6 +15,11 @@ export interface IPedidosService {
     page: number,
     pageSize: number
   ) => Promise<IOrderQueryDto>;
+  updateOrderData: (
+    token: string,
+    orderId: number,
+    orderData: IOrderUpdateRequest
+  ) => Promise<IOrderDto>;
 }
 
 export const PedidosService = ({ PedidosRepository }: IPedidosServiceProps) => {
@@ -36,9 +42,18 @@ export const PedidosService = ({ PedidosRepository }: IPedidosServiceProps) => {
     return await PedidosRepository.getOrdersByEmail(email, page, pageSize);
   };
 
+  const updateOrderData = async (
+    token: string,
+    orderId: number,
+    orderData: IOrderUpdateRequest
+  ) => {
+    return await PedidosRepository.updateOrderData(token, orderId, orderData);
+  };
+
   return {
     saveOrder,
     getOrders,
     getOrdersByEmail,
+    updateOrderData,
   };
 };

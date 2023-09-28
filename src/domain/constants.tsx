@@ -66,4 +66,5 @@ export const constantes = {
     password: "La contraseña es inválida",
     current: "La contraseña actual y la nueva deben ser diferente",
   },
+  estados: ["Anulado", "Despachado", "Pendiente", "Recibido", "Registrado"],
 };
