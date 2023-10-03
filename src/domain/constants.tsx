@@ -63,8 +63,38 @@ export const constantes = {
     attempts:
       "Demasiadas solicitudes. Por favor intente en aproximadamente 1 minuto",
     credentials: "Email o contraseña incorrecta",
-    password: "La contraseña es inválida",
     current: "La contraseña actual y la nueva deben ser diferente",
+    name: {
+      required: "Debes digitar tu(s) nombre(s)",
+      length: "Tu nombre debe ser de 3 o más caracteres",
+    },
+    lastName: {
+      required: "Debes digitar tu(s) apellido(s)",
+      length: "Tu nombre debe ser de 3 o más caracteres",
+    },
+    email: {
+      required: "Debes digitar tu correo electrónico",
+      format: "El correo electrónico debe tener un formato válido",
+    },
+    phone: {
+      length: "El Número telefónico debe tener al menos 7 dígitos",
+      maxLength: "El Número telefónico puede tener máximo 10 dígitos",
+    },
+    password: {
+      required: "Debes digitar un clave para tu usuario",
+      length: "La clave debe tener al menos 6 caracteres",
+      invalid: "La contrasea no es válida",
+    },
+    generic: {
+      numbers: "Este campo debe contener sólo números",
+    },
+  },
+  placeholders: {
+    name: "Nombres",
+    lastName: "Apellidos",
+    email: "Correo electrónico",
+    phone: "Nro Telefónico / Celular",
+    pass: "Password / Clave",
   },
   estados: ["Anulado", "Despachado", "Pendiente", "Recibido", "Registrado"],
 };

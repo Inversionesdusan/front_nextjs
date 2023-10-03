@@ -1,5 +1,5 @@
 import { SxProps, Theme } from "@mui/material";
-import { colors } from "../styles/colors";
+import { CuniaWhite16400, colors } from "../styles/colors";
 
 export const styles = () => {
   const container: SxProps<Theme> = {
@@ -120,6 +120,31 @@ export const styles = () => {
     marginBottom: "2rem",
   };
 
+  const formContainer: SxProps<Theme> = {
+    marginTop: "2rem",
+  };
+
+  const accordion: SxProps<Theme> = {
+    background: "transparent",
+    borderRadius: "30px",
+    width: "100%",
+  };
+
+  const accordionSummary: SxProps<Theme> = {
+    background: colors.green,
+  };
+
+  const summaryLabel: SxProps<Theme> = {
+    ...CuniaWhite16400,
+    fontSize: { xs: "0.875rem", sm: "0.925rem", md: "1rem" },
+  };
+
+  const details: SxProps<Theme> = {
+    background: colors.gradientGray,
+    borderRadius: "30px",
+    padding: { xs: "1.5rem", sm: "2rem", md: "3rem" },
+  };
+
   return {
     container,
     orderContainer,
@@ -136,5 +161,10 @@ export const styles = () => {
     tableContainer,
     controlsBox,
     iconEmptyState,
+    formContainer,
+    accordion,
+    accordionSummary,
+    summaryLabel,
+    details,
   };
 };

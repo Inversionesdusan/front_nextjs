@@ -48,7 +48,10 @@ const CatalogView = () => {
           xs={12}
           sm={5}
           md={4}
-          sx={{ paddingRight: { xs: "0", sm: "1rem" } }}
+          sx={{
+            paddingRight: { xs: "0", sm: "1rem" },
+            paddingTop: { xs: "0", sm: "1rem" },
+          }}
         >
           {catalogViewModel.tipoProducto && (
             <Dropdown

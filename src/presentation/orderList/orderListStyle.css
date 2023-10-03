@@ -1,0 +1,31 @@
+/* Cambiar el color del texto a verde */
+.MuiInputBase-input {
+  font-size: "Montserrat";
+  color: #044d3e;
+  padding: 5px 10px;
+  border: none;
+}
+
+/* Establecer el tamaño de fuente y la fuente Montserrat */
+.MuiInputBase-input {
+  font-size: 16px;
+  font-family: "Montserrat";
+  padding: 5px 10px;
+  border: none;
+}
+
+/* Media query para pantallas de menos de 900px */
+@media (max-width: 900px) {
+  .MuiInputBase-input {
+    font-size: 14px;
+    padding: 4px 10px;
+  }
+}
+
+/* Media query para pantallas de menos de 600px */
+@media (max-width: 600px) {
+  .MuiInputBase-input {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+}

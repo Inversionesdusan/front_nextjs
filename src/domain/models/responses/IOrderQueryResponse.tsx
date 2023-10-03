@@ -1,4 +1,5 @@
 import { Meta } from "../commons/MetaResponse";
+import { IOrderClientData } from "../requests/ISAveDataOrder";
 
 export interface IOrderQueryResponse {
   data: IOrderQueryResponseData[];
@@ -30,6 +31,8 @@ export interface IOrderQueryResponseAttributes {
   detallePedido: DetallePedido[];
   valorFlete?: number;
   transportadora?: string;
+  numeroDocumento: string;
+  datosCliente: IOrderClientData;
 }
 
 export interface Direccion {

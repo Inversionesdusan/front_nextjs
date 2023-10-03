@@ -88,7 +88,6 @@ const OrderSavedView = () => {
                 />
                 <DataRow
                   label="Transportadora"
-                  strong
                   value={orderSavedVM.order.transportadora || "-"}
                 >
                   {tipoUsuario === "Admin" && (
@@ -107,7 +106,11 @@ const OrderSavedView = () => {
                 <DataRow
                   label="Valor Flete"
                   strong
-                  value={orderSavedVM.order.valorFlete?.toString() || "-"}
+                  value={
+                    orderSavedVM.order.valorFlete
+                      ? "$" + formatNumber.format(orderSavedVM.order.valorFlete)
+                      : "-"
+                  }
                 >
                   {tipoUsuario === "Admin" && (
                     <FormControl variant="standard">
@@ -122,7 +125,6 @@ const OrderSavedView = () => {
                 </DataRow>
                 <DataRow
                   label="Pagado"
-                  strong
                   value={orderSavedVM.order.pagado || "-"}
                 >
                   {tipoUsuario === "Admin" ? (
@@ -130,12 +132,7 @@ const OrderSavedView = () => {
                       <Select
                         id="pagado"
                         value={orderSavedVM.selectedPagado}
-                        {...orderSavedVM.formOrderData.register("pagado", {
-                          required: {
-                            value: true,
-                            message: "Seleccione si el pedido esta pagado o no",
-                          },
-                        })}
+                        {...orderSavedVM.formOrderData.register("pagado")}
                       >
                         <MenuItem value="N" sx={MonserratGreen16400}>
                           {"No"}
@@ -149,7 +146,6 @@ const OrderSavedView = () => {
                 </DataRow>
                 <DataRow
                   label="Fecha Pago"
-                  strong
                   value={orderSavedVM.order.fechaPago || "-"}
                 >
                   {tipoUsuario === "Admin" && (
@@ -176,7 +172,6 @@ const OrderSavedView = () => {
                 </DataRow>
                 <DataRow
                   label="Transac. Pago"
-                  strong
                   value={orderSavedVM.order.transaccionPago || "-"}
                 >
                   {tipoUsuario === "Admin" && (
@@ -194,7 +189,6 @@ const OrderSavedView = () => {
                 </DataRow>
                 <DataRow
                   label="Fecha Despacho"
-                  strong
                   value={orderSavedVM.order.fechaRealDespacho || "-"}
                 >
                   {tipoUsuario === "Admin" && (
@@ -222,7 +216,6 @@ const OrderSavedView = () => {
                 </DataRow>
                 <DataRow
                   label="Fecha Entrega"
-                  strong
                   value={orderSavedVM.order.fechaRealEntrega || "-"}
                 >
                   {tipoUsuario === "Admin" && (

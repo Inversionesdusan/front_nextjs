@@ -223,9 +223,10 @@ const OrderDetailViewModel = ({
         onCancel: undefined,
       });
 
-      const pedidoGrabado = await PedidosService.saveOrder({
+      const pedidoGrabado = await PedidosService.saveOrder(authData.token, {
         uid: uuid(),
         emailCliente: data.email,
+        numeroDocumento: data.numeroDocumento,
         fechaGrabacion: new Date().toISOString(),
         valorTotal: summaryData.valor,
         detallePedido: productosPedido.map((producto) => {
@@ -253,6 +254,10 @@ const OrderDetailViewModel = ({
           departamento: data.departamentoEnvio,
           ciudad: data.ciudadEnvio,
           barrio: data.barrioEnvio,
+        },
+        datosCliente: {
+          nombres: authData.user.nombres,
+          apellidos: authData.user.apellidos,
         },
       });
 
@@ -293,8 +298,9 @@ const OrderDetailViewModel = ({
       updateDataModal({
         open: true,
         title: "Atención",
-        message:
-          "Debe diligenciar la información necesaria para crear el pedido",
+        message: authData.isAuthenticated
+          ? "Debes completar los datos para realizar el pedido (Presiona el boton 'Actualizar mis datos' o en la opcion 'Mis Datos')"
+          : "Debe diligenciar la información necesaria para crear el pedido",
         onAccept: () => {
           setSavingData(false);
           closeModal();
@@ -321,6 +327,7 @@ const OrderDetailViewModel = ({
       .then((user) => {
         const dirEnvioDiferente =
           !!user.direccion_envio && !!user.direccion_envio.direccion;
+        console.log("direccion de envio diferente -> ", dirEnvioDiferente);
         orderForm.reset({
           nombresCliente: user.nombres,
           apellidosCliente: user.apellidos,
@@ -335,11 +342,21 @@ const OrderDetailViewModel = ({
           ciudadCliente: user.direccion?.ciudad,
           barrioCliente: user.direccion?.barrio,
           usarEnvio: dirEnvioDiferente ? "S" : "N",
-          direccionEnvio: user.direccion_envio?.direccion,
-          complementoEnvio: user.direccion_envio?.complemento,
-          departamentoEnvio: user.direccion_envio?.departamento,
-          ciudadEnvio: user.direccion_envio?.ciudad,
-          barrioEnvio: user.direccion_envio?.barrio,
+          direccionEnvio: dirEnvioDiferente
+            ? user.direccion_envio?.direccion
+            : user.direccion?.direccion,
+          complementoEnvio: dirEnvioDiferente
+            ? user.direccion_envio?.complemento
+            : user.direccion?.complemento,
+          departamentoEnvio: dirEnvioDiferente
+            ? user.direccion_envio?.departamento
+            : user.direccion?.departamento,
+          ciudadEnvio: dirEnvioDiferente
+            ? user.direccion_envio?.ciudad
+            : user.direccion?.ciudad,
+          barrioEnvio: dirEnvioDiferente
+            ? user.direccion_envio?.barrio
+            : user.direccion?.barrio,
         });
       })
       .catch((error) => {});

@@ -13,8 +13,9 @@ import { TransitionProps } from "@mui/material/transitions";
 import React from "react";
 import { styles } from "./ModalRegistroStyles";
 import { IRegisterFormValues } from "@/domain/models/forms/IRegisterForm";
-import { UseFormReset, useForm } from "react-hook-form";
+import { Controller, UseFormReset, useForm } from "react-hook-form";
 import { IClientRegisterRequest } from "@/domain/models/requests/IClientRegisterRequest";
+import { constantes } from "@/domain/constants";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -25,7 +26,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const initialFormData: IRegisterFormValues = {
+export const initialFormData: IRegisterFormValues = {
   nombresCliente: "",
   apellidosCliente: "",
   email: "",
@@ -60,7 +61,8 @@ const ModalRegistro = ({
     reValidateMode: "onBlur",
     mode: "onTouched",
   });
-  const { register, control, handleSubmit, formState, reset } = formRegister;
+  const { register, control, handleSubmit, formState, reset, watch, trigger } =
+    formRegister;
   const { errors } = formState;
 
   return (
@@ -118,16 +120,16 @@ const ModalRegistro = ({
               id="nombresCliente"
               type="text"
               aria-describedby="nombresCliente-error"
-              placeholder="Nombres"
+              placeholder={constantes.placeholders.name}
               sx={inputStyle}
               {...register("nombresCliente", {
                 required: {
                   value: true,
-                  message: "Debes digitar tu(s) nombre(s)",
+                  message: constantes.errores.name.required,
                 },
                 minLength: {
-                  value: 5,
-                  message: "Tu nombre debe ser de mas de 3 caracteres",
+                  value: 3,
+                  message: constantes.errores.name.length,
                 },
               })}
             />
@@ -152,17 +154,16 @@ const ModalRegistro = ({
               id="apellidosCliente"
               type="text"
               aria-describedby="apellidosCliente-error"
-              placeholder="Apellidos"
+              placeholder={constantes.placeholders.lastName}
               sx={inputStyle}
               {...register("apellidosCliente", {
                 required: {
                   value: true,
-                  message: "Debes digitar tu(s) apellidos(s)",
+                  message: constantes.errores.lastName.required,
                 },
                 minLength: {
                   value: 3,
-                  message:
-                    "Tu(s) apellido(s) debe(n) ser de más de 3 caracteres",
+                  message: constantes.errores.lastName.length,
                 },
               })}
             />
@@ -187,17 +188,17 @@ const ModalRegistro = ({
               id="email"
               type="email"
               aria-describedby="email-error"
-              placeholder="Correo electrónico"
+              placeholder={constantes.placeholders.email}
               sx={inputStyle}
               {...register("email", {
                 required: {
                   value: true,
-                  message: "Digita tu correo electrónico",
+                  message: constantes.errores.email.required,
                 },
                 pattern: {
                   value:
                     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                  message: "Debes indicar un correo eletrónico válido",
+                  message: constantes.errores.email.format,
                 },
               })}
             />
@@ -225,23 +226,15 @@ const ModalRegistro = ({
               {...register("nroTelefono", {
                 pattern: {
                   value: /^[0-9]*$/,
-                  message: "El Número telefónico debe contener sólo númmeros",
+                  message: constantes.errores.generic.numbers,
                 },
                 minLength: {
                   value: 7,
-                  message: "El Número telefónico debe tener al menos 7 dígitos",
+                  message: constantes.errores.phone.length,
                 },
                 maxLength: {
                   value: 10,
-                  message: "El Número telefónico debe hasta 10 dígitos",
-                },
-                validate: {
-                  notStart: (valueField) => {
-                    return (
-                      valueField.startsWith("3") ||
-                      "El Número telefónico debe iniciar con 3 o con 6"
-                    );
-                  },
+                  message: constantes.errores.phone.maxLength,
                 },
               })}
             />
@@ -256,74 +249,94 @@ const ModalRegistro = ({
               {errors.nroTelefono?.message}
             </span>
           </FormControl>
-          <FormControl
-            fullWidth
-            variant="standard"
-            error={!!errors.clave?.message}
-          >
-            <Input
-              disabled={loadingData}
-              id="clave"
-              type="password"
-              aria-describedby="clave-error"
-              placeholder="Password / Clave"
-              sx={inputStyle}
-              {...register("clave", {
-                required: {
-                  value: true,
-                  message: "Debes digitar la clave para tu usuario",
-                },
-                minLength: {
-                  value: 6,
-                  message: "La clave debe tener al menos 6 dígitos",
-                },
-              })}
-            />
-            <span
-              style={{
-                color: colors.gray,
-                fontFamily: "Montserrat",
-                fontSize: "0.8rem",
-              }}
-              id="clave-error"
-            >
-              {errors.clave?.message}
-            </span>
-          </FormControl>
-          <FormControl
-            fullWidth
-            variant="standard"
-            error={!!errors.confirmarClave?.message}
-          >
-            <Input
-              disabled={loadingData}
-              id="confirmarClave"
-              type="password"
-              aria-describedby="confirmarClave-error"
-              placeholder="Confirmar Password / Clave"
-              sx={inputStyle}
-              {...register("confirmarClave", {
-                required: {
-                  value: true,
-                  message: "Debes digitar la clave para confirmarla",
-                },
-                minLength: {
-                  value: 6,
-                  message: "La clave debe tener al menos 6 dígitos",
-                },
-              })}
-            />
-            <span
-              style={{
-                color: colors.gray,
-                fontFamily: "Montserrat",
-                fontSize: "0.8rem",
-              }}
-              id="confirmarClave-error"
-            >
-              {errors.confirmarClave?.message}
-            </span>
-          </FormControl>
+          <Controller
+            name="clave"
+            control={control}
+            rules={{
+              required: {
+                value: true,
+                message: constantes.errores.password.required,
+              },
+              minLength: {
+                value: 6,
+                message: constantes.errores.password.length,
+              },
+            }}
+            render={({ field }) => (
+              <FormControl
+                fullWidth
+                variant="standard"
+                error={!!errors.clave?.message}
+              >
+                <Input
+                  id="clave"
+                  disabled={loadingData}
+                  type="password"
+                  aria-describedby="clave-error"
+                  placeholder={constantes.placeholders.pass}
+                  sx={inputStyle}
+                  onBlur={field.onBlur}
+                  onChange={field.onChange}
+                />
+                <span
+                  style={{
+                    color: colors.gray,
+                    fontFamily: "Montserrat",
+                    fontSize: "0.8rem",
+                  }}
+                  id="clave-error"
+                >
+                  {errors.clave?.message}
+                </span>
+              </FormControl>
+            )}
+          />
+
+          <Controller
+            name="confirmarClave"
+            control={control}
+            rules={{
+              required: {
+                value: true,
+                message: "Debes digitar la clave para tu usuario",
+              },
+              minLength: {
+                value: 6,
+                message: "La clave debe tener al menos 6 dígitos",
+              },
+              validate: (value) =>
+                value === watch("clave") ||
+                "Debe ser igual a la contraseña inicial",
+            }}
+            render={({ field }) => (
+              <FormControl
+                fullWidth
+                variant="standard"
+                error={!!errors.confirmarClave?.message}
+              >
+                <Input
+                  disabled={loadingData}
+                  id="confirmarClave"
+                  type="password"
+                  aria-describedby="confirmarClave-error"
+                  placeholder="Confirmar Password / Clave"
+                  sx={inputStyle}
+                  onBlur={field.onBlur}
+                  onChange={field.onChange}
+                />
+                <span
+                  style={{
+                    color: colors.gray,
+                    fontFamily: "Montserrat",
+                    fontSize: "0.8rem",
+                  }}
+                  id="confirmarClave-error"
+                >
+                  {errors.confirmarClave?.message}
+                </span>
+              </FormControl>
+            )}
+          />
         </DialogContent>
         <DialogActions
           sx={{
@@ -336,7 +349,10 @@ const ModalRegistro = ({
           <ButtonCustom
             typeButton="modal"
             invert={true}
-            onClick={onClose}
+            onClick={() => {
+              reset({ ...initialFormData });
+              onClose();
+            }}
             disabled={loadingData}
           >
             Cancelar

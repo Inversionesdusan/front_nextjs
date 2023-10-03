@@ -43,7 +43,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
 
           {authData.dataLoaded && authData.isAuthenticated && (
             <CardButton
-              label="Modificar mis datos"
+              label="Actualizar mis datos"
               variant="gray"
               onClick={() => {
                 router.push("/perfil");
@@ -583,9 +583,21 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
             )}
           </Grid>
         </Box>
-        <Typography sx={{ ...CuniaGreen16400, marginY: "1.5rem" }}>
-          Datos para el envío
-        </Typography>
+        <Box sx={clientLbelBox}>
+          <Typography sx={{ ...CuniaGreen16400, marginY: "1.5rem" }}>
+            Datos para el envío
+          </Typography>
+          {authData.dataLoaded && authData.isAuthenticated && (
+            <CardButton
+              label="Actualizar mis datos"
+              variant="gray"
+              onClick={() => {
+                router.push("/perfil");
+              }}
+              disabled={false}
+            />
+          )}
+        </Box>
         <Box sx={formContainer}>
           <Grid container columnSpacing={4} rowSpacing={4}>
             <Grid xs={12} md={6}>

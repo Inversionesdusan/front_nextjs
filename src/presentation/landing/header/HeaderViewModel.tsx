@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 
 import React, { useState } from "react";
 import { UseFormReset } from "react-hook-form";
+import { initialFormData } from "../../components/modalRegistro/ModalRegistro";
 
 export interface IHeaderViewModelReturn {
   initializeCart: (items: CartItem[]) => void;
@@ -183,7 +184,7 @@ const HeaderViewModel = ({
       tipoUsuario: resp.tipoUsuario,
       telefono: resp.telefono,
     });
-    reset();
+    reset({ ...initialFormData });
     setSavingData(false);
     saveUserData(resp.jwt, resp.id);
     if (proceso === "register") {

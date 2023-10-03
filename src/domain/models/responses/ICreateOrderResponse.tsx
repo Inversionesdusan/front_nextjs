@@ -1,4 +1,5 @@
 import { Meta } from "../commons/MetaResponse";
+import { IOrderClientData } from "../requests/ISAveDataOrder";
 
 export interface ICreateOrderResponse {
   data: IDataOrderResponse;
@@ -27,6 +28,8 @@ export interface IDataAttributesOrderResponse {
   updatedAt: string;
   emailCliente: string;
   detallePedido: IDetallePedidoResponse[];
+  numeroDocumento: string;
+  datosCliente: IOrderClientData;
 }
 
 export interface IDireccionResponse {
@@ -34,6 +37,7 @@ export interface IDireccionResponse {
   complemento?: string;
   ciudad: string;
   departamento: string;
+  barrio?: string;
 }
 
 export interface IDetallePedidoResponse {

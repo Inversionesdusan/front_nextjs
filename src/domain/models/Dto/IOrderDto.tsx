@@ -1,3 +1,5 @@
+import { IOrderClientData } from "../requests/ISAveDataOrder";
+
 export interface IOrderDto {
   id: number;
   UID: string;
@@ -15,6 +17,8 @@ export interface IOrderDto {
   fechaRealEntrega?: string;
   valorFlete?: number;
   transportadora?: string;
+  numeroDocumento: string;
+  datosCliente: IOrderClientData;
 }
 
 export interface IDetallePedidoDto {

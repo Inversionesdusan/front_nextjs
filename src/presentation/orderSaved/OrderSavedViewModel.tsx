@@ -6,8 +6,9 @@ import { UseFormReturn, useForm } from "react-hook-form";
 import { initialOrderDataForm } from "../../domain/models/forms/IOrderDataForm";
 import { IPedidosService } from "@/domain/services/PedidosService";
 import useModalStore from "@/domain/store/useModalStore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IOrderUpdateRequest } from "@/domain/models/requests/IOrderUpdateRequest";
+import dayjs from "dayjs";
 
 export interface IOrderSavedViewModel {
   order: IOrderDto;
@@ -35,12 +36,32 @@ const OrderSavedViewModel = ({ PedidosService }: OrderSavedViewModelProps) => {
     mode: "onTouched",
   });
 
+  useEffect(() => {
+    if (order && order.id > 0) {
+      formOrderData.reset({
+        estado: order.estado,
+        transportadora: order.transportadora,
+        valorFlete: order.valorFlete,
+        pagado: order.pagado,
+        fechaPago: order.fechaPago ? dayjs(order.fechaPago) : null,
+        transaccionPago: order.transaccionPago,
+        fechaRealDespacho: order.fechaRealDespacho
+          ? dayjs(order.fechaRealDespacho)
+          : null,
+        fechaRealEntrega: order.fechaRealEntrega
+          ? dayjs(order.fechaRealEntrega)
+          : null,
+      });
+    }
+  }, [order?.id]);
+
   const selectedEstado = formOrderData.watch("estado", "Registrado");
   const selectedPagado = formOrderData.watch("pagado", "N");
 
   const verifyUpdateOrderData = async () => {
     await formOrderData.trigger();
-    if (!formOrderData.formState.isValid) {
+    console.log("errores -> ", formOrderData.formState);
+    if (Object.keys(formOrderData.formState.errors).length > 0) {
       setSavingData(false);
       return updateDataModal({
         open: true,
@@ -78,16 +99,16 @@ const OrderSavedViewModel = ({ PedidosService }: OrderSavedViewModelProps) => {
             : undefined,
           valorFlete: values.valorFlete ? values.valorFlete : undefined,
           fechaPago: values.fechaPago
-            ? values.fechaPago.format("DD-MM-YYYY")
+            ? values.fechaPago.format("YYYY-MM-DD")
             : undefined,
           transaccionPago: values.transaccionPago
             ? values.transaccionPago
             : undefined,
           fechaRealDespacho: values.fechaRealDespacho
-            ? values.fechaRealDespacho.format("DD-MM-YYYY")
+            ? values.fechaRealDespacho.format("YYYY-MM-DD")
             : undefined,
           fechaRealEntrega: values.fechaRealEntrega
-            ? values.fechaRealEntrega.format("DD-MM-YYYY")
+            ? values.fechaRealEntrega.format("YYYY-MM-DD")
             : undefined,
         },
       };

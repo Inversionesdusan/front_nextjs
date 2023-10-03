@@ -72,7 +72,8 @@ const ShoppingCartDetail = ({
               width: "100%",
               zIndex: 1400,
               maxHeight: "500px",
-              overflowY: "auto",
+              overflow: "hidden",
+              overflowY: "scroll",
             }}
           >
             {itemsCart.map((item, index) => (

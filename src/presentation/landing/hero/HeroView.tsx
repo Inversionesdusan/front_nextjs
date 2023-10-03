@@ -7,9 +7,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import logo from "../../../../public/images/logos/Isologo.svg";
 import Image from "next/image";
-import { colors } from "@/presentation/styles/colors";
+import { CuniaBlack16400, colors } from "@/presentation/styles/colors";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ButtonCustom from "@/app/components/basic/ButtonCustom";
+import { useRouter } from "next/navigation";
 
 interface HeroViewProps {
   handleOpenModalRegistro: () => void;
@@ -42,6 +43,8 @@ const HeroView = ({
     heroViewModel.getAllBanners();
   }, []);
 
+  const router = useRouter();
+
   return heroViewModel.loading ? (
     <>Cargando ... </>
   ) : (
@@ -57,6 +60,7 @@ const HeroView = ({
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          gap: "2rem",
         }}
       >
         <Image
@@ -67,8 +71,18 @@ const HeroView = ({
         />
         <Box
           sx={{
-            padding: "1rem",
-            margin: "2rem",
+            background: colors.gradientGray,
+            paddingY: "1rem",
+            paddingX: "2rem",
+            borderRadius: "100px",
+          }}
+        >
+          <Typography variant="h1" sx={CuniaBlack16400}>
+            Fabricación de abonos y compuestos inorgánicos nitrogenados
+          </Typography>
+        </Box>
+        <Box
+          sx={{
             display: "flex",
             flexDirection: downSm ? "column" : "row",
             justifyContent: "center",
@@ -83,6 +97,18 @@ const HeroView = ({
             <Typography>Ingresar</Typography>
           </ButtonCustom>
         </Box>
+        <div
+          onClick={() => {
+            router.push("/catalogo");
+          }}
+        >
+          <Typography
+            variant="h2"
+            sx={{ ...CuniaBlack16400, cursor: "pointer" }}
+          >
+            Ver Catálogo
+          </Typography>
+        </div>
       </Box>
       <Slider {...settings}>
         {heroViewModel.banners.map((banner) => (

@@ -2,15 +2,21 @@ import { IPedidosRepositoryReturn } from "@/data/repository/PedidosRepository";
 import { ISaveDataOrder } from "../models/requests/ISAveDataOrder";
 import { IOrderDto, IOrderQueryDto } from "../models/Dto/IOrderDto";
 import { IOrderUpdateRequest } from "../models/requests/IOrderUpdateRequest";
+import { IOrderQueryParams } from "../models/forms/IOrderQueryParams";
 
 interface IPedidosServiceProps {
   PedidosRepository: IPedidosRepositoryReturn;
 }
 
 export interface IPedidosService {
-  saveOrder: (orderData: ISaveDataOrder) => Promise<IOrderDto>;
-  getOrders: (page: number, pageSize: number) => Promise<IOrderQueryDto>;
+  saveOrder: (token: string, orderData: ISaveDataOrder) => Promise<IOrderDto>;
+  getOrders: (
+    token: string,
+    page: number,
+    pageSize: number
+  ) => Promise<IOrderQueryDto>;
   getOrdersByEmail: (
+    token: string,
     email: string,
     page: number,
     pageSize: number
@@ -20,26 +26,57 @@ export interface IPedidosService {
     orderId: number,
     orderData: IOrderUpdateRequest
   ) => Promise<IOrderDto>;
+  getOrdersByQuery: (
+    queryParams: IOrderQueryParams,
+    token: string,
+    page: number,
+    pageSize: number
+  ) => Promise<IOrderQueryDto>;
 }
 
 export const PedidosService = ({ PedidosRepository }: IPedidosServiceProps) => {
-  const saveOrder = async (orderData: ISaveDataOrder): Promise<IOrderDto> => {
-    return await PedidosRepository.saveOrder(orderData);
+  const saveOrder = async (
+    token: string,
+    orderData: ISaveDataOrder
+  ): Promise<IOrderDto> => {
+    console.log("pedidos service -> ", token, orderData);
+    return await PedidosRepository.saveOrder(token, orderData);
   };
 
   const getOrders = async (
+    token: string,
     page: number,
     pageSize: number
   ): Promise<IOrderQueryDto> => {
-    return await PedidosRepository.getOrders(page, pageSize);
+    return await PedidosRepository.getOrders(token, page, pageSize);
   };
 
   const getOrdersByEmail = async (
+    token: string,
     email: string,
     page: number,
     pageSize: number
   ): Promise<IOrderQueryDto> => {
-    return await PedidosRepository.getOrdersByEmail(email, page, pageSize);
+    return await PedidosRepository.getOrdersByEmail(
+      token,
+      email,
+      page,
+      pageSize
+    );
+  };
+
+  const getOrdersByQuery = async (
+    queryParams: IOrderQueryParams,
+    token: string,
+    page: number,
+    pageSize: number
+  ): Promise<IOrderQueryDto> => {
+    return await PedidosRepository.getOrdersByQuery(
+      queryParams,
+      token,
+      page,
+      pageSize
+    );
   };
 
   const updateOrderData = async (
@@ -55,5 +92,6 @@ export const PedidosService = ({ PedidosRepository }: IPedidosServiceProps) => {
     getOrders,
     getOrdersByEmail,
     updateOrderData,
+    getOrdersByQuery,
   };
 };

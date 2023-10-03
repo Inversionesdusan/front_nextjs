@@ -3,6 +3,7 @@ import {
   IOrderDto,
   IOrderQueryDto,
 } from "@/domain/models/Dto/IOrderDto";
+import { IOrderQueryParams } from "@/domain/models/forms/IOrderQueryParams";
 import { IOrderUpdateRequest } from "@/domain/models/requests/IOrderUpdateRequest";
 import { ISaveDataOrder } from "@/domain/models/requests/ISAveDataOrder";
 import {
@@ -13,9 +14,14 @@ import { IOrderUpdateResponse } from "@/domain/models/responses/IOrderUpdateResp
 
 interface IPedidosRepositoryProps {
   PedidosDataSource: {
-    saveOrder: (orderData: ISaveDataOrder) => Promise<number>;
-    getOrders: (page: number, pageSize: number) => Promise<IOrderQueryResponse>;
+    saveOrder: (token: string, orderData: ISaveDataOrder) => Promise<number>;
+    getOrders: (
+      token: string,
+      page: number,
+      pageSize: number
+    ) => Promise<IOrderQueryResponse>;
     getOrdersByEmail: (
+      token: string,
       email: string,
       page: number,
       pageSize: number
@@ -25,13 +31,24 @@ interface IPedidosRepositoryProps {
       orderId: number,
       orderData: IOrderUpdateRequest
     ) => Promise<IOrderUpdateResponse>;
+    getOrdersByQuery: (
+      queryParams: IOrderQueryParams,
+      token: string,
+      page: number,
+      pageSize: number
+    ) => Promise<IOrderQueryResponse>;
   };
 }
 
 export interface IPedidosRepositoryReturn {
-  saveOrder: (orderData: ISaveDataOrder) => Promise<IOrderDto>;
-  getOrders: (page: number, pageSize: number) => Promise<IOrderQueryDto>;
+  saveOrder: (token: string, orderData: ISaveDataOrder) => Promise<IOrderDto>;
+  getOrders: (
+    token: string,
+    page: number,
+    pageSize: number
+  ) => Promise<IOrderQueryDto>;
   getOrdersByEmail: (
+    token: string,
     email: string,
     page: number,
     pageSize: number
@@ -41,13 +58,23 @@ export interface IPedidosRepositoryReturn {
     orderId: number,
     orderData: IOrderUpdateRequest
   ) => Promise<IOrderDto>;
+  getOrdersByQuery: (
+    queryParams: IOrderQueryParams,
+    token: string,
+    page: number,
+    pageSize: number
+  ) => Promise<IOrderQueryDto>;
 }
 
 export const PedidosRepository = ({
   PedidosDataSource,
 }: IPedidosRepositoryProps) => {
-  const saveOrder = async (orderData: ISaveDataOrder): Promise<IOrderDto> => {
-    const response = await PedidosDataSource.saveOrder(orderData);
+  const saveOrder = async (
+    token: string,
+    orderData: ISaveDataOrder
+  ): Promise<IOrderDto> => {
+    console.log("pedidos repository -> ", token, orderData);
+    const response = await PedidosDataSource.saveOrder(token, orderData);
     return {
       ...JSON.parse(JSON.stringify(orderData)),
       id: response,
@@ -55,10 +82,11 @@ export const PedidosRepository = ({
   };
 
   const getOrders = async (
+    token: string,
     page: number,
     pageSize: number
   ): Promise<IOrderQueryDto> => {
-    const data = await PedidosDataSource.getOrders(page, pageSize);
+    const data = await PedidosDataSource.getOrders(token, page, pageSize);
     const newIOrderQueryDto: IOrderQueryDto = {
       data: convertDataToDto(data.data),
       meta: {
@@ -72,12 +100,38 @@ export const PedidosRepository = ({
   };
 
   const getOrdersByEmail = async (
+    token: string,
     email: string,
     page: number,
     pageSize: number
   ): Promise<IOrderQueryDto> => {
     const data = await PedidosDataSource.getOrdersByEmail(
+      token,
       email,
+      page,
+      pageSize
+    );
+    const newIOrderQueryDto: IOrderQueryDto = {
+      data: convertDataToDto(data.data),
+      meta: {
+        page: data.meta.pagination.page,
+        pageSize: data.meta.pagination.pageSize,
+        pageCount: data.meta.pagination.pageCount,
+        total: data.meta.pagination.total,
+      },
+    };
+    return newIOrderQueryDto;
+  };
+
+  const getOrdersByQuery = async (
+    queryParams: IOrderQueryParams,
+    token: string,
+    page: number = 1,
+    pageSize: number = 1000
+  ): Promise<IOrderQueryDto> => {
+    const data = await PedidosDataSource.getOrdersByQuery(
+      queryParams,
+      token,
       page,
       pageSize
     );
@@ -129,6 +183,7 @@ export const PedidosRepository = ({
         id: order.id,
         UID: order.attributes.uid,
         emailCliente: order.attributes.emailCliente,
+        numeroDocumento: order.attributes.numeroDocumento || "0",
         fechaGrabacion: order.attributes.fechaGrabacion,
         valorTotal: order.attributes.valorTotal,
         estado: order.attributes.estado,
@@ -154,6 +209,10 @@ export const PedidosRepository = ({
         transaccionPago: order.attributes.transaccionPago,
         transportadora: order.attributes.transportadora,
         valorFlete: order.attributes.valorFlete,
+        datosCliente: {
+          nombres: order.attributes.datosCliente.nombres,
+          apellidos: order.attributes.datosCliente.apellidos,
+        },
       };
       orders.push(newOrderDto);
     });
@@ -161,5 +220,11 @@ export const PedidosRepository = ({
     return orders;
   };
 
-  return { saveOrder, getOrders, getOrdersByEmail, updateOrderData };
+  return {
+    saveOrder,
+    getOrders,
+    getOrdersByEmail,
+    updateOrderData,
+    getOrdersByQuery,
+  };
 };
