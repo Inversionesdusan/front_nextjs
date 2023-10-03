@@ -28,7 +28,7 @@ const transformMessage = (message: string): string => {
     message.toLocaleLowerCase().includes("password") &&
     message.toLocaleLowerCase().includes("invalid")
   )
-    return constantes.errores.password;
+    return constantes.errores.password.invalid;
 
   if (
     message.toLocaleLowerCase().includes("password") &&
