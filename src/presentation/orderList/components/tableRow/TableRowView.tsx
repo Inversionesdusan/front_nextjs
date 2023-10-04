@@ -10,9 +10,10 @@ import useAppStore from "@/domain/store/useStore";
 
 interface TableRowViewProps {
   pedido: IOrderDto;
+  admin?: boolean;
 }
 
-const TableRowView = ({ pedido }: TableRowViewProps) => {
+const TableRowView = ({ pedido, admin }: TableRowViewProps) => {
   const router = useRouter();
   const { rowContainer, cell, regularText, strongText } = styles();
   const formatNumber = Intl.NumberFormat(constantes.locale);
@@ -26,13 +27,27 @@ const TableRowView = ({ pedido }: TableRowViewProps) => {
         sx={{ width: "100%" }}
         justifyContent="space-between"
       >
-        <Grid xs={3} sm={2} sx={cell}>
+        <Grid xs={3} md={admin ? 2 : 3} sx={cell}>
           <Typography sx={regularText}>{pedido.id}</Typography>
         </Grid>
-        <Grid xs={4} sm={3} sx={cell}>
+        <Grid
+          md={3}
+          sx={{
+            ...cell,
+            display: { xs: "none", md: admin ? "block" : "none" },
+          }}
+        >
+          <Typography sx={regularText}>
+            {pedido.datosCliente.nombres}
+          </Typography>
+          <Typography sx={regularText}>
+            {pedido.datosCliente.apellidos}
+          </Typography>
+        </Grid>
+        <Grid xs={4} sm={3} md={admin ? 2 : 3} sx={cell}>
           <Typography sx={regularText}>{pedido.fechaGrabacion}</Typography>
         </Grid>
-        <Grid xs={4} sm={3} sx={cell}>
+        <Grid xs={4} sm={2} md={2} sx={cell}>
           <Typography sx={{ ...strongText, textAlign: "right" }}>
             {"$" + formatNumber.format(pedido.valorTotal)}
           </Typography>
@@ -46,7 +61,11 @@ const TableRowView = ({ pedido }: TableRowViewProps) => {
             {pedido.estado}
           </Typography>
         </Grid>
-        <Grid sm={3} sx={{ ...cell, display: { xs: "none", sm: "block" } }}>
+        <Grid
+          sm={3}
+          md={admin ? 2 : 3}
+          sx={{ ...cell, display: { xs: "none", sm: "block" } }}
+        >
           <Typography sx={{ ...regularText, textAlign: "right" }}>
             {pedido.estado}
           </Typography>

@@ -30,4 +30,5 @@ export interface IDireccion {
 export interface IOrderClientData {
   nombres?: string;
   apellidos?: string;
+  tipoDocumento?: string;
 }

@@ -10,7 +10,7 @@ import {
 import { MonserratGreen16400, colors } from "@/presentation/styles/colors";
 import { inputLabel, inputStyle } from "@/presentation/styles/theme";
 import Grid from "@mui/material/Unstable_Grid2";
-import { UseFormReturn } from "react-hook-form";
+import { Controller, UseFormReturn } from "react-hook-form";
 import { IClientForm } from "@/domain/models/forms/IClientForm";
 import CardButton from "@/presentation/components/common/CardButton";
 
@@ -29,7 +29,7 @@ const ClientDataFormView = ({
   handleChange,
   direccionEnvio,
 }: ClientDataFormViewProps) => {
-  const { register, formState } = formClientData;
+  const { register, formState, control } = formClientData;
   const { errors } = formState;
 
   return (
@@ -216,31 +216,45 @@ const ClientDataFormView = ({
               <InputLabel sx={inputLabel} shrink>
                 Tipo Documento
               </InputLabel>
-              <Select
-                disabled={savingData}
-                id="tipoDocumento"
-                value={"CC"}
-                label="Tipo Documento"
-                sx={{
-                  ...inputStyle,
-                  "&.-MuiPopover-paper-MuiMenu-paper": {
-                    background: colors.white,
-                  },
-                }}
-                {...register("tipoDocumento", {
+              <Controller
+                name="tipoDocumento"
+                control={control}
+                defaultValue="CC"
+                rules={{
                   required: {
                     value: true,
-                    message: "Debe seleccionar el tipo de documento",
+                    message: "Debes seleccionar el tipo de documento",
                   },
-                })}
-              >
-                <MenuItem value={"CC"} sx={MonserratGreen16400}>
-                  Cédula de Ciudadanía
-                </MenuItem>
-                <MenuItem value={"NIT"} sx={MonserratGreen16400}>
-                  N.I.T.
-                </MenuItem>
-              </Select>
+                }}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    disabled={savingData}
+                    id="tipoDocumento"
+                    label="Tipo Documento"
+                    sx={{
+                      ...inputStyle,
+                      "&.-MuiPopover-paper-MuiMenu-paper": {
+                        background: colors.white,
+                      },
+                    }}
+                    {...register("tipoDocumento", {
+                      required: {
+                        value: true,
+                        message: "Debe seleccionar el tipo de documento",
+                      },
+                    })}
+                  >
+                    <MenuItem value={"CC"} sx={MonserratGreen16400}>
+                      Cédula de Ciudadanía
+                    </MenuItem>
+                    <MenuItem value={"NIT"} sx={MonserratGreen16400}>
+                      N.I.T.
+                    </MenuItem>
+                  </Select>
+                )}
+              />
+
               <span
                 style={{
                   color: colors.gray,

@@ -258,9 +258,13 @@ const OrderListView = () => {
             </Grow>
           ) : (
             <Box sx={tableContainer}>
-              <TableHeaderView />
+              <TableHeaderView admin={tipoUsuario === "Admin"} />
               {orderListVM.pedidos.map((pedido) => (
-                <TableRowView key={pedido.id} pedido={pedido} />
+                <TableRowView
+                  key={pedido.id}
+                  pedido={pedido}
+                  admin={tipoUsuario === "Admin"}
+                />
               ))}
               <Box
                 sx={{

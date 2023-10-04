@@ -258,6 +258,7 @@ const OrderDetailViewModel = ({
         datosCliente: {
           nombres: authData.user.nombres,
           apellidos: authData.user.apellidos,
+          tipoDocumento: authData.user.tipoDocumento,
         },
       });
 

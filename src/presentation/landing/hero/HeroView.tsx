@@ -7,10 +7,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import logo from "../../../../public/images/logos/Isologo.svg";
 import Image from "next/image";
-import { CuniaBlack16400, colors } from "@/presentation/styles/colors";
+import { colors } from "@/presentation/styles/colors";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ButtonCustom from "@/app/components/basic/ButtonCustom";
 import { useRouter } from "next/navigation";
+import { MontserratGreen16700 } from "../../styles/colors";
 
 interface HeroViewProps {
   handleOpenModalRegistro: () => void;
@@ -71,13 +72,14 @@ const HeroView = ({
         />
         <Box
           sx={{
-            background: colors.gradientGray,
-            paddingY: "1rem",
+            cursor: "pointer",
+            background: "rgba(255,255,255,0.8)",
+            paddingY: "0.8rem",
             paddingX: "2rem",
             borderRadius: "100px",
           }}
         >
-          <Typography variant="h1" sx={CuniaBlack16400}>
+          <Typography variant="h1" sx={MontserratGreen16700}>
             Fabricación de abonos y compuestos inorgánicos nitrogenados
           </Typography>
         </Box>
@@ -97,18 +99,27 @@ const HeroView = ({
             <Typography>Ingresar</Typography>
           </ButtonCustom>
         </Box>
-        <div
-          onClick={() => {
-            router.push("/catalogo");
-          }}
-        >
-          <Typography
-            variant="h2"
-            sx={{ ...CuniaBlack16400, cursor: "pointer" }}
+        {false && (
+          <div
+            onClick={() => {
+              router.push("/catalogo");
+            }}
           >
-            Ver Catálogo
-          </Typography>
-        </div>
+            <Typography
+              variant="h2"
+              sx={{
+                ...MontserratGreen16700,
+                cursor: "pointer",
+                background: "rgba(255,255,255,0.7)",
+                paddingY: "0.8rem",
+                paddingX: "2rem",
+                borderRadius: "100px",
+              }}
+            >
+              Ver Catálogo
+            </Typography>
+          </div>
+        )}
       </Box>
       <Slider {...settings}>
         {heroViewModel.banners.map((banner) => (

@@ -212,6 +212,7 @@ export const PedidosRepository = ({
         datosCliente: {
           nombres: order.attributes.datosCliente.nombres,
           apellidos: order.attributes.datosCliente.apellidos,
+          tipoDocumento: order.attributes.datosCliente.tipoDocumento,
         },
       };
       orders.push(newOrderDto);

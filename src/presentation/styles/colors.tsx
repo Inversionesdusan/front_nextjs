@@ -35,6 +35,13 @@ export const MontserratGreen16700: SxProps<Theme> = {
   fontWeight: "700",
 };
 
+export const MontserratBlack16700: SxProps<Theme> = {
+  fontFamily: "Montserrat",
+  fontSize: "1rem",
+  color: colors.solidBlack,
+  fontWeight: "700",
+};
+
 export const MontserratWhite16700: SxProps<Theme> = {
   fontFamily: "Montserrat",
   fontSize: "1rem",

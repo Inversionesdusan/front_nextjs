@@ -267,16 +267,22 @@ const OrderSavedView = () => {
               <Grid container rowSpacing={1} columnSpacing={2}>
                 <DataRow
                   label="Tipo documento"
-                  value={orderSavedVM.authData.user.tipoDocumento}
+                  value={
+                    tipoUsuario === "Admin"
+                      ? orderSavedVM.order.datosCliente.tipoDocumento || ""
+                      : orderSavedVM.authData.user.tipoDocumento
+                  }
                 />
                 <DataRow
                   label="Num documento"
                   value={
-                    orderSavedVM.authData.user.numeroDocumento +
-                    (orderSavedVM.authData.user.digitoVerifica &&
-                    orderSavedVM.authData.user.digitoVerifica.length > 0
-                      ? ` - ${orderSavedVM.authData.user.digitoVerifica}`
-                      : "")
+                    tipoUsuario === "Admin"
+                      ? orderSavedVM.order.numeroDocumento
+                      : orderSavedVM.authData.user.numeroDocumento +
+                        (orderSavedVM.authData.user.digitoVerifica &&
+                        orderSavedVM.authData.user.digitoVerifica.length > 0
+                          ? ` - ${orderSavedVM.authData.user.digitoVerifica}`
+                          : "")
                   }
                 />
                 <DataRow

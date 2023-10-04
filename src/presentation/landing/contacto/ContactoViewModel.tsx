@@ -29,9 +29,13 @@ const ContactoViewModel = ({ EmpresaService }: IContactoViewModelProps) => {
 
   const cargarDatosEmpresa = async () => {
     setLoading(true);
-    const datosEmpresa = await EmpresaService.getDatosEmpresa();
-    setEmpresa(datosEmpresa);
-    setLoading(false);
+    try {
+      const datosEmpresa = await EmpresaService.getDatosEmpresa();
+      setEmpresa(datosEmpresa);
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleOpenModal = (title: string, message: string) => {
