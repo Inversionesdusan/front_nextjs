@@ -41,7 +41,8 @@ interface ModalRegistroProps {
   onClose: () => void;
   onAccept: (
     clientData: IClientRegisterRequest,
-    reset: UseFormReset<IRegisterFormValues>
+    reset: UseFormReset<IRegisterFormValues>,
+    handleOpenModal: () => void
   ) => void;
   loadingData: boolean;
   openModalLogin: () => void;
@@ -85,7 +86,8 @@ const ModalRegistro = ({
               telefono: data.nroTelefono,
               password: data.clave,
             },
-            reset
+            reset,
+            openModalLogin
           );
         })}
         style={{ width: "100%", marginBottom: "2rem" }}

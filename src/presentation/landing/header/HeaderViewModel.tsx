@@ -34,18 +34,18 @@ export interface IHeaderViewModelReturn {
   handleOpenCart: () => void;
   openModalRegistro: boolean;
   savingData: boolean;
-  handleOpenModalRegistro: () => void;
   menuOptionsLogged: DropDownMenuOpion[];
   registerClient: (
     clientData: IClientRegisterRequest,
-    reset: UseFormReset<IRegisterFormValues>
+    reset: UseFormReset<IRegisterFormValues>,
+    handleOpenModalRegister: () => void
   ) => Promise<void>;
   loadUserData: () => void;
   openModalLogin: boolean;
-  handleOpenModalLogin: () => void;
   login: (
     loginData: ILoginRequest,
-    reset: UseFormReset<ILoginFormValues>
+    reset: UseFormReset<ILoginFormValues>,
+    handleOpenModalLogin: () => void
   ) => void;
 }
 
@@ -76,14 +76,6 @@ const HeaderViewModel = ({
 
   const handleOpenMenu = () => {
     setOpenMenu(!openMenu);
-  };
-
-  const handleOpenModalRegistro = () => {
-    setOpenModalRegistro(!openModalRegistro);
-  };
-
-  const handleOpenModalLogin = () => {
-    setOpenModalLogin(!openModalLogin);
   };
 
   const handleOpenCart = () => {
@@ -122,12 +114,13 @@ const HeaderViewModel = ({
 
   const login = (
     loginData: ILoginRequest,
-    reset: UseFormReset<ILoginFormValues>
+    reset: UseFormReset<ILoginFormValues>,
+    handleOpenModalLogin: () => void
   ) => {
     setSavingData(true);
     AuthService.login(loginData)
       .then((resp) => {
-        processUserData(resp, reset, "login");
+        processUserData(resp, reset, "login", handleOpenModalLogin);
       })
       .catch((error) => {
         processError(error);
@@ -137,12 +130,13 @@ const HeaderViewModel = ({
 
   const registerClient = (
     clientData: IClientRegisterRequest,
-    reset: UseFormReset<IRegisterFormValues>
+    reset: UseFormReset<IRegisterFormValues>,
+    handleOpenModalRegister: () => void
   ) => {
     setSavingData(true);
     ClientsService.registerClient(clientData)
       .then((resp) => {
-        processUserData(resp, reset, "register");
+        processUserData(resp, reset, "register", handleOpenModalRegister);
       })
       .catch((error) => {
         processError(error);
@@ -155,7 +149,8 @@ const HeaderViewModel = ({
   const processUserData = (
     resp: IUserDto,
     reset: any,
-    proceso: "login" | "register"
+    proceso: "login" | "register",
+    handleOpenModal: () => void
   ) => {
     authenticate(resp.jwt, {
       userId: resp.id,
@@ -171,8 +166,8 @@ const HeaderViewModel = ({
     reset({ ...initialFormData });
     setSavingData(false);
     saveUserData(resp.jwt, resp.id);
+    handleOpenModal();
     if (proceso === "register") {
-      handleOpenModalRegistro();
       return updateDataModal({
         open: true,
         title: "Atención",
@@ -181,7 +176,6 @@ const HeaderViewModel = ({
         onCancel: undefined,
       });
     } else {
-      handleOpenModalLogin();
       return updateDataModal({
         open: true,
         title: "Atención",
@@ -256,12 +250,10 @@ const HeaderViewModel = ({
     handleOpenCart,
     openModalRegistro,
     savingData,
-    handleOpenModalRegistro,
     menuOptionsLogged,
     registerClient,
     loadUserData,
     openModalLogin,
-    handleOpenModalLogin,
     login,
   };
 };

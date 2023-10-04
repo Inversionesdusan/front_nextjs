@@ -35,7 +35,8 @@ interface ModalRegistroProps {
   onClose: () => void;
   onAccept: (
     loginData: ILoginRequest,
-    reset: UseFormReset<ILoginFormValues>
+    reset: UseFormReset<ILoginFormValues>,
+    handleOpenModalRegistro: () => void
   ) => void;
   loadingData: boolean;
   openModalRegister: () => void;
@@ -78,7 +79,11 @@ const ModalLogin = ({
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit((data) => {
-          onAccept({ identifier: data.email, password: data.clave }, reset);
+          onAccept(
+            { identifier: data.email, password: data.clave },
+            reset,
+            openModalRegister
+          );
         })}
         style={form}
       >
