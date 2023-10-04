@@ -87,7 +87,7 @@ const ModalRegistro = ({
               password: data.clave,
             },
             reset,
-            openModalLogin
+            onClose
           );
         })}
         style={{ width: "100%", marginBottom: "2rem" }}

@@ -82,7 +82,7 @@ const ModalLogin = ({
           onAccept(
             { identifier: data.email, password: data.clave },
             reset,
-            openModalRegister
+            onClose
           );
         })}
         style={form}

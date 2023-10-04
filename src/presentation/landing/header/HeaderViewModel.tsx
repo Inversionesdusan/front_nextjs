@@ -47,6 +47,8 @@ export interface IHeaderViewModelReturn {
     reset: UseFormReset<ILoginFormValues>,
     handleOpenModalLogin: () => void
   ) => void;
+  handleOpenModalLogin: () => void;
+  handleOpenModalRegistro: () => void;
 }
 
 interface HeaderViewModelProps {
@@ -76,6 +78,14 @@ const HeaderViewModel = ({
 
   const handleOpenMenu = () => {
     setOpenMenu(!openMenu);
+  };
+
+  const handleOpenModalLogin = () => {
+    setOpenModalLogin(!openModalLogin);
+  };
+
+  const handleOpenModalRegistro = () => {
+    setOpenModalRegistro(!openModalRegistro);
   };
 
   const handleOpenCart = () => {
@@ -255,6 +265,8 @@ const HeaderViewModel = ({
     loadUserData,
     openModalLogin,
     login,
+    handleOpenModalLogin,
+    handleOpenModalRegistro,
   };
 };
 
