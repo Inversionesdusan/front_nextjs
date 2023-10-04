@@ -13,6 +13,10 @@ export interface LandingViewModelReturn {
   loadingProductos: boolean;
   productos: IProductoWithPricesDto[];
   getProductos: () => Promise<void>;
+  handleOpenModalRegistro: () => void;
+  handleOpenModalLogin: () => void;
+  openModalRegistro: boolean;
+  openModalLogin: boolean;
 }
 
 const LandingViewModel = ({
@@ -21,6 +25,8 @@ const LandingViewModel = ({
 }: LandingViewModelProps) => {
   const [loadingProductos, setLoadingProductos] = useState<boolean>(true);
   const [productos, setProductos] = useState<IProductoWithPricesDto[]>([]);
+  const [openModalRegistro, setOpenModalRegistro] = useState<boolean>(false);
+  const [openModalLogin, setOpenModalLogin] = useState<boolean>(false);
 
   const getProductos = async () => {
     try {
@@ -40,10 +46,22 @@ const LandingViewModel = ({
     }
   };
 
+  const handleOpenModalRegistro = () => {
+    setOpenModalRegistro(!openModalRegistro);
+  };
+
+  const handleOpenModalLogin = () => {
+    setOpenModalLogin(!openModalLogin);
+  };
+
   return {
     loadingProductos,
     getProductos,
     productos,
+    openModalRegistro,
+    handleOpenModalRegistro,
+    openModalLogin,
+    handleOpenModalLogin,
   };
 };
 

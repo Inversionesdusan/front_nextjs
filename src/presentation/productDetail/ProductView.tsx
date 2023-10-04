@@ -87,7 +87,13 @@ const ProductView = () => {
 
   return (
     <Box sx={container}>
-      <HeaderView landing={false} />
+      <HeaderView
+        landing={false}
+        openModalLogin={false}
+        openModalRegistro={false}
+        handleOpenModalLogin={() => {}}
+        handleOpenModalRegistro={() => {}}
+      />
       <Box sx={productContainer}>
         <Box sx={headerBox}>
           <Box sx={titleBox}>

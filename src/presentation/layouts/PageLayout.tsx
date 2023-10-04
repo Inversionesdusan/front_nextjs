@@ -33,7 +33,13 @@ const PageLayout = ({
 
   return (
     <Box sx={layoutContainer}>
-      <HeaderView landing={false} />
+      <HeaderView
+        landing={false}
+        openModalLogin={false}
+        openModalRegistro={false}
+        handleOpenModalLogin={() => {}}
+        handleOpenModalRegistro={() => {}}
+      />
       <Box sx={content}>
         <Box sx={headerBox}>
           <Box sx={titleBox}>

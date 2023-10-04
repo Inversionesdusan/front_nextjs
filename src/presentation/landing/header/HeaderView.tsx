@@ -21,17 +21,30 @@ import { constantes } from "@/domain/constants";
 import SideMenu from "../../components/sidemenu/SideMenu";
 import Container from "@/DI/Container";
 import { IHeaderViewModelReturn } from "./HeaderViewModel";
-import DropDownMenu from "@/presentation/components/dropdownMenu/DropDownMenu";
+import DropDownMenu, {
+  DropDownMenuOpion,
+} from "@/presentation/components/dropdownMenu/DropDownMenu";
 import ShoppingCartDetail from "@/presentation/components/shoppingCartDetail/ShoppingCartDetail";
 import ModalRegistro from "@/presentation/components/modalRegistro/ModalRegistro";
 import ModalLogin from "@/presentation/components/modalLogin/ModalLogin";
 import useAuthStore from "@/domain/store/useAuthStore";
+import { useRouter } from "next/navigation";
 
 interface HeaderViewProps {
   landing: boolean;
+  handleOpenModalRegistro: () => void;
+  openModalRegistro: boolean;
+  handleOpenModalLogin: () => void;
+  openModalLogin: boolean;
 }
 
-const HeaderView = ({ landing }: HeaderViewProps) => {
+const HeaderView = ({
+  landing,
+  handleOpenModalLogin,
+  openModalLogin,
+  handleOpenModalRegistro,
+  openModalRegistro,
+}: HeaderViewProps) => {
   const theme = useTheme();
   const downMd = useMediaQuery(theme.breakpoints.down("md"));
   const headerViewModel = Container.resolve(
@@ -47,6 +60,33 @@ const HeaderView = ({ landing }: HeaderViewProps) => {
     styles(downMd);
 
   const { authData } = useAuthStore();
+
+  const openCloseModalLogin = () => {
+    if (landing) return handleOpenModalLogin();
+    headerViewModel.handleOpenModalLogin();
+  };
+
+  const openCloseModalRegistro = () => {
+    if (landing) return handleOpenModalRegistro();
+    headerViewModel.handleOpenModalRegistro();
+  };
+
+  const router = useRouter();
+
+  const menuOptions: DropDownMenuOpion[] = [
+    {
+      label: "Registrarme",
+      handleClickOption: openCloseModalRegistro,
+    },
+    {
+      label: "Ingresar",
+      handleClickOption: openCloseModalLogin,
+    },
+    //{
+    //  label: "Mis Pedidos",
+    //  handleClickOption: () => router.push("/pedidos/listado"),
+    //},
+  ];
 
   return (
     <>
@@ -113,7 +153,7 @@ const HeaderView = ({ landing }: HeaderViewProps) => {
           authData.isAuthenticated &&
           headerViewModel.menuOptionsLogged
             ? headerViewModel.menuOptionsLogged
-            : headerViewModel.menuOptions
+            : menuOptions
         }
       />
       <SideMenu
@@ -125,7 +165,7 @@ const HeaderView = ({ landing }: HeaderViewProps) => {
           authData.isAuthenticated &&
           headerViewModel.menuOptionsLogged
             ? headerViewModel.menuOptionsLogged
-            : headerViewModel.menuOptions
+            : menuOptions
         }
       />
       <ShoppingCartDetail
@@ -133,20 +173,20 @@ const HeaderView = ({ landing }: HeaderViewProps) => {
         handleOpenModal={headerViewModel.handleOpenCart}
       />
       <ModalRegistro
-        open={headerViewModel.openModalRegistro}
+        open={landing ? openModalRegistro : headerViewModel.openModalRegistro}
         title="Registro"
-        onClose={headerViewModel.handleOpenModalRegistro}
+        onClose={openCloseModalRegistro}
         onAccept={headerViewModel.registerClient}
         loadingData={headerViewModel.savingData}
-        openModalLogin={headerViewModel.handleOpenModalLogin}
+        openModalLogin={openCloseModalLogin}
       />
       <ModalLogin
-        open={headerViewModel.openModalLogin}
+        open={landing ? openModalLogin : headerViewModel.openModalLogin}
         title="Ingreso"
-        onClose={headerViewModel.handleOpenModalLogin}
+        onClose={openCloseModalLogin}
         onAccept={headerViewModel.login}
         loadingData={headerViewModel.savingData}
-        openModalRegister={headerViewModel.handleOpenModalRegistro}
+        openModalRegister={openCloseModalRegistro}
       />
     </>
   );

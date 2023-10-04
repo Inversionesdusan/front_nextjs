@@ -80,7 +80,13 @@ const OrderListView = () => {
 
   return (
     <Box sx={container}>
-      <HeaderView landing={false} />
+      <HeaderView
+        landing={false}
+        openModalLogin={false}
+        openModalRegistro={false}
+        handleOpenModalLogin={() => {}}
+        handleOpenModalRegistro={() => {}}
+      />
       <Box sx={orderContainer}>
         <Box sx={headerBox}>
           <Box sx={titleBox}>

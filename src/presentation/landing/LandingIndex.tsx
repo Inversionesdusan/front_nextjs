@@ -20,11 +20,17 @@ const LandingIndex = () => {
 
   return (
     <>
-      <HeaderView landing={true} />
+      <HeaderView
+        landing={true}
+        handleOpenModalLogin={landingViewModel.handleOpenModalLogin}
+        openModalLogin={landingViewModel.openModalLogin}
+        handleOpenModalRegistro={landingViewModel.handleOpenModalRegistro}
+        openModalRegistro={landingViewModel.openModalRegistro}
+      />
       <Box sx={{ width: "100%", marginX: "auto", height: "100vh" }}>
         <HeroView
-          handleOpenModalLogin={() => {}}
-          handleOpenModalRegistro={() => {}}
+          handleOpenModalLogin={landingViewModel.handleOpenModalLogin}
+          handleOpenModalRegistro={landingViewModel.handleOpenModalRegistro}
         />
       </Box>
       <Box

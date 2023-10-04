@@ -35,7 +35,6 @@ export interface IHeaderViewModelReturn {
   openModalRegistro: boolean;
   savingData: boolean;
   handleOpenModalRegistro: () => void;
-  menuOptions: DropDownMenuOpion[];
   menuOptionsLogged: DropDownMenuOpion[];
   registerClient: (
     clientData: IClientRegisterRequest,
@@ -105,21 +104,6 @@ const HeaderViewModel = ({
     ) as CartItem[];
     initializeCart(data);
   };
-
-  const menuOptions: DropDownMenuOpion[] = [
-    {
-      label: "Registrarme",
-      handleClickOption: handleOpenModalRegistro,
-    },
-    {
-      label: "Ingresar",
-      handleClickOption: handleOpenModalLogin,
-    },
-    {
-      label: "Mis Pedidos",
-      handleClickOption: () => router.push("/pedidos/listado"),
-    },
-  ];
 
   const menuOptionsLogged: DropDownMenuOpion[] = [
     {
@@ -273,7 +257,6 @@ const HeaderViewModel = ({
     openModalRegistro,
     savingData,
     handleOpenModalRegistro,
-    menuOptions,
     menuOptionsLogged,
     registerClient,
     loadUserData,
