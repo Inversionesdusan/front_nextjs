@@ -11,7 +11,7 @@ export const saveOrder = async (token: string, orderData: ISaveDataOrder) => {
   console.log("pedidos data source ->", token, orderData);
   const request: AxiosRequestConfig = {
     method: "POST",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: constantes.endpoints.pedidos,
     data: { data: { ...orderData } },
     headers: {
@@ -33,7 +33,7 @@ export const getOrders = async (
 ): Promise<IOrderQueryResponse> => {
   const request: AxiosRequestConfig = {
     method: "GET",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: `${constantes.endpoints.pedidos}?sort[0]=id:desc&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ export const getOrdersByEmail = async (
 ): Promise<IOrderQueryResponse> => {
   const request: AxiosRequestConfig = {
     method: "GET",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: `${constantes.endpoints.pedidos}?filters[emailCliente][$eq]=${email}&sort[0]=id:desc&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -104,7 +104,7 @@ export const getOrdersByQuery = async (
   console.log("query -> ", query);
   const request: AxiosRequestConfig = {
     method: "GET",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: `${constantes.endpoints.pedidos}?${query}sort[0]=id:desc&pagination[page]=${page}&pagination[pageSize]=${pageSize}`,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -126,7 +126,7 @@ export const updateOrderData = async (
 ) => {
   const request: AxiosRequestConfig = {
     method: "PUT",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: `${constantes.endpoints.pedidos}/${orderId}`,
     data: { ...orderData },
     headers: {

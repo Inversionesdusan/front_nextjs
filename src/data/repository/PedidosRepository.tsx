@@ -213,6 +213,8 @@ export const PedidosRepository = ({
           nombres: order.attributes.datosCliente.nombres,
           apellidos: order.attributes.datosCliente.apellidos,
           tipoDocumento: order.attributes.datosCliente.tipoDocumento,
+          digitoVerificacion: order.attributes.datosCliente.digitoVerificacion,
+          telefono: order.attributes.datosCliente.telefono,
         },
       };
       orders.push(newOrderDto);

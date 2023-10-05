@@ -1,3 +1,4 @@
+import { constantes } from "@/domain/constants";
 import { colors } from "@/presentation/styles/colors";
 import { SxProps, Theme } from "@mui/material";
 
@@ -36,7 +37,7 @@ export const styles = (url: string) => {
     alignItems: "center",
     height: "230px",
     borderRadius: "10px",
-    backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${url}')`,
+    backgroundImage: `url('${constantes.paths.BASE_URL_IMAGES}${url}')`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
     backgroundPosition: "center",

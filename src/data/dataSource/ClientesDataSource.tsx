@@ -13,7 +13,7 @@ export const registerClient = async (
 ): Promise<IClientRegisterResponse> => {
   const request: AxiosRequestConfig = {
     method: "POST",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: constantes.endpoints.registro,
     data: clientData,
   };
@@ -31,7 +31,7 @@ export const saveNotRegisteredClient = async (
 ): Promise<number> => {
   const request: AxiosRequestConfig = {
     method: "POST",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: constantes.endpoints.clientesNoRegistrados,
     data: { data: { ...clientData } },
   };
@@ -48,7 +48,7 @@ export const saveNotRegisteredClient = async (
 export const getClienteByEmail = async (email: string) => {
   const request: AxiosRequestConfig = {
     method: "GET",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: `${constantes.endpoints.clientesNoRegistrados}?filters[email]$eq=${email}`,
   };
 
@@ -65,7 +65,7 @@ export const loadClientData = async (
 ): Promise<IClientDataQueryResponse> => {
   const request: AxiosRequestConfig = {
     method: "GET",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: constantes.endpoints.user,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -91,7 +91,7 @@ export const updateClientData = async (
   }
   const request: AxiosRequestConfig = {
     method: "PUT",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: `${constantes.endpoints.updateUser}/${clientID}`,
     headers: {
       Authorization: `Bearer ${token}`,

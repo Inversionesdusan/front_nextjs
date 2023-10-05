@@ -42,6 +42,10 @@ export interface OrderDetailViewModelReturn {
   savingData: boolean;
   authData: AuthDataStore;
   getUserData: () => void;
+  copyField: <T extends keyof OrderFormValues>(
+    originField: T,
+    finalField: T
+  ) => void;
 }
 
 const OrderDetailViewModel = ({
@@ -256,9 +260,11 @@ const OrderDetailViewModel = ({
           barrio: data.barrioEnvio,
         },
         datosCliente: {
-          nombres: authData.user.nombres,
-          apellidos: authData.user.apellidos,
-          tipoDocumento: authData.user.tipoDocumento,
+          nombres: data.nombresCliente,
+          apellidos: data.apellidosCliente,
+          tipoDocumento: data.tipoDocumento,
+          digitoVerificacion: data.digitoVerificacion,
+          telefono: data.nroTelefono,
         },
       });
 
@@ -363,6 +369,32 @@ const OrderDetailViewModel = ({
       .catch((error) => {});
   };
 
+  const copyField = <T extends keyof OrderFormValues>(
+    originField: T,
+    finalField: T
+  ) => {
+    const valueOrigin: OrderFormValues[T] = orderForm.getValues(originField);
+    switch (originField) {
+      case "direccionCliente":
+        orderForm.setValue("direccionEnvio", valueOrigin || "");
+        break;
+      case "complementoCliente":
+        orderForm.setValue("complementoEnvio", valueOrigin || "");
+        break;
+      case "departamentoCliente":
+        orderForm.setValue("departamentoEnvio", valueOrigin || "");
+        break;
+      case "ciudadCliente":
+        orderForm.setValue("ciudadEnvio", valueOrigin || "");
+        break;
+      case "barrioCliente":
+        orderForm.setValue("barrioEnvio", valueOrigin || "");
+        break;
+      default:
+        break;
+    }
+  };
+
   return {
     loading,
     getProductos,
@@ -377,6 +409,7 @@ const OrderDetailViewModel = ({
     savingData,
     authData,
     getUserData,
+    copyField,
   };
 };
 

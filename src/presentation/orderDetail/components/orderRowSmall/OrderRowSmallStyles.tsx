@@ -1,3 +1,4 @@
+import { constantes } from "@/domain/constants";
 import {
   CuniaBlack16400,
   MonserratGreen16400,
@@ -43,7 +44,7 @@ export const styles = (url: string, downSm: boolean) => {
     alignItems: "center",
     height: { xs: "105px", sm: "150px" },
     width: { xs: "85px", sm: "120px" },
-    backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${url}')`,
+    backgroundImage: `url('${constantes.paths.BASE_URL_IMAGES}${url}')`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
     backgroundPosition: "center",

@@ -12,7 +12,7 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import { UseFormReturn } from "react-hook-form";
+import { Controller, UseFormReturn } from "react-hook-form";
 import { styles } from "./ClientFormStyles";
 import { OrderFormValues } from "@/domain/models/forms/OrderForm";
 import useAuthStore from "@/domain/store/useAuthStore";
@@ -23,10 +23,19 @@ import { inputLabel, inputStyle } from "@/presentation/styles/theme";
 
 interface ClientFormProps {
   formRegister: UseFormReturn<OrderFormValues, any, undefined>;
+  copyField: <T extends keyof OrderFormValues>(
+    originField: T,
+    finalField: T
+  ) => void;
+  handleOpenModalRegister: () => void;
 }
 
-const ClientForm = ({ formRegister }: ClientFormProps) => {
-  const { register, formState } = formRegister;
+const ClientForm = ({
+  formRegister,
+  copyField,
+  handleOpenModalRegister,
+}: ClientFormProps) => {
+  const { register, formState, control, watch } = formRegister;
   const { errors } = formState;
 
   const { formContainer, clientLbelBox } = styles();
@@ -52,11 +61,11 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
             />
           )}
 
-          {!authData.isAuthenticated && (
+          {!authData.isAuthenticated && false && (
             <CardButton
               label="Ya estoy registrado"
               variant="gray"
-              onClick={() => {}}
+              onClick={handleOpenModalRegister}
               disabled={false}
             />
           )}
@@ -192,30 +201,37 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 <InputLabel sx={inputLabel} shrink>
                   Tipo Documento
                 </InputLabel>
-                <Select
-                  disabled={authData.isAuthenticated}
-                  id="tipoDocumento"
-                  value={"CC"}
-                  sx={{
-                    ...inputStyle,
-                    "&.-MuiPopover-paper-MuiMenu-paper": {
-                      background: colors.white,
-                    },
-                  }}
-                  {...register("tipoDocumento", {
-                    required: {
-                      value: true,
-                      message: "Debe seleccionar el tipo de documento",
-                    },
-                  })}
-                >
-                  <MenuItem value={"CC"} sx={MonserratGreen16400}>
-                    Cédula de Ciudadanía
-                  </MenuItem>
-                  <MenuItem value={"NIT"} sx={MonserratGreen16400}>
-                    N.I.T.
-                  </MenuItem>
-                </Select>
+                <Controller
+                  name="tipoDocumento"
+                  control={control}
+                  defaultValue="CC"
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      disabled={authData.isAuthenticated}
+                      id="tipoDocumento"
+                      sx={{
+                        ...inputStyle,
+                        "&.-MuiPopover-paper-MuiMenu-paper": {
+                          background: colors.white,
+                        },
+                      }}
+                      {...register("tipoDocumento", {
+                        required: {
+                          value: true,
+                          message: "Debe seleccionar el tipo de documento",
+                        },
+                      })}
+                    >
+                      <MenuItem value={"CC"} sx={MonserratGreen16400}>
+                        Cédula de Ciudadanía
+                      </MenuItem>
+                      <MenuItem value={"NIT"} sx={MonserratGreen16400}>
+                        N.I.T.
+                      </MenuItem>
+                    </Select>
+                  )}
+                />
 
                 <span
                   style={{
@@ -229,7 +245,7 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 </span>
               </FormControl>
             </Grid>
-            <Grid xs={12} md={6}>
+            <Grid xs={12} md={4}>
               {/* numeroDocumento */}
               <FormControl
                 fullWidth
@@ -266,6 +282,45 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                   id="numeroDocumento-error"
                 >
                   {errors.numeroDocumento?.message}
+                </span>
+              </FormControl>
+            </Grid>
+            <Grid xs={12} md={2}>
+              {/* numeroDocumento */}
+              <FormControl
+                fullWidth
+                variant="standard"
+                error={!!errors.digitoVerificacion?.message}
+              >
+                <InputLabel sx={inputLabel} shrink>
+                  DV
+                </InputLabel>
+                <Input
+                  disabled={authData.isAuthenticated}
+                  id="digitoVerificacion"
+                  type="text"
+                  aria-describedby="digitoVerificacion-error"
+                  sx={inputStyle}
+                  {...register("digitoVerificacion", {
+                    minLength: {
+                      value: 1,
+                      message: "Error",
+                    },
+                    maxLength: {
+                      value: 1,
+                      message: "Error",
+                    },
+                  })}
+                />
+                <span
+                  style={{
+                    color: colors.gray,
+                    fontFamily: "Montserrat",
+                    fontSize: "0.8rem",
+                  }}
+                  id="digitoVerificacion-error"
+                >
+                  {errors.digitoVerificacion?.message}
                 </span>
               </FormControl>
             </Grid>
@@ -331,13 +386,11 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 <InputLabel sx={inputLabel} shrink>
                   Dirección
                 </InputLabel>
-                <Input
-                  disabled={authData.isAuthenticated}
-                  id="direccionCliente"
-                  type="text"
-                  aria-describedby="direccionCliente-error"
-                  sx={inputStyle}
-                  {...register("direccionCliente", {
+                <Controller
+                  name="direccionCliente"
+                  control={control}
+                  defaultValue=""
+                  rules={{
                     required: {
                       value: true,
                       message: "Debes digitar tu dirección",
@@ -350,7 +403,22 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                       value: 50,
                       message: "La dirección debe tener menos de 50 caracteres",
                     },
-                  })}
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      disabled={authData.isAuthenticated}
+                      id="direccionCliente"
+                      type="text"
+                      aria-describedby="direccionCliente-error"
+                      sx={inputStyle}
+                      onBlur={() => {
+                        if (formRegister.getValues("usarEnvio") === "S") {
+                          copyField("direccionCliente", "direccionEnvio");
+                        }
+                      }}
+                    />
+                  )}
                 />
                 <span
                   style={{
@@ -374,13 +442,11 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 <InputLabel sx={inputLabel} shrink>
                   Complemento Direccion
                 </InputLabel>
-                <Input
-                  disabled={authData.isAuthenticated}
-                  id="complementoCliente"
-                  type="text"
-                  aria-describedby="complementoCliente-error"
-                  sx={inputStyle}
-                  {...register("complementoCliente", {
+                <Controller
+                  name="complementoCliente"
+                  control={control}
+                  defaultValue=""
+                  rules={{
                     minLength: {
                       value: 5,
                       message: "La dirección debe tener mas de 5 caracteres",
@@ -389,8 +455,24 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                       value: 50,
                       message: "La dirección debe tener menos de 50 caracteres",
                     },
-                  })}
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      disabled={authData.isAuthenticated}
+                      id="complementoCliente"
+                      type="text"
+                      aria-describedby="complementoCliente-error"
+                      sx={inputStyle}
+                      onBlur={() => {
+                        if (formRegister.getValues("usarEnvio") === "S") {
+                          copyField("complementoCliente", "complementoEnvio");
+                        }
+                      }}
+                    />
+                  )}
                 />
+
                 <span
                   style={{
                     color: colors.gray,
@@ -413,13 +495,11 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 <InputLabel sx={inputLabel} shrink>
                   Departamento
                 </InputLabel>
-                <Input
-                  disabled={authData.isAuthenticated}
-                  id="departamentoCliente"
-                  type="text"
-                  aria-describedby="departamentoCliente-error"
-                  sx={inputStyle}
-                  {...register("departamentoCliente", {
+                <Controller
+                  name="departamentoCliente"
+                  control={control}
+                  defaultValue=""
+                  rules={{
                     required: {
                       value: true,
                       message: "Debe digitar el departamento",
@@ -432,8 +512,24 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                       value: 50,
                       message: "La dirección debe tener menos de 50 caracteres",
                     },
-                  })}
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      disabled={authData.isAuthenticated}
+                      id="departamentoCliente"
+                      type="text"
+                      aria-describedby="departamentoCliente-error"
+                      sx={inputStyle}
+                      onBlur={() => {
+                        if (formRegister.getValues("usarEnvio") === "S") {
+                          copyField("departamentoCliente", "departamentoEnvio");
+                        }
+                      }}
+                    />
+                  )}
                 />
+
                 <span
                   style={{
                     color: colors.gray,
@@ -456,13 +552,11 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 <InputLabel sx={inputLabel} shrink>
                   Ciudad
                 </InputLabel>
-                <Input
-                  disabled={authData.isAuthenticated}
-                  id="ciudadCliente"
-                  type="text"
-                  aria-describedby="ciudadCliente-error"
-                  sx={inputStyle}
-                  {...register("ciudadCliente", {
+                <Controller
+                  name="ciudadCliente"
+                  control={control}
+                  defaultValue=""
+                  rules={{
                     required: {
                       value: true,
                       message: "Debe digitar la ciudad",
@@ -475,7 +569,22 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                       value: 50,
                       message: "La ciudad debe tener menos de 50 caracteres",
                     },
-                  })}
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      disabled={authData.isAuthenticated}
+                      id="ciudadCliente"
+                      type="text"
+                      aria-describedby="ciudadCliente-error"
+                      sx={inputStyle}
+                      onBlur={() => {
+                        if (formRegister.getValues("usarEnvio") === "S") {
+                          copyField("ciudadCliente", "ciudadEnvio");
+                        }
+                      }}
+                    />
+                  )}
                 />
                 <span
                   style={{
@@ -499,13 +608,11 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                 <InputLabel sx={inputLabel} shrink>
                   Barrio
                 </InputLabel>
-                <Input
-                  disabled={authData.isAuthenticated}
-                  id="barrioCliente"
-                  type="text"
-                  aria-describedby="barrioCliente-error"
-                  sx={inputStyle}
-                  {...register("barrioCliente", {
+                <Controller
+                  name="barrioCliente"
+                  control={control}
+                  defaultValue=""
+                  rules={{
                     required: {
                       value: true,
                       message: "Debe digitar el barrio",
@@ -518,7 +625,22 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                       value: 50,
                       message: "El Barrio debe tener menos de 50 caracteres",
                     },
-                  })}
+                  }}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      disabled={authData.isAuthenticated}
+                      id="barrioCliente"
+                      type="text"
+                      aria-describedby="barrioCliente-error"
+                      sx={inputStyle}
+                      onBlur={() => {
+                        if (formRegister.getValues("usarEnvio") === "S") {
+                          copyField("barrioCliente", "barrioEnvio");
+                        }
+                      }}
+                    />
+                  )}
                 />
                 <span
                   style={{
@@ -543,30 +665,39 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                   <InputLabel sx={inputLabel} shrink>
                     Usar esta dirección para envíos
                   </InputLabel>
-                  <Select
-                    id="usarEnvio"
-                    value={formRegister.getValues().usarEnvio}
-                    sx={{
-                      ...inputStyle,
-                      "&.-MuiPopover-paper-MuiMenu-paper": {
-                        background: colors.white,
-                      },
-                    }}
-                    {...register("usarEnvio", {
+                  <Controller
+                    name="usarEnvio"
+                    control={control}
+                    defaultValue="S"
+                    rules={{
                       required: {
                         value: true,
                         message:
                           "Debe seleccionar si esta direccion se utiliza para envíos",
                       },
-                    })}
-                  >
-                    <MenuItem value={"S"} sx={MonserratGreen16400}>
-                      Si
-                    </MenuItem>
-                    <MenuItem value={"N"} sx={MonserratGreen16400}>
-                      No
-                    </MenuItem>
-                  </Select>
+                    }}
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        id="usarEnvio"
+                        value={formRegister.getValues().usarEnvio}
+                        sx={{
+                          ...inputStyle,
+                          "&.-MuiPopover-paper-MuiMenu-paper": {
+                            background: colors.white,
+                          },
+                        }}
+                        {...register("usarEnvio")}
+                      >
+                        <MenuItem value={"S"} sx={MonserratGreen16400}>
+                          Si
+                        </MenuItem>
+                        <MenuItem value={"N"} sx={MonserratGreen16400}>
+                          No
+                        </MenuItem>
+                      </Select>
+                    )}
+                  />
 
                   <span
                     style={{
@@ -611,7 +742,9 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                   Dirección Envío
                 </InputLabel>
                 <Input
-                  disabled={authData.isAuthenticated}
+                  disabled={
+                    authData.isAuthenticated || watch("usarEnvio") === "S"
+                  }
                   id="direccionEnvio"
                   type="text"
                   aria-describedby="direccionEnvio-error"
@@ -656,7 +789,9 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                   Complemento Dirección envío
                 </InputLabel>
                 <Input
-                  disabled={authData.isAuthenticated}
+                  disabled={
+                    authData.isAuthenticated || watch("usarEnvio") === "S"
+                  }
                   id="complementoEnvio"
                   type="text"
                   aria-describedby="complementoEnvio-error"
@@ -697,7 +832,9 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                   Departamento envío
                 </InputLabel>
                 <Input
-                  disabled={authData.isAuthenticated}
+                  disabled={
+                    authData.isAuthenticated || watch("usarEnvio") === "S"
+                  }
                   id="departamentoEnvio"
                   type="text"
                   aria-describedby="departamentoEnvio-error"
@@ -742,7 +879,9 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                   Ciudad envío
                 </InputLabel>
                 <Input
-                  disabled={authData.isAuthenticated}
+                  disabled={
+                    authData.isAuthenticated || watch("usarEnvio") === "S"
+                  }
                   id="ciudadEnvio"
                   type="text"
                   aria-describedby="ciudadEnvio-error"
@@ -787,7 +926,9 @@ const ClientForm = ({ formRegister }: ClientFormProps) => {
                   Barrio envío
                 </InputLabel>
                 <Input
-                  disabled={authData.isAuthenticated}
+                  disabled={
+                    authData.isAuthenticated || watch("usarEnvio") === "S"
+                  }
                   id="barrioEnvio"
                   type="text"
                   aria-describedby="barrioEnvio-error"

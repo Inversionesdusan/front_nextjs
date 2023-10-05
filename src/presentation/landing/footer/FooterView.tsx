@@ -1,9 +1,5 @@
 import { colors } from "@/presentation/styles/colors";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import logo from "../../../../public/images/logos/Isologo.svg";
-import instagram from "../../../../public/icons/icons-instagram.svg";
-import facebook from "../../../../public/icons/icons-facebook.svg";
-import Image from "next/image";
 import { styles } from "./FooterViewStyles";
 
 const FooterView = () => {
@@ -14,8 +10,8 @@ const FooterView = () => {
 
   return (
     <Box sx={footerContainer}>
-      <Image
-        src={logo}
+      <img
+        src="/images/logos/Isologo.svg"
         alt="Logo Dusan"
         height={downMd ? 48 : 72}
         color={colors.white}
@@ -39,14 +35,14 @@ const FooterView = () => {
         </a>
       </Typography>
       <Box sx={iconContainer}>
-        <Image
-          src={instagram}
+        <img
+          src="/icons/icons-instagram.svg"
           alt="Logo instagram"
           height={40}
           color={colors.white}
         />
-        <Image
-          src={facebook}
+        <img
+          src="/icons/icons-facebook.svg"
           alt="Logo facebook"
           height={40}
           color={colors.white}

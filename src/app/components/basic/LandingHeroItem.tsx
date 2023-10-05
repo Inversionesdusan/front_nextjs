@@ -1,5 +1,6 @@
 import { Box, CardMedia, Typography } from "@mui/material";
 import HeaderLink from "./HeaderLink";
+import { constantes } from "@/domain/constants";
 
 export interface LandingHeroItemProps {
   image: string;
@@ -16,7 +17,7 @@ const LandingHeroItem = ({
     <Box sx={{ position: "relative", height: "100vh", overflow: "hidden" }}>
       <CardMedia
         component="img"
-        image={`${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${image}`}
+        image={`${constantes.paths.BASE_URL_IMAGES}${image}`}
         height="100%"
         alt={title}
       />

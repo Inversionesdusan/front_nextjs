@@ -111,7 +111,11 @@ const OrderDetail = ({ flow = "cart" }: OrderDetailProps) => {
                 ))}
               <Box sx={formSection}>
                 {orderDetailVM.orderForm && (
-                  <ClientForm formRegister={orderDetailVM.orderForm} />
+                  <ClientForm
+                    formRegister={orderDetailVM.orderForm}
+                    copyField={orderDetailVM.copyField}
+                    handleOpenModalRegister={() => {}}
+                  />
                 )}
               </Box>
             </Box>

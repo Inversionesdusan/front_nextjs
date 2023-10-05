@@ -1,3 +1,4 @@
+import { constantes } from "@/domain/constants";
 import { colors } from "@/presentation/styles/colors";
 import { SxProps, Theme } from "@mui/material";
 import { CSSProperties } from "react";
@@ -65,7 +66,7 @@ export const styles = (open: boolean, imageLink: string = "") => {
     alignItems: "center",
     height: { xs: "100px", sm: "110px" },
     width: { xs: "82px", sm: "90px" },
-    backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${imageLink}')`,
+    backgroundImage: `url('${constantes.paths.BASE_URL_IMAGES}${imageLink}')`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
     backgroundPosition: "center",

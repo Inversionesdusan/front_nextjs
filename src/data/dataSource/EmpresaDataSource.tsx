@@ -9,7 +9,7 @@ export const GetDatosEmpresa = async (): Promise<IDatosEmpresaResponse> => {
   const fetchDataEmpresa = async () => {
     const request: AxiosRequestConfig = {
       method: "GET",
-      baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+      baseURL: constantes.paths.BASE_URL_API,
       url: `${constantes.endpoints.empresa}?populate=*`,
     };
     const response = await axios.request<IDatosEmpresaResponse>(request);
@@ -34,7 +34,7 @@ export const SaveDatosContacto = async (
 ) => {
   const request: AxiosRequestConfig = {
     method: "POST",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: constantes.endpoints.contacto,
     data: dataContacto,
   };

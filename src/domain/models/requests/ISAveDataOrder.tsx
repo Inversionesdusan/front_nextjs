@@ -31,4 +31,6 @@ export interface IOrderClientData {
   nombres?: string;
   apellidos?: string;
   tipoDocumento?: string;
+  digitoVerificacion?: string;
+  telefono?: string;
 }

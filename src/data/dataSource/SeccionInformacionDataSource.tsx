@@ -9,7 +9,7 @@ export const GetDataSeccionInformacion =
     const fetchDataInformacion = async () => {
       const request: AxiosRequestConfig = {
         method: "GET",
-        baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+        baseURL: constantes.paths.BASE_URL_API,
         url: `${constantes.endpoints.seccionInfo}`,
       };
 

@@ -15,23 +15,10 @@ import Descripcion from "./components/descripcion/Descripcion";
 import VentajasView from "./components/ventajas/VentajasView";
 import theme from "../styles/theme";
 
-const sliderSettings = {
-  infinite: true,
-  dots: false,
-  speed: 2000,
-  auutoplaySpeed: 2000,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
-  pauseOnHover: true,
-  nextArrow: <></>,
-  prevArrow: <></>,
-};
-
 const ProductView = () => {
   const router = useRouter();
   const downSm = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const downLg = useMediaQuery(theme.breakpoints.down("lg"));
   const productViewModel = Container.resolve(
     "ProductViewModel"
   ) as ProductViewModelReturn;
@@ -59,6 +46,19 @@ const ProductView = () => {
     productSliderContainer,
     space,
   } = styles(productViewModel?.selectedProduct?.imagen?.url || "", downSm);
+
+  const sliderSettings = {
+    infinite: true,
+    dots: false,
+    speed: 2000,
+    auutoplaySpeed: 2000,
+    slidesToShow: downSm ? 1 : downLg ? 2 : 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    pauseOnHover: true,
+    nextArrow: <></>,
+    prevArrow: <></>,
+  };
 
   const formatNumber = Intl.NumberFormat(constantes.locale);
 
@@ -113,7 +113,7 @@ const ProductView = () => {
           <Box sx={imageBox}>
             <img
               style={image}
-              src={`${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${
+              src={`${constantes.paths.BASE_URL_IMAGES}${
                 productViewModel?.selectedProduct?.imagen?.url || ""
               }`}
               alt={productViewModel.selectedProduct.nombreProducto}

@@ -5,8 +5,6 @@ import { useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import logo from "../../../../public/images/logos/Isologo.svg";
-import Image from "next/image";
 import { colors } from "@/presentation/styles/colors";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ButtonCustom from "@/app/components/basic/ButtonCustom";
@@ -64,8 +62,8 @@ const HeroView = ({
           gap: "2rem",
         }}
       >
-        <Image
-          src={logo}
+        <img
+          src="/images/logos/Isologo.svg"
           alt="Logo Dusan"
           height={downMd ? 70 : 180}
           color={colors.white}

@@ -11,9 +11,6 @@ import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
 import { colors } from "@/presentation/styles/colors";
-import Image from "next/image";
-import logo from "../../../../public/images/logos/Isologo.svg";
-import isoTipo from "../../../../public/images/logos/Isotipo.svg";
 import { styles } from "./HeaderStyles";
 import HeaderLink from "@/app/components/basic/HeaderLink";
 import { useEffect } from "react";
@@ -91,15 +88,15 @@ const HeaderView = ({
   return (
     <>
       <Box sx={navbar}>
-        <Image
-          src={logo}
+        <img
+          src="/images/logos/Isologo.svg"
           alt="Logo Dusan"
           height={40}
           color={colors.white}
           style={isologo}
         />
-        <Image
-          src={isoTipo}
+        <img
+          src="/images/logos/Isotipo.svg"
           alt="Logo Dusan"
           height={40}
           color={colors.white}

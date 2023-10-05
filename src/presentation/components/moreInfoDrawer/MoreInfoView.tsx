@@ -6,6 +6,7 @@ import { IProductoWithPricesDto } from "@/domain/models/Dto/IProductoDto";
 import ComposicionView from "@/presentation/productDetail/components/composicion/ComposicionView";
 import Descripcion from "@/presentation/productDetail/components/descripcion/Descripcion";
 import VentajasView from "@/presentation/productDetail/components/ventajas/VentajasView";
+import { constantes } from "@/domain/constants";
 
 interface MoreInfoViewProps {
   open: boolean;
@@ -57,7 +58,7 @@ const MoreInfoView = ({ open, onClose }: MoreInfoViewProps) => {
           <Box sx={imageBox}>
             <img
               style={image}
-              src={`${process.env.NEXT_PUBLIC_BASE_URL_IMAGES}${
+              src={`${constantes.paths.BASE_URL_IMAGES}${
                 selectedProduct?.imagen?.url || ""
               }`}
               alt={selectedProduct?.nombreProducto}

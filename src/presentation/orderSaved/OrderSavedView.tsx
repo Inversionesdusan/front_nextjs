@@ -267,32 +267,27 @@ const OrderSavedView = () => {
               <Grid container rowSpacing={1} columnSpacing={2}>
                 <DataRow
                   label="Tipo documento"
-                  value={
-                    tipoUsuario === "Admin"
-                      ? orderSavedVM.order.datosCliente.tipoDocumento || ""
-                      : orderSavedVM.authData.user.tipoDocumento
-                  }
+                  value={orderSavedVM.order.datosCliente.tipoDocumento || ""}
                 />
                 <DataRow
                   label="Num documento"
                   value={
-                    tipoUsuario === "Admin"
-                      ? orderSavedVM.order.numeroDocumento
-                      : orderSavedVM.authData.user.numeroDocumento +
-                        (orderSavedVM.authData.user.digitoVerifica &&
-                        orderSavedVM.authData.user.digitoVerifica.length > 0
-                          ? ` - ${orderSavedVM.authData.user.digitoVerifica}`
-                          : "")
+                    orderSavedVM.order.numeroDocumento +
+                    (orderSavedVM.order.datosCliente.digitoVerificacion &&
+                    orderSavedVM.order.datosCliente.digitoVerificacion.length >
+                      0
+                      ? ` - ${orderSavedVM.order.datosCliente.digitoVerificacion}`
+                      : "")
                   }
                 />
                 <DataRow
                   label="Apellidos"
-                  value={orderSavedVM.authData.user.apellidos}
+                  value={orderSavedVM.order.datosCliente.apellidos || ""}
                 />
 
                 <DataRow
                   label="Nombres"
-                  value={orderSavedVM.authData.user.nombres}
+                  value={orderSavedVM.order.datosCliente.nombres || ""}
                 />
 
                 <DataRow
@@ -301,7 +296,7 @@ const OrderSavedView = () => {
                 />
                 <DataRow
                   label="Celular"
-                  value={orderSavedVM.authData.user.telefono}
+                  value={orderSavedVM.order.datosCliente.telefono || ""}
                 />
                 <DataRow
                   label="Direccion"

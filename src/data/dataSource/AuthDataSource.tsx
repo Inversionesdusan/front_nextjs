@@ -9,7 +9,7 @@ export const login = async (
 ): Promise<IClientRegisterResponse> => {
   const request: AxiosRequestConfig = {
     method: "POST",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: constantes.endpoints.login,
     data: loginData,
   };
@@ -28,7 +28,7 @@ export const changePassword = async (
 ) => {
   const request: AxiosRequestConfig = {
     method: "POST",
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL_API,
+    baseURL: constantes.paths.BASE_URL_API,
     url: constantes.endpoints.changePassword,
     headers: {
       Authorization: `Bearer ${token}`,
