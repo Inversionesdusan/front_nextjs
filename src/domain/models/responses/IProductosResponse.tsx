@@ -13,7 +13,7 @@ export interface IProductosReponseData {
 
 export interface AttributesProductosResponse {
   nombreProducto: string;
-  descripcion: string;
+  descripcion?: string;
   composicion: string;
   createdAt: string;
   updatedAt: string;
@@ -25,6 +25,7 @@ export interface AttributesProductosResponse {
   orden: number;
   tipos_fertilizante: ITiposFertilizantesResponse;
   imagen: IImagenResponse;
+  ventajas: string;
 }
 
 export interface ITiposFertilizantesResponse {

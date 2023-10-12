@@ -15,7 +15,7 @@ export function ProductosRepository({
       const newProducto: IProductoDto = {
         id: producto.id,
         nombreProducto: producto.attributes.nombreProducto,
-        descripcion: producto.attributes.descripcion,
+        descripcion: producto.attributes.descripcion || "",
         composicion: producto.attributes.composicion,
         urlVideo: producto.attributes.urlVideo,
         manejaInventario: producto.attributes.manejaInventario,
@@ -40,7 +40,7 @@ export function ProductosRepository({
           descripcion:
             producto.attributes.tipos_fertilizante.data.attributes.descripcion,
         },
-        ventajas: "",
+        ventajas: producto.attributes.ventajas || "",
       };
       return newProducto;
     });

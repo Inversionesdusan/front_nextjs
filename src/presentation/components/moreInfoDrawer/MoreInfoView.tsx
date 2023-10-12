@@ -70,16 +70,24 @@ const MoreInfoView = ({ open, onClose }: MoreInfoViewProps) => {
             </Typography>
           )}
 
-          <Box sx={divider}></Box>
-          <Descripcion
-            text={selectedProduct.descripcion}
-            label="Descripción del Producto"
-            type="Drawer"
-          />
+          {selectedProduct.descripcion && (
+            <>
+              <Box sx={divider}></Box>
+              <Descripcion
+                text={selectedProduct.descripcion}
+                label="Descripción del Producto"
+                type="Drawer"
+              />
+            </>
+          )}
 
           <ComposicionView producto={selectedProduct} type="Drawer" />
-          <Box sx={divider}></Box>
-          <VentajasView text={selectedProduct.ventajas} type="Drawer" />
+          {selectedProduct.ventajas && (
+            <>
+              <Box sx={divider}></Box>
+              <VentajasView text={selectedProduct.ventajas} type="Drawer" />
+            </>
+          )}
         </Box>
       ) : (
         <>Cargando ...</>

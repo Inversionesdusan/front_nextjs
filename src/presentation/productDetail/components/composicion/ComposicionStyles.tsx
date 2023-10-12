@@ -22,7 +22,6 @@ export const styles = (type: "Drawer" | "Page") => {
     marginTop: "1rem",
     paddingY: "0.5rem",
     borderTop: `solid 1px ${colors.solidGreen}`,
-    borderBottom: `solid 1px ${colors.solidGreen}`,
   };
 
   const dataRow: SxProps<Theme> = {

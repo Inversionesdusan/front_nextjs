@@ -17,8 +17,9 @@ const VentajasView = ({ text, type = "Page" }: VentajasViewProps) => {
           flexDirection: "column",
           gap: "2rem",
           flex: 1,
-          width: { xs: "100%", md: "50%" },
+          width: "100%",
           justifyContent: "start",
+          paddingBottom: type === "Drawer" ? "3rem" : "1rem",
         }}
       >
         <span

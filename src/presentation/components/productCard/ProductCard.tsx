@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { IProductoDto } from "../../../domain/models/Dto/IProductoDto";
 import { styles } from "./ProductCardStyles.";
+import { useRouter } from "next/router";
 
 export interface ProductCardProps {
   producto: IProductoDto;
@@ -9,6 +10,7 @@ export interface ProductCardProps {
 }
 
 const ProductCard = ({ producto, position, downXl }: ProductCardProps) => {
+  const router = useRouter();
   const {
     cardContainer,
     productName,
@@ -26,7 +28,12 @@ const ProductCard = ({ producto, position, downXl }: ProductCardProps) => {
       </Box>
       <Box sx={productImage}></Box>
       <Box sx={buttonContainer}>
-        <Button sx={button} href="/catalogo">
+        <Button
+          sx={button}
+          onClick={() => {
+            router.push("/catalogo");
+          }}
+        >
           <Typography sx={buttonLabel}>Ver catálogo</Typography>
         </Button>
       </Box>

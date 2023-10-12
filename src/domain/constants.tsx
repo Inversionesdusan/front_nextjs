@@ -102,7 +102,10 @@ export const constantes = {
       process.env.NODE_ENV === "development"
         ? "http://localhost:1337/api"
         : "https://backendmysql-production.up.railway.app/api",
-    BASE_URL_IMAGES: "https://backendmysql-production.up.railway.app",
+    BASE_URL_IMAGES:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:1337"
+        : "https://backendmysql-production.up.railway.app",
     API_TOKEN:
       "999d89d7d4e3b9454be422e72ca60e7ef4206b060c2cc381998dde8ce5a7fad51b2b71ebc231cc47d713c7ded69cddcee650bae8b00faf4e082de269fc2c08a4993261b66ad228ad6a39aa2ab33b0abfebbca3c25beacac702768fb3693d0266eaa9da8a77377861b5bb6c80d1aef6bf2c9cbc1def3312001ac23d1fedbc6931",
   },
