@@ -3,6 +3,7 @@ import { Box, Button, Typography, IconButton } from "@mui/material";
 import { styles } from "./CatalogCardStyles";
 import { constantes } from "@/domain/constants";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { MontserratGreen14700 } from "../../styles/colors";
 
 interface CatalogCardProps {
   producto: IProductoWithPricesDto;
@@ -62,6 +63,13 @@ const CatalogCard = ({
           </Typography>
         )}
       </Box>
+      {producto.mensaje ? (
+        <Typography sx={{ ...MontserratGreen14700, color: "#ff3333" }}>
+          {producto.mensaje}
+        </Typography>
+      ) : (
+        <Typography>*</Typography>
+      )}
       <Typography sx={priceLabel}>
         {precio > 0 ? `$${formatNumber.format(precio)} - ${unidad}` : unidad}
       </Typography>
@@ -72,7 +80,9 @@ const CatalogCard = ({
         }}
       >
         <Typography sx={labelMoreButton}>
-          {constantes.catalog.detailButtonLabel}
+          {producto.soloCotizar
+            ? constantes.catalog.requestInfoLabel
+            : constantes.catalog.detailButtonLabel}
         </Typography>
       </Button>
       {showCartButton && (

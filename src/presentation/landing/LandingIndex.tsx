@@ -9,6 +9,7 @@ import FooterView from "./footer/FooterView";
 import { colors } from "../styles/colors";
 import Container from "@/DI/Container";
 import { LandingViewModelReturn } from "./LandingViewModel";
+import { Helmet } from "react-helmet";
 
 const LandingIndex = () => {
   const theme = useTheme();
@@ -20,6 +21,15 @@ const LandingIndex = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Landing Page - Dusan</title>
+        {/*Canonicals: Landing page - Invesiones Dusan*/}
+        <link rel="canonical" href="https://dusan.com.co/" />
+        <meta
+          name="description"
+          content="Landing Page Dusan - Fabricación de abonos y compuestos inorgánicos nitrogenados"
+        />
+      </Helmet>
       <HeaderView
         landing={true}
         handleOpenModalLogin={landingViewModel.handleOpenModalLogin}

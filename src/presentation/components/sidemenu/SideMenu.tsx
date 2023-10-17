@@ -8,7 +8,6 @@ import {
   Typography,
 } from "@mui/material";
 import { colors } from "../../styles/colors";
-import logo from "../../../../public/images/logos/Isologo.svg";
 import { styles } from "./SideMenuStyles";
 import { constantes } from "@/domain/constants";
 import MenuItem from "./MenuItem";
@@ -45,7 +44,13 @@ const SideMenu = ({
         onKeyDown={handleOpenDrawer}
       >
         <Box sx={imageContainer}>
-          <img src={logo} alt="Logo Dusan" height={40} color={colors.white} />
+          <img
+            src="/images/logos/Isologo.svg"
+            alt="Logo Dusan"
+            height={40}
+            width={175}
+            color={colors.white}
+          />
         </Box>
         {authData.isAuthenticated && authData.user.nombres && (
           <>

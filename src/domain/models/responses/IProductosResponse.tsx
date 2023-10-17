@@ -26,6 +26,8 @@ export interface AttributesProductosResponse {
   tipos_fertilizante: ITiposFertilizantesResponse;
   imagen: IImagenResponse;
   ventajas: string;
+  mensaje?: string;
+  soloCotizar: boolean;
 }
 
 export interface ITiposFertilizantesResponse {

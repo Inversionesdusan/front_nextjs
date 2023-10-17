@@ -14,6 +14,7 @@ const FooterView = () => {
         src="/images/logos/Isologo.svg"
         alt="Logo Dusan"
         height={downMd ? 48 : 72}
+        width={downMd ? 210 : 314}
         color={colors.white}
       />
       <Typography sx={textType}>Sociedad por acciones simplificadas</Typography>
@@ -34,17 +35,20 @@ const FooterView = () => {
           +57 3012424496
         </a>
       </Typography>
+      <Typography sx={textObjeto}>Ibagué - Tolima - Colombia</Typography>
       <Box sx={iconContainer}>
         <img
           src="/icons/icons-instagram.svg"
           alt="Logo instagram"
           height={40}
+          width={40}
           color={colors.white}
         />
         <img
           src="/icons/icons-facebook.svg"
           alt="Logo facebook"
           height={40}
+          width={40}
           color={colors.white}
         />
       </Box>

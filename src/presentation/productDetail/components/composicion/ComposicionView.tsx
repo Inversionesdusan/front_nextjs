@@ -19,8 +19,12 @@ const ComposicionView = ({ producto, type = "Page" }: ComposicionViewProps) => {
         const info = componente.split("=");
         return (
           <Box key={info[0]} sx={dataRow}>
-            <Typography sx={dataText}>{info[0]}</Typography>
-            <Typography sx={dataText}>{info[1]}</Typography>
+            <Typography sx={{ ...dataText, flex: "3", textAlign: "left" }}>
+              {info[0]}
+            </Typography>
+            <Typography sx={{ ...dataText, flex: "2", textAlign: "right" }}>
+              {info[1]}
+            </Typography>
           </Box>
         );
       })}

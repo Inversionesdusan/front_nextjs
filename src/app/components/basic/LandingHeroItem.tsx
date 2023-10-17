@@ -19,7 +19,7 @@ const LandingHeroItem = ({
         component="img"
         image={`${constantes.paths.BASE_URL_IMAGES}${image}`}
         height="100%"
-        alt={title}
+        alt="Imagen Promocional Campo"
       />
       {title && description && (
         <Box

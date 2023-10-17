@@ -41,6 +41,8 @@ export function ProductosRepository({
             producto.attributes.tipos_fertilizante.data.attributes.descripcion,
         },
         ventajas: producto.attributes.ventajas || "",
+        mensaje: producto.attributes.mensaje,
+        soloCotizar: producto.attributes.soloCotizar,
       };
       return newProducto;
     });

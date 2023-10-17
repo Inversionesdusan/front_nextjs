@@ -92,6 +92,7 @@ const HeaderView = ({
           src="/images/logos/Isologo.svg"
           alt="Logo Dusan"
           height={40}
+          width={175}
           color={colors.white}
           style={isologo}
         />
@@ -99,6 +100,7 @@ const HeaderView = ({
           src="/images/logos/Isotipo.svg"
           alt="Logo Dusan"
           height={40}
+          width={66}
           color={colors.white}
           style={isotipo}
         />

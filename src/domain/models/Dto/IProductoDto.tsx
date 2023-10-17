@@ -23,6 +23,8 @@ export interface IProductoDto {
     descripcion: string;
   };
   ventajas: string;
+  mensaje?: string;
+  soloCotizar: boolean;
 }
 
 export interface IProductoWithPricesDto extends IProductoDto {

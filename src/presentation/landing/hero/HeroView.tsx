@@ -66,6 +66,7 @@ const HeroView = ({
           src="/images/logos/Isologo.svg"
           alt="Logo Dusan"
           height={downMd ? 70 : 180}
+          width={downMd ? 306 : 786}
           color={colors.white}
         />
         <Box
@@ -77,7 +78,10 @@ const HeroView = ({
             borderRadius: "100px",
           }}
         >
-          <Typography variant="h1" sx={MontserratGreen16700}>
+          <Typography
+            variant="h1"
+            sx={{ ...MontserratGreen16700, textAlign: "center" }}
+          >
             Fabricación de abonos y compuestos inorgánicos nitrogenados
           </Typography>
         </Box>
