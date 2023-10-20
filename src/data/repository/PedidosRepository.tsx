@@ -14,7 +14,11 @@ import { IOrderUpdateResponse } from "@/domain/models/responses/IOrderUpdateResp
 
 interface IPedidosRepositoryProps {
   PedidosDataSource: {
-    saveOrder: (token: string, orderData: ISaveDataOrder) => Promise<number>;
+    saveOrder: (
+      token: string,
+      orderData: ISaveDataOrder,
+      emailEmpresa: string
+    ) => Promise<number>;
     getOrders: (
       token: string,
       page: number,
@@ -41,7 +45,11 @@ interface IPedidosRepositoryProps {
 }
 
 export interface IPedidosRepositoryReturn {
-  saveOrder: (token: string, orderData: ISaveDataOrder) => Promise<IOrderDto>;
+  saveOrder: (
+    token: string,
+    orderData: ISaveDataOrder,
+    emailEmpresa: string
+  ) => Promise<IOrderDto>;
   getOrders: (
     token: string,
     page: number,
@@ -71,10 +79,15 @@ export const PedidosRepository = ({
 }: IPedidosRepositoryProps) => {
   const saveOrder = async (
     token: string,
-    orderData: ISaveDataOrder
+    orderData: ISaveDataOrder,
+    emailEmpresa: string
   ): Promise<IOrderDto> => {
     console.log("pedidos repository -> ", token, orderData);
-    const response = await PedidosDataSource.saveOrder(token, orderData);
+    const response = await PedidosDataSource.saveOrder(
+      token,
+      orderData,
+      emailEmpresa
+    );
     return {
       ...JSON.parse(JSON.stringify(orderData)),
       id: response,

@@ -8,7 +8,10 @@ interface EmpresaServiceProps {
 
 export interface IEmpresaServiceReturn {
   getDatosEmpresa: () => Promise<IDatosEmpresaDto>;
-  saveDataContacto: (data: IContactoFormValues) => Promise<string>;
+  saveDataContacto: (
+    data: IContactoFormValues,
+    emailEmpresa: string
+  ) => Promise<string>;
 }
 
 export function EmpresaService({ EmpresaRepository }: EmpresaServiceProps) {
@@ -17,9 +20,10 @@ export function EmpresaService({ EmpresaRepository }: EmpresaServiceProps) {
   };
 
   const saveDataContacto = async (
-    data: IContactoFormValues
+    data: IContactoFormValues,
+    emailEmpresa: string
   ): Promise<string> => {
-    return await EmpresaRepository.saveDatosContacto(data);
+    return await EmpresaRepository.saveDatosContacto(data, emailEmpresa);
   };
 
   return {

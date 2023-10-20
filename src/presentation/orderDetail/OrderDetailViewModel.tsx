@@ -19,6 +19,7 @@ import { v4 as uuid } from "uuid";
 import { IDetallePedido } from "@/domain/models/requests/ISAveDataOrder";
 import { useRouter } from "next/navigation";
 import useAuthStore, { AuthDataStore } from "@/domain/store/useAuthStore";
+import useCompanyStore from "@/domain/store/useCompanyStore";
 
 interface OrderDetailViewModelProps {
   ProductosService: IProductoService;
@@ -74,6 +75,7 @@ const OrderDetailViewModel = ({
   const router = useRouter();
   const [localflow, setLocalflow] = useState<string>("cart");
   const { authData } = useAuthStore();
+  const { companyData } = useCompanyStore();
 
   const getProductos = (flow: string) => {
     try {
@@ -227,46 +229,50 @@ const OrderDetailViewModel = ({
         onCancel: undefined,
       });
 
-      const pedidoGrabado = await PedidosService.saveOrder(authData.token, {
-        uid: uuid(),
-        emailCliente: data.email,
-        numeroDocumento: data.numeroDocumento,
-        fechaGrabacion: new Date().toISOString(),
-        valorTotal: summaryData.valor,
-        detallePedido: productosPedido.map((producto) => {
-          const detalle: IDetallePedido = {
-            nombreProducto: producto.nombreProducto,
-            tipo: producto.tipo.descripcion,
-            urlImagen:
-              producto.imagen.urlSmall || producto.imagen.urlThumbnail || "",
-            precio: producto.quantity?.value || 0,
-            presentacion: producto.quantity?.presentationName || "",
-            cantidad: producto.quantity?.quantity || 0,
-          };
-          return detalle;
-        }),
-        direccion: {
-          direccion: data.direccionCliente,
-          complemento: data.complementoCliente,
-          departamento: data.departamentoCliente,
-          ciudad: data.ciudadCliente,
-          barrio: data.barrioCliente,
+      const pedidoGrabado = await PedidosService.saveOrder(
+        authData.token,
+        {
+          uid: uuid(),
+          emailCliente: data.email,
+          numeroDocumento: data.numeroDocumento,
+          fechaGrabacion: new Date().toISOString(),
+          valorTotal: summaryData.valor,
+          detallePedido: productosPedido.map((producto) => {
+            const detalle: IDetallePedido = {
+              nombreProducto: producto.nombreProducto,
+              tipo: producto.tipo.descripcion,
+              urlImagen:
+                producto.imagen.urlSmall || producto.imagen.urlThumbnail || "",
+              precio: producto.quantity?.value || 0,
+              presentacion: producto.quantity?.presentationName || "",
+              cantidad: producto.quantity?.quantity || 0,
+            };
+            return detalle;
+          }),
+          direccion: {
+            direccion: data.direccionCliente,
+            complemento: data.complementoCliente,
+            departamento: data.departamentoCliente,
+            ciudad: data.ciudadCliente,
+            barrio: data.barrioCliente,
+          },
+          direccionEnvio: {
+            direccion: data.direccionEnvio,
+            complemento: data.complementoEnvio,
+            departamento: data.departamentoEnvio,
+            ciudad: data.ciudadEnvio,
+            barrio: data.barrioEnvio,
+          },
+          datosCliente: {
+            nombres: data.nombresCliente,
+            apellidos: data.apellidosCliente,
+            tipoDocumento: data.tipoDocumento,
+            digitoVerificacion: data.digitoVerificacion,
+            telefono: data.nroTelefono,
+          },
         },
-        direccionEnvio: {
-          direccion: data.direccionEnvio,
-          complemento: data.complementoEnvio,
-          departamento: data.departamentoEnvio,
-          ciudad: data.ciudadEnvio,
-          barrio: data.barrioEnvio,
-        },
-        datosCliente: {
-          nombres: data.nombresCliente,
-          apellidos: data.apellidosCliente,
-          tipoDocumento: data.tipoDocumento,
-          digitoVerificacion: data.digitoVerificacion,
-          telefono: data.nroTelefono,
-        },
-      });
+        companyData.companyData.email
+      );
 
       if (!pedidoGrabado || !pedidoGrabado.id || pedidoGrabado.id <= 0)
         throw new Error("No se ha realizado la grabación del pedido");
@@ -276,9 +282,9 @@ const OrderDetailViewModel = ({
         title: "Atención",
         message: `Nro de pedido grabado : ${pedidoGrabado.id}`,
         onAccept: () => {
+          closeModal();
           orderForm.reset({ ...initialFormData });
           if (localflow === "cart") clearShoppingCart();
-          closeModal();
           router.push("/catalogo");
         },
         onCancel: undefined,
@@ -291,8 +297,8 @@ const OrderDetailViewModel = ({
         title: "Error",
         message: "Ha ocurrido un error en en la grabación del pedido",
         onAccept: () => {
-          setSavingData(false);
           closeModal();
+          setSavingData(false);
         },
       });
     }
@@ -309,8 +315,8 @@ const OrderDetailViewModel = ({
           ? "Debes completar los datos para realizar el pedido (Presiona el boton 'Actualizar mis datos' o en la opcion 'Mis Datos')"
           : "Debe diligenciar la información necesaria para crear el pedido",
         onAccept: () => {
-          setSavingData(false);
           closeModal();
+          setSavingData(false);
         },
       });
       setSavingData(false);

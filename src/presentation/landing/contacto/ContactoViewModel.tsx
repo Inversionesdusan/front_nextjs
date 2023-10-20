@@ -1,6 +1,7 @@
 import { IDatosEmpresaDto } from "@/domain/models/Dto/IDatosEmpresaDto";
 import { IContactoFormValues } from "@/domain/models/forms/IContactForm";
 import { IEmpresaServiceReturn } from "@/domain/services/EmpresaService";
+import useCompanyStore from "@/domain/store/useCompanyStore";
 import useModalStore from "@/domain/store/useModalStore";
 import { useState } from "react";
 import { UseFormReset } from "react-hook-form";
@@ -26,6 +27,7 @@ const ContactoViewModel = ({ EmpresaService }: IContactoViewModelProps) => {
   const [empresa, setEmpresa] = useState<IDatosEmpresaDto | null>(null);
   const [sending, setSending] = useState<boolean>(false);
   const { updateDataModal, closeModal } = useModalStore();
+  const { companyData } = useCompanyStore();
 
   const cargarDatosEmpresa = async () => {
     setLoading(true);
@@ -54,7 +56,10 @@ const ContactoViewModel = ({ EmpresaService }: IContactoViewModelProps) => {
   ) => {
     try {
       setSending(true);
-      const resp = await EmpresaService.saveDataContacto(data);
+      const resp = await EmpresaService.saveDataContacto(
+        data,
+        companyData.companyData.email
+      );
       handleOpenModal(
         "Atención",
         "Se ha guardado la información. En breve te estaremos contactando"

@@ -51,6 +51,7 @@ const HeaderView = ({
   useEffect(() => {
     headerViewModel.loadItems();
     headerViewModel.loadUserData();
+    headerViewModel.loadCompanyData();
   }, []);
 
   const { navbar, iconBox, optionsBox, isologo, isotipo, menuBox, icon } =
@@ -79,10 +80,6 @@ const HeaderView = ({
       label: "Ingresar",
       handleClickOption: openCloseModalLogin,
     },
-    //{
-    //  label: "Mis Pedidos",
-    //  handleClickOption: () => router.push("/pedidos/listado"),
-    //},
   ];
 
   return (

@@ -30,13 +30,14 @@ export const GetDatosEmpresa = async (): Promise<IDatosEmpresaResponse> => {
 };
 
 export const SaveDatosContacto = async (
-  dataContacto: ISaveDataContactRequest
+  dataContacto: ISaveDataContactRequest,
+  emailEmpresa: string
 ) => {
   const request: AxiosRequestConfig = {
     method: "POST",
     baseURL: constantes.paths.BASE_URL_API,
     url: constantes.endpoints.contacto,
-    data: dataContacto,
+    data: { ...dataContacto, emailEmpresa },
   };
 
   try {

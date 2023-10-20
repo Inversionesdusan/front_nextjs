@@ -9,7 +9,11 @@ interface IPedidosServiceProps {
 }
 
 export interface IPedidosService {
-  saveOrder: (token: string, orderData: ISaveDataOrder) => Promise<IOrderDto>;
+  saveOrder: (
+    token: string,
+    orderData: ISaveDataOrder,
+    emailEmpresa: string
+  ) => Promise<IOrderDto>;
   getOrders: (
     token: string,
     page: number,
@@ -37,10 +41,11 @@ export interface IPedidosService {
 export const PedidosService = ({ PedidosRepository }: IPedidosServiceProps) => {
   const saveOrder = async (
     token: string,
-    orderData: ISaveDataOrder
+    orderData: ISaveDataOrder,
+    emailEmpresa: string
   ): Promise<IOrderDto> => {
     console.log("pedidos service -> ", token, orderData);
-    return await PedidosRepository.saveOrder(token, orderData);
+    return await PedidosRepository.saveOrder(token, orderData, emailEmpresa);
   };
 
   const getOrders = async (

@@ -7,13 +7,17 @@ import { IOrderQueryResponse } from "@/domain/models/responses/IOrderQueryRespon
 import { IOrderUpdateResponse } from "@/domain/models/responses/IOrderUpdateResponse";
 import axios, { AxiosRequestConfig } from "axios";
 
-export const saveOrder = async (token: string, orderData: ISaveDataOrder) => {
+export const saveOrder = async (
+  token: string,
+  orderData: ISaveDataOrder,
+  emailEmpresa: string
+) => {
   console.log("pedidos data source ->", token, orderData);
   const request: AxiosRequestConfig = {
     method: "POST",
     baseURL: constantes.paths.BASE_URL_API,
     url: constantes.endpoints.pedidos,
-    data: { data: { ...orderData } },
+    data: { data: { ...orderData }, emailEmpresa },
     headers: {
       Authorization: `Bearer ${token}`,
     },

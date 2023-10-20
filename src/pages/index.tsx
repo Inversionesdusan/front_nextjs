@@ -1,5 +1,4 @@
 import queryClient from "@/domain/configuations/reactQueryConfig";
-import ModalComponent from "@/presentation/components/common/ModalComponent";
 import LandingIndex from "@/presentation/landing/LandingIndex";
 import theme from "@/presentation/styles/theme";
 import { ThemeProvider } from "@emotion/react";
@@ -12,7 +11,6 @@ const Index = () => (
         <LandingIndex />
       </ThemeProvider>
     </QueryClientProvider>
-    <ModalComponent />
   </>
 );
 

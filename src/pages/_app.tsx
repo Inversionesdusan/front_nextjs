@@ -3,8 +3,18 @@ import "../app/globals.css";
 import "../fonts/fonts.css";
 import { AppProps } from "next/app";
 import { Helmet } from "react-helmet";
+import useModalStore from "@/domain/store/useModalStore";
+import { useEffect, useState } from "react";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const { dataModal } = useModalStore();
+
+  const [showModal, setShowModal] = useState<boolean>(true);
+
+  useEffect(() => {
+    setShowModal(dataModal.open);
+  }, [dataModal.open]);
+
   return (
     <>
       <Helmet>
@@ -24,7 +34,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="shortcut icon" href="/favicon.ico" />
       </Helmet>
       <Component {...pageProps} />
-      <ModalComponent />
+      {showModal && <ModalComponent />}
     </>
   );
 }

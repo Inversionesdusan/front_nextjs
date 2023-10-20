@@ -6,13 +6,19 @@ import { ISaveDataContactRequest } from "@/domain/models/requests/ISaveDataConta
 interface IEmpresaRepositoryProps {
   EmpresaDataSource: {
     GetDatosEmpresa: () => Promise<IDatosEmpresaResponse>;
-    SaveDatosContacto: (data: ISaveDataContactRequest) => Promise<string>;
+    SaveDatosContacto: (
+      data: ISaveDataContactRequest,
+      emailEmpresa: string
+    ) => Promise<string>;
   };
 }
 
 export interface IEmpresaRepositoryReturn {
   getDatosEmpresa: () => Promise<IDatosEmpresaDto>;
-  saveDatosContacto: (data: IContactoFormValues) => Promise<string>;
+  saveDatosContacto: (
+    data: IContactoFormValues,
+    emailEmpresa: string
+  ) => Promise<string>;
 }
 
 export function EmpresaRepository({
@@ -40,7 +46,10 @@ export function EmpresaRepository({
     return newEmpresaDto;
   };
 
-  const saveDatosContacto = async (data: IContactoFormValues) => {
+  const saveDatosContacto = async (
+    data: IContactoFormValues,
+    emailEmpresa: string
+  ) => {
     const newDataRequest: ISaveDataContactRequest = {
       data: {
         nombre_cliente: data.nombreCliente || "",
@@ -51,7 +60,10 @@ export function EmpresaRepository({
       },
     };
 
-    return await EmpresaDataSource.SaveDatosContacto(newDataRequest);
+    return await EmpresaDataSource.SaveDatosContacto(
+      newDataRequest,
+      emailEmpresa
+    );
   };
 
   return {

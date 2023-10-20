@@ -19,6 +19,8 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { UseFormReset } from "react-hook-form";
 import { initialFormData } from "../../components/modalRegistro/ModalRegistro";
+import { IEmpresaServiceReturn } from "@/domain/services/EmpresaService";
+import useCompanyStore from "@/domain/store/useCompanyStore";
 
 export interface IHeaderViewModelReturn {
   initializeCart: (items: CartItem[]) => void;
@@ -49,16 +51,19 @@ export interface IHeaderViewModelReturn {
   ) => void;
   handleOpenModalLogin: () => void;
   handleOpenModalRegistro: () => void;
+  loadCompanyData: () => void;
 }
 
 interface HeaderViewModelProps {
   ClientsService: IClientsService;
   AuthService: IAuthService;
+  EmpresaService: IEmpresaServiceReturn;
 }
 
 const HeaderViewModel = ({
   ClientsService,
   AuthService,
+  EmpresaService,
 }: HeaderViewModelProps) => {
   const [open, setOpen] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -71,6 +76,7 @@ const HeaderViewModel = ({
   const { saveUserData, clearUserData } = useLocalStorage();
   const [openModalLogin, setOpenModalLogin] = useState<boolean>(false);
   const router = useRouter();
+  const { companyData, setCompanyData } = useCompanyStore();
 
   const handleOpenDrawer = () => {
     setOpen(!open);
@@ -246,6 +252,23 @@ const HeaderViewModel = ({
     });
   };
 
+  const loadCompanyData = () => {
+    if (!companyData.dataLoaded) {
+      EmpresaService.getDatosEmpresa().then((resp) => {
+        setCompanyData({
+          nombreEmpresa: resp.nombreEmpresa,
+          direccionContacto: resp.direccionContacto,
+          telefonoFijo: resp.telefonoFijo,
+          telefonoCelular: resp.telefonoCelular,
+          email: resp.email,
+          ciudad: resp.ciudad,
+          departamento: resp.departamento,
+          nombreContacto: resp.nombreContacto,
+        });
+      });
+    }
+  };
+
   return {
     initializeCart,
     setOpen,
@@ -267,6 +290,7 @@ const HeaderViewModel = ({
     login,
     handleOpenModalLogin,
     handleOpenModalRegistro,
+    loadCompanyData,
   };
 };
 
