@@ -38,6 +38,7 @@ import OrderSavedViewModel from "@/presentation/orderSaved/OrderSavedViewModel";
 import { AuthRepository } from "@/data/repository/AuthRepository";
 import { AuthService } from "@/domain/services/AuthService";
 import ProfileViewModel from "@/presentation/profile/ProfileViewModel";
+import ResetPasswordViewModel from "../presentation/resetPassword/ResetPasswordViewModel";
 
 const Container = createContainer();
 
@@ -88,6 +89,7 @@ Container.register({
   OrderListViewModel: asFunction(OrderListViewModel),
   OrderSavedViewModel: asFunction(OrderSavedViewModel),
   ProfileViewModel: asFunction(ProfileViewModel),
+  ResetPasswordViewModel: asFunction(ResetPasswordViewModel),
 });
 
 export default Container;

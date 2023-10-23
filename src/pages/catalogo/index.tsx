@@ -12,7 +12,7 @@ const index = () => {
         <link rel="canonical" href="https://dusan.com.co/catalogo/" />
         <meta
           name="description"
-          content="Catálogo de productos. Fertilizantes Minerales, Organico - Mineral y Químicos"
+          content="Catálogo de productos. Fertilizantes Minerales, Orgánico - Mineral y Químicos"
         />
       </Helmet>
       <PageLayout title={constantes.catalog.pageTitle}>

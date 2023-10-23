@@ -27,7 +27,7 @@ const LandingIndex = () => {
         <link rel="canonical" href="https://dusan.com.co/" />
         <meta
           name="description"
-          content="Landing Page Dusan - Fabricación de abonos y compuestos inorgánicos nitrogenados"
+          content="Fabricación de abonos y compuestos inorgánicos nitrogenados - Ibagué"
         />
       </Helmet>
       <HeaderView

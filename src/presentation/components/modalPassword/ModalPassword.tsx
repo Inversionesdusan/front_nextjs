@@ -10,10 +10,8 @@ import {
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import React from "react";
-import { styles } from "./ModalLoginStyles";
-import { UseFormReset, useForm } from "react-hook-form";
-import { ILoginFormValues } from "@/domain/models/forms/ILoginForm";
-import { ILoginRequest } from "@/domain/models/requests/ILoginRequest";
+import { useForm } from "react-hook-form";
+import { styles } from "./ModalPasswordStyles";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -24,34 +22,27 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const initialFormData: ILoginFormValues = {
+const initialFormData: { email: string } = {
   email: "",
-  clave: "",
 };
 
-interface ModalRegistroProps {
+interface ModalPasswordProps {
   open: boolean;
   title: string;
   onClose: () => void;
-  onAccept: (
-    loginData: ILoginRequest,
-    reset: UseFormReset<ILoginFormValues>,
-    handleOpenModalRegistro: () => void
-  ) => void;
+  onAccept: (email: string) => void;
   loadingData: boolean;
-  openModalRegister: () => void;
   openModalPassword: () => void;
 }
 
-const ModalLogin = ({
+const ModalPassword = ({
   open,
   title,
   onClose,
   onAccept,
   loadingData,
-  openModalRegister,
   openModalPassword,
-}: ModalRegistroProps) => {
+}: ModalPasswordProps) => {
   const {
     form,
     modalDialog,
@@ -62,7 +53,7 @@ const ModalLogin = ({
     errorText,
     dialogAActions,
   } = styles();
-  const formLogin = useForm<ILoginFormValues>({
+  const formLogin = useForm<{ email: string }>({
     defaultValues: { ...initialFormData },
     reValidateMode: "onBlur",
     mode: "onTouched",
@@ -81,11 +72,8 @@ const ModalLogin = ({
         noValidate
         autoComplete="off"
         onSubmit={handleSubmit((data) => {
-          onAccept(
-            { identifier: data.email, password: data.clave },
-            reset,
-            onClose
-          );
+          reset({ email: "" });
+          onAccept(data.email);
         })}
         style={form}
       >
@@ -117,33 +105,6 @@ const ModalLogin = ({
             />
             <span style={errorText}>{errors.email?.message}</span>
           </FormControl>
-          <FormControl
-            fullWidth
-            variant="standard"
-            error={!!errors.clave?.message}
-          >
-            <Input
-              disabled={loadingData}
-              id="clave"
-              type="password"
-              aria-describedby="clave-error"
-              placeholder="Password / Clave"
-              sx={inputStyle}
-              {...register("clave", {
-                required: {
-                  value: true,
-                  message: "Debes digitar la clave para tu usuario",
-                },
-                minLength: {
-                  value: 6,
-                  message: "La clave debe tener al menos 6 dígitos",
-                },
-              })}
-            />
-            <span style={errorText} id="clave-error">
-              {errors.clave?.message}
-            </span>
-          </FormControl>
         </DialogContent>
         <DialogActions sx={dialogAActions}>
           <ButtonCustom
@@ -158,28 +119,9 @@ const ModalLogin = ({
             Aceptar
           </ButtonCustom>
         </DialogActions>
-
-        <div
-          onClick={() => {
-            onClose();
-            openModalRegister();
-          }}
-          style={linkText}
-        >
-          No tengo cuenta
-        </div>
-        <div
-          onClick={() => {
-            onClose();
-            openModalPassword();
-          }}
-          style={linkText}
-        >
-          Olvidé mi constraseña
-        </div>
       </form>
     </Dialog>
   );
 };
 
-export default ModalLogin;
+export default ModalPassword;

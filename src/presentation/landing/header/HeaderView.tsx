@@ -26,6 +26,7 @@ import ModalRegistro from "@/presentation/components/modalRegistro/ModalRegistro
 import ModalLogin from "@/presentation/components/modalLogin/ModalLogin";
 import useAuthStore from "@/domain/store/useAuthStore";
 import { useRouter } from "next/navigation";
+import ModalPassword from "@/presentation/components/modalPassword/ModalPassword";
 
 interface HeaderViewProps {
   landing: boolean;
@@ -69,6 +70,10 @@ const HeaderView = ({
     headerViewModel.handleOpenModalRegistro();
   };
 
+  const openCloseModalPassword = () => {
+    headerViewModel.handleOpenModalPassword();
+  };
+
   const router = useRouter();
 
   const menuOptions: DropDownMenuOpion[] = [
@@ -79,6 +84,10 @@ const HeaderView = ({
     {
       label: "Ingresar",
       handleClickOption: openCloseModalLogin,
+    },
+    {
+      label: "Olvidé mi contraseña",
+      handleClickOption: openCloseModalPassword,
     },
   ];
 
@@ -183,6 +192,15 @@ const HeaderView = ({
         onAccept={headerViewModel.login}
         loadingData={headerViewModel.savingData}
         openModalRegister={openCloseModalRegistro}
+        openModalPassword={openCloseModalPassword}
+      />
+      <ModalPassword
+        open={headerViewModel.openModalPassword}
+        title="Crear nueva contraseña"
+        onClose={openCloseModalPassword}
+        loadingData={headerViewModel.savingData}
+        onAccept={headerViewModel.resetPassword}
+        openModalPassword={openCloseModalPassword}
       />
     </>
   );

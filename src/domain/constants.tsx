@@ -15,6 +15,8 @@ export const constantes = {
     login: "auth/local/",
     updateUser: "users",
     changePassword: "auth/change-password",
+    resetPassword: "auth/forgot-password",
+    updatePassword: "auth/reset-password",
   },
   keys: {
     shoppingCar: "shoppingCarData",

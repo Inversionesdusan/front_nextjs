@@ -52,6 +52,9 @@ export interface IHeaderViewModelReturn {
   handleOpenModalLogin: () => void;
   handleOpenModalRegistro: () => void;
   loadCompanyData: () => void;
+  openModalPassword: boolean;
+  handleOpenModalPassword: () => {};
+  resetPassword: (email: string) => {};
 }
 
 interface HeaderViewModelProps {
@@ -77,6 +80,7 @@ const HeaderViewModel = ({
   const [openModalLogin, setOpenModalLogin] = useState<boolean>(false);
   const router = useRouter();
   const { companyData, setCompanyData } = useCompanyStore();
+  const [openModalPassword, setOpenModalPassword] = useState<boolean>(false);
 
   const handleOpenDrawer = () => {
     setOpen(!open);
@@ -92,6 +96,10 @@ const HeaderViewModel = ({
 
   const handleOpenModalRegistro = () => {
     setOpenModalRegistro(!openModalRegistro);
+  };
+
+  const handleOpenModalPassword = () => {
+    setOpenModalPassword(!openModalPassword);
   };
 
   const handleOpenCart = () => {
@@ -269,6 +277,40 @@ const HeaderViewModel = ({
     }
   };
 
+  const resetPassword = (email: string) => {
+    setSavingData(true);
+    AuthService.resetPassword(email)
+      .then((resp) => {
+        setOpenModalPassword(false);
+        if (resp) {
+          updateDataModal({
+            open: true,
+            title: "Correo enviado",
+            message:
+              "Se ha eviado un link a la cuenta de correo indicada. (Revisar en la carpeta de spam o correo no deseado)",
+            onAccept: () => {
+              closeModal();
+            },
+          });
+        }
+      })
+      .catch((error) => {
+        setOpenModalPassword(false);
+        updateDataModal({
+          open: true,
+          title: "Correo NO enviado",
+          message:
+            "Ha ocurrido un error al procesar la solicitud. intente nuevamente",
+          onAccept: () => {
+            closeModal();
+          },
+        });
+      })
+      .finally(() => {
+        setSavingData(false);
+      });
+  };
+
   return {
     initializeCart,
     setOpen,
@@ -291,6 +333,9 @@ const HeaderViewModel = ({
     handleOpenModalLogin,
     handleOpenModalRegistro,
     loadCompanyData,
+    openModalPassword,
+    handleOpenModalPassword,
+    resetPassword,
   };
 };
 
