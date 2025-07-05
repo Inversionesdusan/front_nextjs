@@ -9,9 +9,9 @@ export const GetPrecioProductos =
       const request: AxiosRequestConfig = {
         method: "GET",
         baseURL: constantes.paths.BASE_URL_API,
-        url: `${constantes.endpoints.precios}?populate=*`,
+        url: `${constantes.endpoints.precios}?populate=*&pagination[page]=1&pagination[pageSize]=1000`,
       };
-
+      console.log("Fetching precios productos with request:", request);
       const response = await axios.request<IPrecioProductoResponse>(request);
       return response.data;
     };

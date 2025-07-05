@@ -36,6 +36,9 @@ const CatalogCard = ({
   } = styles(producto.imagen.urlThumbnail || "");
 
   const formatNumber = Intl.NumberFormat(constantes.locale);
+  if (!producto.precios[0]) {
+    console.error("Producto sin precios:", producto);
+  }
   const precio = producto.precios[0].valor;
   const unidad = producto.precios[0].descripcionPres;
   const inventarioBajo =
